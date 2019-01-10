@@ -1,0 +1,19 @@
+{
+  "name": "module-that-loads-configs",
+  "version": "1.0.0",
+  "description": "Pretty self-explanatory",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc && node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aery-chan/node-module-that-loads-configs.git"
+  },
+  "author": "Aery",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aery-chan/node-module-that-loads-configs/issues"
+  },
+  "homepage": "https://github.com/aery-chan/node-module-that-loads-configs#readme"
+}
