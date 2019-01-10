@@ -4,7 +4,7 @@
   "description": "Pretty self-explanatory",
   "main": "index.js",
   "scripts": {
-    "start": "tsc && node ."
+    "start": "tsc"
   },
   "repository": {
     "type": "git",
