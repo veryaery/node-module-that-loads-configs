@@ -2,6 +2,7 @@ const formats: {} = {};
 
 export default formats;
 export const file_extention_name_formats: {} = {};
+export let default_format;
 
 export function registerFormat(
     name: string,
@@ -17,4 +18,8 @@ export function registerFormat(
             file_extention_name_formats[file_extention_name] = format;
         }
     }
+}
+
+export function setDefaultFormat(name: string): void {
+    default_format = formats[name];
 }
