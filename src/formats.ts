@@ -1,15 +1,12 @@
-const formats: {} = {};
+import FormatReturnObject from "./FormatReturnObject";
 
-export default formats;
+export const formats: {} = {};
 export const file_extention_name_formats: {} = {};
 export let default_format;
 
 export function registerFormat(
     name: string,
-    format: (content: string, default_content?: any, default_options?: any) => {
-        content: any,
-        defaulted?: boolean
-    },
+    format: (content: string, default_content?: any, default_options?: any) => FormatReturnObject | Promise<FormatReturnObject>,
     file_extention_names?: string[]
 ): void {
     formats[name] = format;
