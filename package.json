@@ -2,7 +2,7 @@
   "name": "module-that-loads-configs",
   "version": "1.0.0",
   "description": "Pretty self-explanatory",
-  "main": "index.js",
+  "main": "compiled/index.js",
   "scripts": {
     "start": "tsc"
   },
@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/aery-chan/node-module-that-loads-configs/issues"
   },
-  "homepage": "https://github.com/aery-chan/node-module-that-loads-configs#readme"
+  "homepage": "https://github.com/aery-chan/node-module-that-loads-configs#readme",
+  "devDependencies": {
+    "@types/node": "^10.12.18"
+  }
 }
