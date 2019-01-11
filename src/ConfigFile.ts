@@ -17,9 +17,9 @@ export class ConfigFile {
         this.format = format;
     }
 
-    def(default_content: {}, options?: any): ConfigFile {
+    def(default_content: {}, default_options?: any): ConfigFile {
         this.default_content = default_content;
-        this.default_options = options;
+        this.default_options = default_options;
         return this;
     }
 
@@ -29,7 +29,7 @@ export class ConfigFile {
                 if (error) {
                     reject(error);
                 } else {
-                    
+
                 }
             });
         });
