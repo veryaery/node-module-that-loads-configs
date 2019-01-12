@@ -1,4 +1,4 @@
-import FormatReturnObject from "./FormatReturnObject";
+import FormatReturnObject from "./interfaces/FormatReturnObject";
 
 export const formats: {} = {};
 export const file_extention_name_formats: {} = {};

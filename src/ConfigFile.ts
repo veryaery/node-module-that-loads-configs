@@ -4,18 +4,18 @@ import {
 } from "fs";
 
 import { formats } from "./formats";
-import FormatReturnObject from "./FormatReturnObject";
+import FormatReturnObject from "./interfaces/FormatReturnObject";
 
 export class ConfigFile {
 
-    path: string;
-    format: string;
-    default_content: {};
     content: any;
     defaulted: boolean;
-
+    
+    private path: string;
+    private format: string;
+    private default_content: {};
     private default_options: any;
-
+    
     constructor(path: string, format: string) {
         this.path = path;   
         this.format = format;
@@ -54,8 +54,22 @@ export class ConfigFile {
     }
 
     async write(): Promise<ConfigFile> {
-        return new Promise((resolve, reject) => {
-            
+        return new Promise(async (resolve, reject) => {
+            let result: string | Promise<string> = formats[this.format]
+
+            if (result instanceof Promise) {
+                result = <string>await result;
+            } else {
+                result = <string>result;
+            }
+
+            writeFile(this.path, result, error => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(this);
+                }
+            });
         });
     }
 
