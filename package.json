@@ -4,7 +4,8 @@
   "description": "Pretty self-explanatory",
   "main": "compiled/index.js",
   "scripts": {
-    "start": "tsc"
+    "compile": "tsc",
+    "test": "mocha test"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,8 @@
   },
   "homepage": "https://github.com/aery-chan/node-module-that-loads-configs#readme",
   "devDependencies": {
-    "@types/node": "^10.12.18"
+    "@types/node": "^10.12.18",
+    "mocha": "^5.2.0",
+    "typescript": "^3.2.2"
   }
 }

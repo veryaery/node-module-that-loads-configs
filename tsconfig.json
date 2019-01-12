@@ -2,7 +2,8 @@
     "compilerOptions": {
         "outDir": "compiled",
         "moduleResolution": "node",
-        "lib": [ "es2018" ]
+        "lib": [ "es2018" ],
+        "sourceMap": true
     },
     "include": [
         "src/**/*"

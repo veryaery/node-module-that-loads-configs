@@ -31,7 +31,7 @@ export class ConfigFile {
         return new Promise(async resolve => {
             readFile(this.path, async (error, data) => {
                 const content: string = data ? data.toString() : "";
-                let result: FormatReturnObject | Promise<FormatReturnObject> = formats[this.format](content, this.default_content, this.default_options);
+                let result: FormatReturnObject | Promise<FormatReturnObject> = formats[this.format].read(content, this.default_content, this.default_options);
 
                 if (result instanceof Promise) {
                     result = <FormatReturnObject>await result;
@@ -55,7 +55,7 @@ export class ConfigFile {
 
     async write(): Promise<ConfigFile> {
         return new Promise(async (resolve, reject) => {
-            let result: string | Promise<string> = formats[this.format]
+            let result: string | Promise<string> = formats[this.format].write(this.content);
 
             if (result instanceof Promise) {
                 result = <string>await result;
