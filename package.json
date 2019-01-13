@@ -5,7 +5,7 @@
   "main": "compiled/index.js",
   "scripts": {
     "compile": "tsc",
-    "test": "mocha test"
+    "test": "tsc && mocha test"
   },
   "repository": {
     "type": "git",
