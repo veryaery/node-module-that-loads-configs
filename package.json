@@ -1,6 +1,6 @@
 {
-  "name": "module-that-loads-configs",
-  "version": "1.0.0",
+  "name": "mtlc",
+  "version": "1.0.1",
   "description": "Pretty self-explanatory",
   "main": "compiled/index.js",
   "scripts": {

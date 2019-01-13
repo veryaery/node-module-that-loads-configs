@@ -1,9 +1,7 @@
-![MTLC](https://i.imgur.com/cLgaJwh.png)
+![](https://i.imgur.com/cLgaJwh.png)
 (Character: *Tohru* from *Miss Kobayashi's Dragon Maid*)
 
-# Installing
-
-`npm install mtlc` | `npm install --save mtlc`
+![](https://img.shields.io/npm/v/mtlc.svg?colorB=%23C5383B&style=flat-square)
 
 # Compiling
 
