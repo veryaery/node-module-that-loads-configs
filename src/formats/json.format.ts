@@ -32,7 +32,10 @@ function default_properties(content: any, default_content: any, recursive: boole
 }
 
 export default <Format>{
-    read: (content: string, default_content?: any, default_options?: any): FormatReturnObject => {
+    read: (content: string, default_content?: any, options?: null, default_options?: {
+        default_properties?: boolean,
+        recursive?: boolean
+    }): FormatReturnObject => {
         if (content == "" && default_content) {
             return {
                 content: default_content,
@@ -44,7 +47,7 @@ export default <Format>{
 
                 content = JSON.parse(content);
 
-                if (default_options.default_properties) {
+                if (default_options && default_options.default_properties) {
                     const returned: FormatReturnObject = default_properties(content, default_content, !!default_options.recursive);
 
                     content = returned.content;
@@ -62,9 +65,9 @@ export default <Format>{
             }
         }
     },
-    write: (content: any): string => {
+    write: (content: any, options: { indent?: number }): string => {
         try {
-            return JSON.stringify(content); // TODO: json stringify options
+            return options && options.indent ? JSON.stringify(content, null, options.indent) : JSON.stringify(content);
         } catch (error) {
             throw error;
         }

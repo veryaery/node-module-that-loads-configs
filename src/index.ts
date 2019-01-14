@@ -1,12 +1,14 @@
 import {
-    registerFormat,
-    setDefaultFormat
+    register_format,
+    set_default_format
 } from "./formats";
 
 import raw from "./formats/raw.format";
+import json from "./formats/json.format";
 
 export { ConfigFile } from "./ConfigFile";
 
-registerFormat("raw", raw);
+register_format("raw", raw);
+register_format("json", json, [ "json" ]);
 
-setDefaultFormat("raw");
+set_default_format("raw");
