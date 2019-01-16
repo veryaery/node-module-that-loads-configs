@@ -21,17 +21,22 @@ export class ConfigFile {
         this.format = format;
     }
 
-    def(default_content: {}, default_options?: any): ConfigFile {
+    def(default_content: any, default_options?: any): ConfigFile {
         this.default_content = default_content;
         this.default_options = default_options;
         return this;
     }
 
-    async read(options?: any, write_if_defaulted?: boolean, write_options?: any): Promise<ConfigFile> {
+    async read(
+        options?: {
+            write_if_defaulted?: boolean
+        },
+        read_options?: any,
+        write_options?: any
+    ): Promise<ConfigFile> {
         return new Promise<ConfigFile>(async resolve => {
-            readFile(this.path, async (error, data) => {
-                const content: string = data ? data.toString() : "";
-                let result: FormatReturnObject | Promise<FormatReturnObject> = formats[this.format].read(content, this.default_content, options, this.default_options);
+            readFile(this.path, async (error, data = null) => {
+                let result: FormatReturnObject | Promise<FormatReturnObject> = formats[this.format].read(data, this.default_content, read_options, this.default_options);
 
                 if (result instanceof Promise) {
                     result = <FormatReturnObject>await result;
@@ -43,7 +48,7 @@ export class ConfigFile {
 
                 if (result.defaulted == true) {
                     this.defaulted = true;
-                    if (write_if_defaulted) {
+                    if (options && options.write_if_defaulted) {
                         await this.write(write_options);
                     }
                 }

@@ -32,20 +32,19 @@ function default_properties(content: any, default_content: any, recursive: boole
 }
 
 export default <Format>{
-    read: (content: string, default_content?: any, options?: null, default_options?: {
+    read: (data: Buffer, default_content?: any, options?: null, default_options?: {
         default_properties?: boolean,
         recursive?: boolean
     }): FormatReturnObject => {
-        if (content == "" && default_content) {
+        if (!data && default_content) {
             return {
                 content: default_content,
                 defaulted: true
             };
         } else {
             try {
+                let content = JSON.parse(data.toString());
                 let defaulted: boolean = false;
-
-                content = JSON.parse(content);
 
                 if (default_options && default_options.default_properties) {
                     const returned: FormatReturnObject = default_properties(content, default_content, !!default_options.recursive);

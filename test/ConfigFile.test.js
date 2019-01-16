@@ -40,7 +40,7 @@ describe("ConfigFile", async () => {
 
         await file
             .def("default")
-            .read(null, true);
+            .read({ write_if_defaulted: true });
 
         assert.equal(file.content, "default");
         assert.equal(fs.readFileSync(default_file_path).toString(), "default");
