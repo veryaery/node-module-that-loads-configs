@@ -48,11 +48,9 @@ export class ConfigDirectory {
                     files = files.filter(file => default_files.hasOwnProperty(file));
                 }
 
-                if (default_files) {
-                    for (const file in default_files) {
-                        if (!files.includes(file)) {
-                            files.push(file);
-                        }
+                for (const file in default_files) {
+                    if (!files.includes(file)) {
+                        files.push(file);
                     }
                 }
 
