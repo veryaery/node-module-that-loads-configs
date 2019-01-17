@@ -5,10 +5,12 @@ import {
 
 import raw from "./formats/raw.format";
 import json from "./formats/json.format";
+import buffer from "./formats/buffer.format";
 
 export { ConfigFile } from "./ConfigFile";
 
 register_format("raw", raw);
 register_format("json", json, [ "json" ]);
+register_format("buffer", buffer);
 
 set_default_format("raw");

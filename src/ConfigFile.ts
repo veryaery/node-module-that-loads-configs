@@ -1,9 +1,13 @@
 import {
     readFile,
-    writeFile
+    writeFile,
+    access,
+    mkdir
 } from "fs";
+import * as path from "path";
 
 import { formats } from "./formats";
+
 import FormatReturnObject from "./interfaces/FormatReturnObject";
 
 export class ConfigFile {
@@ -60,6 +64,8 @@ export class ConfigFile {
 
     async write(write_options?: any): Promise<ConfigFile> {
         return new Promise<ConfigFile>(async (resolve, reject) => {
+            const directory: string = path.dirname(this.path);
+
             let result: string | Promise<string> = formats[this.format].write(this.content, write_options);
 
             if (result instanceof Promise) {
@@ -67,12 +73,44 @@ export class ConfigFile {
             } else {
                 result = <string>result;
             }
+            
+            if (!await this.exists(directory)) {
+                try {
+                    await this.mkdir(directory);
+                } catch (error) {
+                    return reject(error);
+                }
+            }
 
             writeFile(this.path, result, error => {
                 if (error) {
                     reject(error);
                 } else {
                     resolve(this);
+                }
+            });
+        });
+    }
+
+    private exists(file: string): Promise<boolean> {
+        return new Promise(resolve => {
+            access(file, error => {
+                if (error) {
+                    resolve(false);
+                } else {
+                    resolve(true);
+                }
+            });
+        });
+    }
+
+    private mkdir(directory: string): Promise<void> {
+        return new Promise((resolve, reject) => {
+            mkdir(directory, error => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve();
                 }
             });
         });

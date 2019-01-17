@@ -1,11 +1,14 @@
-import { readdir } from "fs";
+import {
+    readdir,
+    stat
+} from "fs";
 import * as path from "path";
 
 import { ConfigFile } from "./ConfigFile";
 
 export class ConfigDirectory {
 
-    files: {} = {};
+    files: {};
     defaulted: boolean;
     path: string;
     format: string;
@@ -24,12 +27,28 @@ export class ConfigDirectory {
     }
 
     contents(): any {
-        
+        const contents: {} = {};
+
+        if (this.files) {
+            for (const file in this.files) {
+                const config = this.files[file];
+    
+                if (config instanceof ConfigFile) {
+                    contents[file] = config.content;
+                } else if (config instanceof ConfigDirectory) {
+                    contents[file] = config.contents();
+                }
+            }
+        }
+
+        return contents;
     }
 
     async read(
         options?: {
             only_read_defaults?: boolean,
+            read_directories?: boolean,
+            recursive?: boolean,
             write_if_defaulted?: boolean
         },
         read_options?: any,
@@ -37,6 +56,7 @@ export class ConfigDirectory {
     ): Promise<ConfigDirectory> {
         return new Promise(async resolve => {
             readdir(this.path, async (error, files = []) => {
+                // Map default_files and files to absolute file paths
                 const default_files: {} = {};
 
                 if (this.default_files) {
@@ -48,9 +68,11 @@ export class ConfigDirectory {
                 files = files.map(file => path.resolve(this.path, file));
 
                 if (options && options.only_read_defaults) {
+                    // Remove non-default files
                     files = files.filter(file => default_files.hasOwnProperty(file));
                 }
 
+                // Add default files
                 for (const file in default_files) {
                     if (!files.includes(file)) {
                         files.push(file);
@@ -58,19 +80,33 @@ export class ConfigDirectory {
                 }
 
                 this.defaulted = false;
+                if (!this.files) {
+                    this.files = {};
+                }
 
+                // Read files
                 for (const file of files) {
-                    const config_file: ConfigFile = new ConfigFile(file, this.format);
+                    let config: ConfigFile | ConfigDirectory;
 
-                    await config_file
-                        .def(default_files[file], this.default_options)
-                        .read(options ? { write_if_defaulted: options.write_if_defaulted } : null, read_options, write_options);
+                    if (await this.is_directory(file) && options && options.read_directories) {
+                        config = new ConfigDirectory(file, this.format);
 
-                    if (config_file.defaulted == true) {
+                        if (options.recursive) {
+                            await config.read(options, read_options, write_options);
+                        }
+                    } else {
+                        config = new ConfigFile(file, this.format);
+
+                        await config
+                            .def(default_files[file], this.default_options)
+                            .read(options ? { write_if_defaulted: options.write_if_defaulted } : null, read_options, write_options);
+                    }
+                        
+                    if (config.defaulted == true) {
                         this.defaulted = true;
                     }
 
-                    this.files[path.relative(this.path, file)] = config_file;
+                    this.files[path.relative(this.path, file)] = config;
                 }
 
                 resolve(this);
@@ -89,6 +125,18 @@ export class ConfigDirectory {
                     reject(error);
                 }
             }
+        });
+    }
+
+    private is_directory(file: string): Promise<boolean> {
+        return new Promise(resolve => {
+            stat(file, (error, stats) => {
+                if (error) {
+                    resolve(false);
+                } else {
+                    resolve(stats.isDirectory());
+                }
+            });
         });
     }
 
