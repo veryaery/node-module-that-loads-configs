@@ -10,11 +10,10 @@ export class ConfigFile {
 
     content: any;
     defaulted: boolean;
-    
-    private path: string;
-    private format: string;
-    private default_content: {};
-    private default_options: any;
+    path: string;
+    format: string;
+    default_content: {};
+    default_options: any;
     
     constructor(path: string, format: string) {
         this.path = path;   
@@ -45,6 +44,7 @@ export class ConfigFile {
                 }
 
                 this.content = result.content;
+                this.defaulted = false;
 
                 if (result.defaulted == true) {
                     this.defaulted = true;
@@ -58,9 +58,9 @@ export class ConfigFile {
         });
     }
 
-    async write(options?: any): Promise<ConfigFile> {
+    async write(write_options?: any): Promise<ConfigFile> {
         return new Promise<ConfigFile>(async (resolve, reject) => {
-            let result: string | Promise<string> = formats[this.format].write(this.content, options);
+            let result: string | Promise<string> = formats[this.format].write(this.content, write_options);
 
             if (result instanceof Promise) {
                 result = <string>await result;

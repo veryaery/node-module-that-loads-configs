@@ -7,11 +7,10 @@ export class ConfigDirectory {
 
     files: {} = {};
     defaulted: boolean;
-
-    private path: string;
-    private format: string;
-    private default_files: any;
-    private default_options: any;
+    path: string;
+    format: string;
+    default_files: any;
+    default_options: any;
 
     constructor(path: string, format: string) {
         this.path = path;
@@ -22,6 +21,10 @@ export class ConfigDirectory {
         this.default_files = default_files;
         this.default_options = default_options;
         return this;
+    }
+
+    contents(): any {
+        
     }
 
     async read(
@@ -54,6 +57,8 @@ export class ConfigDirectory {
                     }
                 }
 
+                this.defaulted = false;
+
                 for (const file of files) {
                     const config_file: ConfigFile = new ConfigFile(file, this.format);
 
@@ -61,11 +66,29 @@ export class ConfigDirectory {
                         .def(default_files[file], this.default_options)
                         .read(options ? { write_if_defaulted: options.write_if_defaulted } : null, read_options, write_options);
 
+                    if (config_file.defaulted == true) {
+                        this.defaulted = true;
+                    }
+
                     this.files[path.relative(this.path, file)] = config_file;
                 }
 
                 resolve(this);
             });
+        });
+    }
+
+    async write(write_options?: any): Promise<ConfigDirectory> {
+        return new Promise(async (resolve, reject) => {
+            for (const file in this.files) {
+                const config_file = this.files[file];
+
+                try {
+                    await config_file.write(write_options);
+                } catch (error) {
+                    reject(error);
+                }
+            }
         });
     }
 
