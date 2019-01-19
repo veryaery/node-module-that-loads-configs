@@ -3,6 +3,15 @@
 
 [![](https://img.shields.io/npm/v/mtlc.svg?colorB=%23C5383B&style=flat-square)](https://www.npmjs.com/package/mtlc)
 
+Reading a raw text file example:
+```ts
+const file: mltc.ConfigFile = await mtlc.file("raw.txt") // Defaults to "raw" format by default
+    .read();
+
+console.log(file.content);
+```
+*```File content```*
+
 # Compiling
 
 `npm install --only=dev`   
