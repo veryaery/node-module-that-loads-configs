@@ -7,8 +7,8 @@ const { ConfigFile } = require("../compiled/index.js");
 const test_file_path = path.resolve(__dirname, "test");
 const default_file_path = path.resolve(__dirname, "default");
 
-const directory_test_path = path.resolve(__dirname, "directory")
-const directory_test_file_path = path.resolve(directory_test_path, "test");
+const test_directory_path = path.resolve(__dirname, "directory");
+const test_directory_file_path = path.resolve(test_directory_path, "test");
 
 describe("ConfigFile", async () => {
     it("should read with content \"read\"", async () => {
@@ -50,17 +50,17 @@ describe("ConfigFile", async () => {
     });
 
     it("should create parent directory \"directory\" if it doesn't exist", async () => {
-        const file = new ConfigFile(directory_test_file_path, "raw");
+        const file = new ConfigFile(test_directory_file_path, "raw");
 
         await file.write();
 
-        assert.equal(fs.statSync(directory_test_path).isDirectory(), true);
+        assert.equal(fs.statSync(test_directory_path).isDirectory(), true);
     });
 
     after(() => {
         fs.unlinkSync(test_file_path);
         fs.unlinkSync(default_file_path);
-        fs.unlinkSync(directory_test_file_path);
-        fs.rmdirSync(directory_test_path);
+        fs.unlinkSync(test_directory_file_path);
+        fs.rmdirSync(test_directory_path);
     });
 });

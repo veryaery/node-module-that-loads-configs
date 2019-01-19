@@ -8,6 +8,7 @@ import json from "./formats/json.format";
 import buffer from "./formats/buffer.format";
 
 export { ConfigFile } from "./ConfigFile";
+export {ConfigDirectory} from "./ConfigDirectory";
 
 register_format("raw", raw);
 register_format("json", json, [ "json" ]);

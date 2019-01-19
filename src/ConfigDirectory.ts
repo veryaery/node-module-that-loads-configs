@@ -61,7 +61,7 @@ export class ConfigDirectory {
 
                 if (this.default_files) {
                     for (const file in this.default_files) {
-                        default_files[path.resolve(this.path, file)] = default_files[file];
+                        default_files[path.resolve(this.path, file)] = this.default_files[file];
                     }
                 }
 
@@ -125,6 +125,8 @@ export class ConfigDirectory {
                     reject(error);
                 }
             }
+
+            resolve(this);
         });
     }
 
