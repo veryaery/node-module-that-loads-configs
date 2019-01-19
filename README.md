@@ -3,7 +3,9 @@
 
 [![](https://img.shields.io/npm/v/mtlc.svg?colorB=%23C5383B&style=flat-square)](https://www.npmjs.com/package/mtlc)
 
-Reading a raw text file example:
+# Examples
+
+### Reading a raw text file
 ```ts
 const file: mltc.ConfigFile = await mtlc.file("raw.txt") // Defaults to "raw" format by default
     .read();
@@ -12,7 +14,7 @@ console.log(file.content);
 ```
 <pre><code><i>Contents of "raw.txt"</i></code></pre>
 
-Reading a JSON file example:
+### Reading a JSON file
 ```ts
 const file: mltc.ConfigFile = await mtlc.file("config.json") // Associates json files with "json" format by default
     .def({
@@ -23,9 +25,7 @@ const file: mltc.ConfigFile = await mtlc.file("config.json") // Associates json 
 
 console.log(file.content);
 ```
-```
-{ ip: "127.0.0.1", port: 1337 }
-```
+<pre><code><i>Contents of "config.json" | </i>{ ip: "127.0.0.1", port: 1337 }</code></pre>
 
 # Compiling
 
