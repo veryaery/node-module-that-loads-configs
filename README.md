@@ -10,7 +10,7 @@ const file: mltc.ConfigFile = await mtlc.file("raw.txt") // Defaults to "raw" fo
 
 console.log(file.content);
 ```
-*```File content```*
+<pre><code><i>File content</i></code></pre>
 
 # Compiling
 
