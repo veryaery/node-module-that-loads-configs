@@ -10,13 +10,13 @@ export class ConfigDirectory {
 
     files: {};
     defaulted: boolean;
-    path: string;
+    directory_path: string;
     format: string;
     default_files: any;
     default_options: any;
 
-    constructor(path: string, format: string) {
-        this.path = path;
+    constructor(directory_path: string, format?: string) {
+        this.directory_path = directory_path;
         this.format = format;
     }
 
@@ -55,17 +55,17 @@ export class ConfigDirectory {
         write_options?: any
     ): Promise<ConfigDirectory> {
         return new Promise(async resolve => {
-            readdir(this.path, async (error, files = []) => {
+            readdir(this.directory_path, async (error, files = []) => {
                 // Map default_files and files to absolute file paths
                 const default_files: {} = {};
 
                 if (this.default_files) {
                     for (const file in this.default_files) {
-                        default_files[path.resolve(this.path, file)] = this.default_files[file];
+                        default_files[path.resolve(this.directory_path, file)] = this.default_files[file];
                     }
                 }
 
-                files = files.map(file => path.resolve(this.path, file));
+                files = files.map(file => path.resolve(this.directory_path, file));
 
                 if (options && options.only_read_defaults) {
                     // Remove non-default files
@@ -106,7 +106,7 @@ export class ConfigDirectory {
                         this.defaulted = true;
                     }
 
-                    this.files[path.relative(this.path, file)] = config;
+                    this.files[path.relative(this.directory_path, file)] = config;
                 }
 
                 resolve(this);
