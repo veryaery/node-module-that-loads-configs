@@ -25,7 +25,42 @@ const file: mltc.ConfigFile = await mtlc.file("config.json") // Associates json 
 
 console.log(file.content);
 ```
-<pre><code><i>Contents of "config.json" | </i>{ ip: "127.0.0.1", port: 1337 }</code></pre>
+<pre><code><i>Contents of "config.json"</i> | { ip: "127.0.0.1", port: 1337 }</code></pre>
+
+### Writing a raw text file
+```ts
+const file: mtlc.ConfigFile = mtlc.file("foo.txt");
+
+file.content = "bar";
+
+file.write();
+```
+
+### Reading a directory
+```ts
+const directory: mtlc.ConfigDirectory = await mtlc.directory("recipies", "json")
+    .def({
+        "water.json": {
+            steps: [ "Pour water" ]
+        },
+        "cereal.json": {
+            steps: [
+                "Pour cereal FIRST",
+                "THEN pour milk"
+            ]
+        }
+    }) // What the directorye's file's content should default to
+    .read();
+
+const contents: any = directory.contents();
+
+console.log(contents["water.json"]);
+console.log(contents["cereal.json"]);
+```
+<pre><code>
+    <i>Contents of "water.json"</i> | { steps: [ "Pour water" ] }<br>
+    <i>Contents of "cereal.json"</i> | { steps: [ "Pour cereal FIRST", "THEN pour milk" ] }
+</code></pre>
 
 # Compiling
 
