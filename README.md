@@ -57,10 +57,8 @@ const contents: any = directory.contents();
 console.log(contents["water.json"]);
 console.log(contents["cereal.json"]);
 ```
-<pre><code>
-    <i>Contents of "water.json"</i> | { steps: [ "Pour water" ] }<br>
-    <i>Contents of "cereal.json"</i> | { steps: [ "Pour cereal FIRST", "THEN pour milk" ] }
-</code></pre>
+<pre><code><i>Contents of "water.json"</i> | { steps: [ "Pour water" ] }<br>
+<i>Contents of "cereal.json"</i> | { steps: [ "Pour cereal FIRST", "THEN pour milk" ] }</code></pre>
 
 # Compiling
 
