@@ -1,66 +1,100 @@
-const fs = require("fs");
 const path = require("path");
+const fs = require("fs");
 const assert = require("assert");
 
-const { ConfigFile } = require("../compiled/index.js");
+const {
+    ConfigFile,
+    formats
+} = require("../compiled/index.js");
 
-const test_file_path = path.resolve(__dirname, "test");
-const default_file_path = path.resolve(__dirname, "default");
+const methods = require("./methods.js");
 
-const test_directory_path = path.resolve(__dirname, "directory");
-const test_directory_file_path = path.resolve(test_directory_path, "test");
+describe("ConfigFile", () => {
+    before(async () => await methods.setup());
 
-describe("ConfigFile", async () => {
-    it("should read with content \"read\"", async () => {
-        fs.writeFileSync(test_file_path, "read");
+    it("Calls custom format's read method", done => {
+        const path_empty = path.resolve(methods.temp_path, "empty");
 
-        const file = new ConfigFile(test_file_path, "raw");
+        formats.register_format("read", {
+            read: (data, default_content, options, default_options) => {
+                done();
+                return { content: null };
+            }
+        });
 
-        assert.equal((await file.read()).content, "read");
+        const file = new ConfigFile(path_empty, "read");
+
+        file.read();
     });
-    
-    it("should write with content \"write\"", async () => {
-        const file = new ConfigFile(test_file_path, "raw");
 
+    it("Calls custom format's write method", done => {
+        const path_empty = path.resolve(methods.temp_path, "empty");
+
+        formats.register_format("write", {
+            write: (content, options) => {
+                done();
+                return null;
+            }
+        });
+
+        const file = new ConfigFile(path_empty, "write");
+
+        file.write();
+    });
+
+    it("Calls custom format associated with file extention name \"ext\"", done => {
+        const path_extention = path.resolve(methods.temp_path, "extention.ext");
+
+        formats.register_format("extention", {
+            read: (data, default_content, options, default_options) => {
+                done();
+                return { content: null };
+            }
+        }, [ "ext" ]);
+
+        const file = new ConfigFile(path_extention);
+
+        file.read();
+    });
+
+    it("Calls custom format by default", done => {
+        const path_empty = path.resolve(methods.temp_path, "empty");
+    
+        formats.register_format("default", {
+            read: (data, default_content, options, default_options) => {
+                done();
+                return { content: null };
+            }
+        });
+        formats.set_default_format("default");
+
+        const file = new ConfigFile(path_empty);
+
+        file.read();
+    });
+
+    it("Reads file #1 with content \"read\"", async () => {
+        const path_1 = path.resolve(methods.temp_path, "1");
+
+        fs.writeFileSync(path_1, "read");
+
+        const file = new ConfigFile(path_1, "raw");
+        
+        await file.read();
+
+        assert.equal(file.content, "read");
+    });
+
+    it("Writes file #2 with content \"write\"", async () => {
+        const path_2 = path.resolve(methods.temp_path, "2");
+
+        const file = new ConfigFile(path_2, "raw");
+        
         file.content = "write";
         await file.write();
 
-        assert.equal(fs.readFileSync(test_file_path).toString(), "write");
+        assert.equal(fs.readFileSync(path_2).toString(), "write");
     });
 
-    it("should read and default content \"default\"", async () => {
-        const file = new ConfigFile(path.resolve(__dirname, "default"), "raw");
-
-        await file
-            .def("default")
-            .read();
-
-        assert.equal(file.content, "default");
-    });
-
-    it("should read and write default content \"default\"", async () => {
-        const file = new ConfigFile(default_file_path, "raw");
-
-        await file
-            .def("default")
-            .read({ write_if_defaulted: true });
-
-        assert.equal(file.content, "default");
-        assert.equal(fs.readFileSync(default_file_path).toString(), "default");
-    });
-
-    it("should create parent directory \"directory\" if it doesn't exist", async () => {
-        const file = new ConfigFile(test_directory_file_path, "raw");
-
-        await file.write();
-
-        assert.equal(fs.statSync(test_directory_path).isDirectory(), true);
-    });
-
-    after(() => {
-        fs.unlinkSync(test_file_path);
-        fs.unlinkSync(default_file_path);
-        fs.unlinkSync(test_directory_file_path);
-        fs.rmdirSync(test_directory_path);
-    });
+    after(async () => await methods.cleanup());
 });

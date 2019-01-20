@@ -49,7 +49,7 @@ const directory: mtlc.ConfigDirectory = await mtlc.directory("recipies", "json")
                 "THEN pour milk"
             ]
         }
-    }) // What the directorye's file's content should default to
+    }) // What the directory's file's content should default to
     .read();
 
 const contents: any = directory.contents();

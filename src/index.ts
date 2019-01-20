@@ -22,8 +22,6 @@ formats.set_default_format("raw");
 /**
  * Creates a new ConfigFile relative to process.cwd()
  * ```ts
-import * as mtlc from "mtlc";
-
 const file: mtlc.ConfigFile = mtlc.file("config.json");
  ```
  * @param { string } file_path - File path relative to process.cwd()
@@ -39,9 +37,7 @@ export function file(file_path: string, format?: string): ConfigFile {
  *    
  * The directory's format will be applied to all of it's files
  * ```ts
-import * as mtlc from "mtlc";
-
-const directory: mtlc.ConfigDirectory = mtlc.directory("configs", "json");
+const directory: mtlc.ConfigDirectory = mtlc.directory("configs");
  ```
  * @param { string } directory_path - Directory path relative to process.cwd() 
  * @param { string } [ format ] 

@@ -16,5 +16,5 @@ export function register_format(name: string, format: Format, file_extention_nam
 }
 
 export function set_default_format(name: string): void {
-    default_format = formats[name];
+    default_format = name;
 }
