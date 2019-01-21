@@ -6,7 +6,7 @@
   "scripts": {
     "compile": "tsc",
     "test": "npm run-script compile && mocha test",
-    "docs": "npm run-script compile && jsdoc -r ./compiled"
+    "docs": "npm run-script compile && jsdoc --recurse --destination ./docs ./compiled"
   },
   "repository": {
     "type": "git",
