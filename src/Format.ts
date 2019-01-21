@@ -22,7 +22,6 @@ import { FormatReturnObject } from "./interfaces/FormatReturnObject";
  * 
  * }
  * 
- * @global
  * @abstract
  * @class
  */
