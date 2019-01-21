@@ -4,6 +4,8 @@ import {
 } from "fs";
 import * as path from "path";
 
+import { Format } from "./Format";
+
 import { ConfigFile } from "./ConfigFile";
 
 export class ConfigDirectory {
@@ -11,11 +13,11 @@ export class ConfigDirectory {
     files: {};
     defaulted: boolean;
     directory_path: string;
-    format: string;
+    format: Format;
     default_files: any;
     default_options: any;
 
-    constructor(directory_path: string, format?: string) {
+    constructor(directory_path: string, format?: Format) {
         this.directory_path = directory_path;
         this.format = format;
     }
@@ -50,9 +52,7 @@ export class ConfigDirectory {
             read_directories?: boolean,
             recursive?: boolean,
             write_if_defaulted?: boolean
-        },
-        read_options?: any,
-        write_options?: any
+        }
     ): Promise<ConfigDirectory> {
         return new Promise(async resolve => {
             readdir(this.directory_path, async (error, files = []) => {
@@ -92,14 +92,14 @@ export class ConfigDirectory {
                         config = new ConfigDirectory(file, this.format);
 
                         if (options.recursive) {
-                            await config.read(options, read_options, write_options);
+                            await config.read(options);
                         }
                     } else {
                         config = new ConfigFile(file, this.format);
 
                         await config
                             .def(default_files[file], this.default_options)
-                            .read(options ? { write_if_defaulted: options.write_if_defaulted } : null, read_options, write_options);
+                            .read(options ? { write_if_defaulted: options.write_if_defaulted } : null);
                     }
                         
                     if (config.defaulted == true) {
@@ -114,13 +114,13 @@ export class ConfigDirectory {
         });
     }
 
-    async write(write_options?: any): Promise<ConfigDirectory> {
+    async write(): Promise<ConfigDirectory> {
         return new Promise(async (resolve, reject) => {
             for (const file in this.files) {
                 const config_file = this.files[file];
 
                 try {
-                    await config_file.write(write_options);
+                    await config_file.write();
                 } catch (error) {
                     reject(error);
                 }
@@ -130,9 +130,9 @@ export class ConfigDirectory {
         });
     }
 
-    private is_directory(file: string): Promise<boolean> {
+    private is_directory(file_path: string): Promise<boolean> {
         return new Promise(resolve => {
-            stat(file, (error, stats) => {
+            stat(file_path, (error, stats) => {
                 if (error) {
                     resolve(false);
                 } else {

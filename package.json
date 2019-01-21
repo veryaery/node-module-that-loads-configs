@@ -5,7 +5,8 @@
   "main": "compiled/index.js",
   "scripts": {
     "compile": "tsc",
-    "test": "npm run-script compile && mocha test"
+    "test": "npm run-script compile && mocha test",
+    "docs": "npm run-script compile && jsdoc -r ./compiled"
   },
   "repository": {
     "type": "git",
@@ -19,6 +20,7 @@
   "homepage": "https://github.com/aery-chan/node-module-that-loads-configs#readme",
   "devDependencies": {
     "@types/node": "^10.12.18",
+    "jsdoc": "^3.5.5",
     "mocha": "^5.2.0",
     "typescript": "^3.2.2"
   }

@@ -1,4 +1,4 @@
-export default interface FormatReturnObject {
+export interface FormatReturnObject {
     content: any,
     defaulted?: boolean
 };

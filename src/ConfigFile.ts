@@ -8,20 +8,21 @@ import * as path from "path";
 
 import * as formats from "./formats";
 
-import FormatReturnObject from "./interfaces/FormatReturnObject";
+import { Format } from "./Format";
+import { FormatReturnObject } from "./interfaces/FormatReturnObject";
 
 export class ConfigFile {
 
     content: any;
     defaulted: boolean;
     file_path: string;
-    format: string;
+    format: Format;
     default_content: {};
     default_options: any;
 
-    constructor(file_path: string, format?: string) {
+    constructor(file_path: string, format?: Format) {
         this.file_path = file_path;   
-        this.format = format;
+        this.format = format || this.get_format();
     }
 
     def(default_content: any, default_options?: any): ConfigFile {
@@ -30,16 +31,10 @@ export class ConfigFile {
         return this;
     }
 
-    async read(
-        options?: {
-            write_if_defaulted?: boolean
-        },
-        read_options?: any,
-        write_options?: any
-    ): Promise<ConfigFile> {
+    async read(options?: { write_if_defaulted?: boolean }): Promise<ConfigFile> {
         return new Promise<ConfigFile>(async resolve => {
             readFile(this.file_path, async (error, data = null) => {
-                let result: FormatReturnObject | Promise<FormatReturnObject> = formats.formats[this.format || this.file_extention_name_format(this.file_path)].read(data, this.default_content, read_options, this.default_options);
+                let result: FormatReturnObject | Promise<FormatReturnObject> = this.format.read(data, this.default_content, this.default_options);
 
                 if (result instanceof Promise) {
                     result = <FormatReturnObject>await result;
@@ -53,7 +48,7 @@ export class ConfigFile {
                 if (result.defaulted == true) {
                     this.defaulted = true;
                     if (options && options.write_if_defaulted) {
-                        await this.write(write_options);
+                        await this.write();
                     }
                 }
 
@@ -62,11 +57,11 @@ export class ConfigFile {
         });
     }
 
-    async write(write_options?: any): Promise<ConfigFile> {
+    async write(): Promise<ConfigFile> {
         return new Promise<ConfigFile>(async (resolve, reject) => {
             const directory: string = path.dirname(this.file_path);
 
-            let result: string | Promise<string> = formats.formats[this.format || this.file_extention_name_format(this.file_path)].write(this.content, write_options);
+            let result: string | Promise<string> = this.format.write(this.content);
 
             if (result instanceof Promise) {
                 result = <string>await result;
@@ -92,19 +87,19 @@ export class ConfigFile {
         });
     }
 
-    private file_extention_name_format(file_path: string): string {
-        let file_extention_name = path.extname(file_path);
+    private get_format(): Format {
+        let file_extention_name = path.extname(this.file_path);
     
         if (file_extention_name && file_extention_name.startsWith(".")) {
             file_extention_name = file_extention_name.substring(1, file_extention_name.length);
         }
     
-        const file_extention_name_format = formats.file_extention_name_formats[file_extention_name];
+        const file_extention_name_format: new () => Format = formats.file_extention_name_formats[file_extention_name];
     
         if (file_extention_name_format) {
-            return file_extention_name_format;
+            return new file_extention_name_format();
         } else {
-            return formats.default_format;
+            return new formats.default_format();
         }
     }
 

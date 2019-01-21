@@ -7,7 +7,7 @@
 
 ### Reading a raw text file
 ```ts
-const file: mltc.ConfigFile = await mtlc.file("raw.txt") // Defaults to "raw" format by default
+const file: mltc.ConfigFile = await mtlc.file("raw.txt") // Defaults to "RawFormat" format by default
     .read();
 
 console.log(file.content);
@@ -16,7 +16,7 @@ console.log(file.content);
 
 ### Reading a JSON file
 ```ts
-const file: mltc.ConfigFile = await mtlc.file("config.json") // Associates json files with "json" format by default
+const file: mltc.ConfigFile = await mtlc.file("config.json") // Associates json files with "JSONFormat" format by default
     .def({
         ip: "127.0.0.1",
         port: 1337
@@ -29,7 +29,7 @@ console.log(file.content);
 
 ### Writing a raw text file
 ```ts
-const file: mtlc.ConfigFile = mtlc.file("foo.txt");
+const file: mtlc.ConfigFile = mtlc.file("foo.txt"); // Defaults to "RawFormat" format by default
 
 file.content = "bar";
 
@@ -38,7 +38,7 @@ file.write();
 
 ### Reading a directory
 ```ts
-const directory: mtlc.ConfigDirectory = await mtlc.directory("recipies", "json")
+const directory: mtlc.ConfigDirectory = await mtlc.directory("recipies", new mtlc.formats.JSONFormat())
     .def({
         "water.json": {
             steps: [ "Pour water" ]

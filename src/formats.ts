@@ -1,20 +1,23 @@
-import * as path from "path";
+import { Format } from "./Format";
+import { BufferFormat } from "./formats/BufferFormat.format";
+import { RawFormat } from "./formats/RawFormat.format";
+import { JSONFormat } from "./formats/JSONFormat.format";
 
-import Format from "./interfaces/Format";
-
-export const formats: {} = {};
 export const file_extention_name_formats: {} = {};
-export let default_format: string;
+export let default_format: new () => Format;
 
-export function register_format(name: string, format: Format, file_extention_names?: string[]): void {
-    formats[name] = format;
-    if (file_extention_names) {
-        for (const file_extention_name of file_extention_names) {
-            file_extention_name_formats[file_extention_name] = name;
-        }
+export function register_format(format: new () => Format, file_extention_names: string[]): void {
+    for (const file_extention_name of file_extention_names) {
+        file_extention_name_formats[file_extention_name] = format;
     }
 }
 
-export function set_default_format(name: string): void {
-    default_format = name;
+export function set_default_format(format: new () => Format): void {
+    default_format = format;
 }
+
+export const formats: any = {
+    BufferFormat,
+    RawFormat,
+    JSONFormat
+};
