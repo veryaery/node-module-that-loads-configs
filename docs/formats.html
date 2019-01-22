@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Global</title>
+    <title>JSDoc: Namespace: formats</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Global</h1>
+    <h1 class="page-title">Namespace: formats</h1>
 
     
 
@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2></h2>
+        <h2>formats</h2>
         
     
 </header>
@@ -68,6 +68,11 @@
     
 
     
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="formats.js.html">formats.js</a>, <a href="formats.js.html#line6">line 6</a>
+    </li></ul></dd>
+    
 
     
 
@@ -92,7 +97,76 @@
     
 
     
+        <h3 class="subsection-title">Namespaces</h3>
 
+        <dl>
+            <dt><a href="formats.formats.html">formats</a></dt>
+            <dd></dd>
+        </dl>
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id=".default_format"><span class="type-signature">(static) </span>default_format<span class="type-signature"></span></h4>
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="formats.js.html">formats.js</a>, <a href="formats.js.html#line40">line 40</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
     
 
     
@@ -104,16 +178,12 @@
     
 
     
-    <h4 class="name" id="directory"><span class="type-signature"></span>directory<span class="signature">(directory_path, format<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {ConfigDirectory}</span></h4>
+    <h4 class="name" id=".register_format"><span class="type-signature">(static) </span>register_format<span class="signature">(format, file_extention_names)</span><span class="type-signature"> &rarr; {void}</span></h4>
     
 
     
 
 
-
-<div class="description">
-    Creates a new ConfigDirectory relative to process.cwd().The Directory's format will be applied to all of it's files
-</div>
 
 
 
@@ -136,8 +206,6 @@
         <th>Type</th>
 
         
-        <th>Attributes</th>
-        
 
         
 
@@ -150,59 +218,36 @@
 
         <tr>
             
-                <td class="name"><code>directory_path</code></td>
+                <td class="name"><code>format</code></td>
             
 
             <td class="type">
             
-                
-<span class="param-type">string</span>
-
-
-            
             </td>
 
             
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
 
             
 
-            <td class="description last">Directory path relative to process.cwd()</td>
+            <td class="description last"></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>format</code></td>
+                <td class="name"><code>file_extention_names</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="Format.html">Format</a></span>
+<span class="param-type">Array.&lt;string></span>
 
 
             
             </td>
 
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
             
 
             
@@ -248,7 +293,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line52">line 52</a>
+        <a href="formats.js.html">formats.js</a>, <a href="formats.js.html#line11">line 11</a>
     </li></ul></dd>
     
 
@@ -282,7 +327,7 @@
     </dt>
     <dd>
         
-<span class="param-type">ConfigDirectory</span>
+<span class="param-type">void</span>
 
 
     </dd>
@@ -293,11 +338,6 @@
 
 
 
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>import {     ConfigDirectory,     directory,     formats} from "mtlc";const directory: ConfigDirectory = directory("configs", new formats.formats.JSONFormat());</code></pre>
-
-
 
         
             
@@ -305,16 +345,12 @@
     
 
     
-    <h4 class="name" id="file"><span class="type-signature"></span>file<span class="signature">(file_path, format<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {ConfigFile}</span></h4>
+    <h4 class="name" id=".set_default_format"><span class="type-signature">(static) </span>set_default_format<span class="signature">(format)</span><span class="type-signature"> &rarr; {void}</span></h4>
     
 
     
 
 
-
-<div class="description">
-    Creates a new ConfigFile relative to process.cwd()
-</div>
 
 
 
@@ -337,8 +373,6 @@
         <th>Type</th>
 
         
-        <th>Attributes</th>
-        
 
         
 
@@ -351,59 +385,13 @@
 
         <tr>
             
-                <td class="name"><code>file_path</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">File path relative to process.cwd()</td>
-        </tr>
-
-    
-
-        <tr>
-            
                 <td class="name"><code>format</code></td>
             
 
             <td class="type">
             
-                
-<span class="param-type"><a href="Format.html">Format</a></span>
-
-
-            
             </td>
 
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
             
 
             
@@ -449,7 +437,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line32">line 32</a>
+        <a href="formats.js.html">formats.js</a>, <a href="formats.js.html#line25">line 25</a>
     </li></ul></dd>
     
 
@@ -483,7 +471,7 @@
     </dt>
     <dd>
         
-<span class="param-type">ConfigFile</span>
+<span class="param-type">void</span>
 
 
     </dd>
@@ -492,11 +480,6 @@
     
 
 
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>import {     ConfigFile,     file} from "mtlc";const file: ConfigFile = file("config.json");</code></pre>
 
 
 

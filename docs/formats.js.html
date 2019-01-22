@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: Format.js</title>
+    <title>JSDoc: Source: formats.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: Format.js</h1>
+    <h1 class="page-title">Source: formats.js</h1>
 
     
 
@@ -28,63 +28,52 @@
         <article>
             <pre class="prettyprint source linenums"><code>"use strict";
 exports.__esModule = true;
+var BufferFormat_format_1 = require("./formats/BufferFormat.format");
+var RawFormat_format_1 = require("./formats/RawFormat.format");
+var JSONFormat_format_1 = require("./formats/JSONFormat.format");
 /**
- * Abstract Format class to be extended in your custom formats.
- * Transforms ConfigFile data after being read and content before being written
- * @example
- * import {
- *      Format,
- *      FormatReturnObject
- * } from "mtlc";
- *
- * class MyFormat extends Format {
- *
- *      read(data: Buffer, default_content?: string, default_options?: null): FormatReturnObject {
- *          // Do something with data
- *          const content: string = data ? data.toString() : default_content;
- *
- *          return &lt;FormatReturnObject>{ content };
- *      }
- *
- *      write(content: string): string {
- *          // Do something with content
- *          return content;
- *      }
- *
- * }
- *
- * @abstract
- * @class
+ * @namespace formats
+ * @global
  */
-var Format = /** @class */ (function () {
-    function Format() {
+exports.file_extention_name_formats = {};
+/**
+ * @memberof formats
+ * @function register_format
+ * @param format
+ * @param { string[] } file_extention_names
+ * @returns { void }
+ */
+function register_format(format, file_extention_names) {
+    for (var _i = 0, file_extention_names_1 = file_extention_names; _i &lt; file_extention_names_1.length; _i++) {
+        var file_extention_name = file_extention_names_1[_i];
+        exports.file_extention_name_formats[file_extention_name] = format;
     }
-    return Format;
-}());
-exports.Format = Format;
+}
+exports.register_format = register_format;
 /**
- * Transforms data before it's used
- *
- * @memberOf Format
- * @instance
- * @abstract
- * @function read
- * @param { Buffer } data
- * @param default_content
- * @param default_options
- * @returns { FormatReturnObject | Promise&lt;FormatReturnObject> }
+ * @memberof formats
+ * @function set_default_format
+ * @param format
+ * @returns { void }
+ */
+function set_default_format(format) {
+    exports.default_format = format;
+}
+exports.set_default_format = set_default_format;
+exports.formats = {
+    BufferFormat: BufferFormat_format_1.BufferFormat,
+    RawFormat: RawFormat_format_1.RawFormat,
+    JSONFormat: JSONFormat_format_1.JSONFormat
+};
+/**
+ * @memberof formats
+ * @name default_format
  */
 /**
- * Transforms content before it's written
- *
- * @memberOf Format
- * @instance
- * @abstract
- * @function write
- * @param content
- * @returns { string | Promise&lt;string> } - Transformed content in the form of a string
+ * @memberof formats
+ * @namespace formats.formats
  */ 
-//# sourceMappingURL=Format.js.map</code></pre>
+//# sourceMappingURL=formats.js.map</code></pre>
         </article>
     </section>
 

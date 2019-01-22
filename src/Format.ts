@@ -4,9 +4,12 @@ import { FormatReturnObject } from "./interfaces/FormatReturnObject";
  * Abstract Format class to be extended in your custom formats.   
  * Transforms ConfigFile data after being read and content before being written
  * @example
- * import { FormatReturnObject } from "mtlc";
+ * import {
+ *      Format,
+ *      FormatReturnObject
+ * } from "mtlc";
  * 
- * class MyFormat extends mtlc.Format {
+ * class MyFormat extends Format {
  * 
  *      read(data: Buffer, default_content?: string, default_options?: null): FormatReturnObject {
  *          // Do something with data
@@ -54,5 +57,5 @@ export abstract class Format {
  * @abstract
  * @function write
  * @param content
- * @returns { string | Promise<string> }
+ * @returns { string | Promise<string> } - Transformed content in the form of a string
  */
