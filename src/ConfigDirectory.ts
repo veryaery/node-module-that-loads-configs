@@ -88,11 +88,15 @@ export class ConfigDirectory {
                 for (const file of files) {
                     let config: ConfigFile | ConfigDirectory;
 
-                    if (await this.is_directory(file) && options && options.read_directories) {
-                        config = new ConfigDirectory(file, this.format);
-
-                        if (options.recursive) {
-                            await config.read(options);
+                    if (await this.is_directory(file)) {
+                        if (options && options.read_directories) {
+                            config = new ConfigDirectory(file, this.format);
+    
+                            if (options.recursive) {
+                                await config.read(options);
+                            }
+                        } else {
+                            continue;
                         }
                     } else {
                         config = new ConfigFile(file, this.format);

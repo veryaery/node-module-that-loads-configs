@@ -2,14 +2,14 @@ import { Format } from "../Format";
 import { FormatReturnObject } from "../interfaces/FormatReturnObject";
 
 /**
- * @memberof formats.formats
+ * @memberof formats
  * @class BufferFormat
  * @extends Format
  */
 export class BufferFormat extends Format {
     
     /**
-     * @memberof formats.formats.BufferFormat
+     * @memberof formats.BufferFormat
      * @instance
      * @function read
      * @ignore
@@ -26,7 +26,7 @@ export class BufferFormat extends Format {
     }
 
     /**
-     * @memberof formats.formats.BufferFormat
+     * @memberof formats.BufferFormat
      * @instance
      * @function write
      * @ignore

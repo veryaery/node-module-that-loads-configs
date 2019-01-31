@@ -43,7 +43,7 @@ async function rmdir(directory_path) {
                     }
                 }
 
-                fs.rmdir(temp_path, error => {
+                fs.rmdir(directory_path, error => {
                     if (error) {
                         reject(error);
                     } else {

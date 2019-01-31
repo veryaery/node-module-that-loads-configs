@@ -1,7 +1,8 @@
 import { Format } from "./Format";
-import { BufferFormat } from "./formats/BufferFormat.format";
-import { RawFormat } from "./formats/RawFormat.format";
-import { JSONFormat } from "./formats/JSONFormat.format";
+
+export { BufferFormat } from "./formats/BufferFormat.format";
+export { RawFormat } from "./formats/RawFormat.format";
+export { JSONFormat } from "./formats/JSONFormat.format";
 
 /**
  * @namespace formats
@@ -32,19 +33,3 @@ export function register_format(format: new () => Format, file_extention_names: 
 export function set_default_format(format: new () => Format): void {
     default_format = format;
 }
-
-export const formats: any = {
-    BufferFormat,
-    RawFormat,
-    JSONFormat
-};
-
-/**
- * @memberof formats
- * @name default_format
- */
-
-/**
- * @memberof formats
- * @namespace formats.formats
- */

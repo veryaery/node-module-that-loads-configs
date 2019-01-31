@@ -81,7 +81,8 @@ console.log(contents["water.json"]);
 console.log(contents["cereal.json"]);
 ```
 <pre><code><i>Contents of "water.json"</i> | { steps: [ "Pour water" ] }<br>
-<i>Contents of "cereal.json"</i> | { steps: [ "Pour cereal FIRST", "THEN pour milk" ] }</code></pre>
+<i>Contents of "cereal.json"</i> | { steps: [ "Pour cereal FIRST", "THEN pour milk" ] }<br>
+<i>(Remaining files' contents from "recipies")</i></code></pre>
 
 # Compiling
 
