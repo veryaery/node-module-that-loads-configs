@@ -61,7 +61,7 @@ import {
     formats
 } from "mtlc";
 
-const directory: ConfigDirectory = await directory("recipies", new formats.formats.JSONFormat())
+const directory: ConfigDirectory = await directory("recipies", new formats.JSONFormat())
     .def({
         "water.json": {
             steps: [ "Pour water" ]

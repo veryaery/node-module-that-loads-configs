@@ -1,4 +1,7 @@
-import { FormatReturnObject } from "./interfaces/FormatReturnObject";
+export type FormatReturnObject = {
+    content: any,
+    defaulted: boolean
+};
 
 /**
  * Abstract Format class to be extended in your custom formats.   
@@ -13,9 +16,24 @@ import { FormatReturnObject } from "./interfaces/FormatReturnObject";
  * 
  *      read(data: Buffer, default_content?: string, default_options?: null): FormatReturnObject {
  *          // Do something with data
- *          const content: string = data ? data.toString() : default_content;
- * 
- *          return <FormatReturnObject>{ content };
+ *          if (data) {
+ *              return {
+ *                  content: data.toString(),
+ *                  defaulted: false
+ *              };
+ *          } else {
+ *              if (default_content) {
+ *                  return {
+ *                      content: default_content,
+ *                      defaulted: true
+ *                  };
+ *              } else {
+ *                  return {
+ *                      content: data,
+ *                      defaulted: false
+ *                  };
+ *              }
+ *          }
  *      }
  * 
  *      write(content: string): string {

@@ -8,8 +8,10 @@ import * as path from "path";
 
 import * as formats from "./formats";
 
-import { Format } from "./Format";
-import { FormatReturnObject } from "./interfaces/FormatReturnObject";
+import {
+    Format,
+    FormatReturnObject
+} from "./Format";
 
 export class ConfigFile {
 

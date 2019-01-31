@@ -1,16 +1,16 @@
-import { Format } from "../Format";
-import { FormatReturnObject } from "../interfaces/FormatReturnObject";
-
-type WriteOptionsType = { indent?: number };
+import {
+    Format,
+    FormatReturnObject
+} from "../Format";
 
 export class JSONFormat extends Format {
 
-    write_options: WriteOptionsType;
+    indent: number;
 
-    constructor(write_options?: WriteOptionsType) {
+    constructor(indent?: number) {
         super();
         
-        this.write_options = write_options;
+        this.indent = indent;
     }
 
     read(data: Buffer, default_content?: any, default_options?: {
@@ -18,7 +18,7 @@ export class JSONFormat extends Format {
         recursive?: boolean
     }): FormatReturnObject {
         if (!data && default_content) {
-            return <FormatReturnObject>{
+            return {
                 content: default_content,
                 defaulted: true
             };
@@ -36,7 +36,7 @@ export class JSONFormat extends Format {
                     }
                 }
 
-                return <FormatReturnObject>{
+                return {
                     content: content,
                     defaulted
                 };
@@ -48,7 +48,7 @@ export class JSONFormat extends Format {
 
     write(content: any): string {
         try {
-            return this.write_options && this.write_options.indent ? JSON.stringify(content, null, this.write_options.indent) : JSON.stringify(content);
+            return this.indent ? JSON.stringify(content, null, this.indent) : JSON.stringify(content);
         } catch (error) {
             throw error;
         }
@@ -78,7 +78,7 @@ export class JSONFormat extends Format {
             }
         }
     
-        return <FormatReturnObject>{
+        return {
             content: content,
             defaulted
         };

@@ -1,19 +1,27 @@
-import { Format } from "../Format";
-import { FormatReturnObject } from "../interfaces/FormatReturnObject";
+import {
+    Format,
+    FormatReturnObject
+} from "../Format";
 
 export class RawFormat extends Format {
 
     read(data: Buffer, default_content?: string, default_options?: null): FormatReturnObject {
         if (data) {
-            return <FormatReturnObject>{ content: data.toString() };
+            return {
+                content: data.toString(),
+                defaulted: false
+            };
         } else {
             if (default_content) {
-                return <FormatReturnObject>{
+                return {
                     content: default_content,
                     defaulted: true
                 };
             } else {
-                return <FormatReturnObject>{ content: data };
+                return {
+                    content: data,
+                    defaulted: false
+                };
             }
         }
     }

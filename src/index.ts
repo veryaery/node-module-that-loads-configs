@@ -2,7 +2,10 @@ import * as path from "path";
 
 import * as formats from "./formats";
 
-import { Format } from "./Format";
+import {
+    Format,
+    FormatReturnObject
+} from "./Format";
 import { RawFormat } from "./formats/RawFormat.format";
 import { JSONFormat } from "./formats/JSONFormat.format";
 
@@ -11,7 +14,6 @@ import { ConfigDirectory } from "./ConfigDirectory";
 
 export { ConfigFile } from "./ConfigFile";
 export { ConfigDirectory } from "./ConfigDirectory";
-export { FormatReturnObject } from "./interfaces/FormatReturnObject";
 
 export { Format };
 export { formats };

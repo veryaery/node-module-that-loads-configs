@@ -108,46 +108,48 @@ describe("ConfigDirectory", () => {
         assert.equal(directory.files["exclude"], undefined);
     });
 
-    it("Ignores directory \"directory\"", async () => {
+    it("Ignores directory \"ignore\"", async () => {
         const path_directory_6 = path.resolve(methods.temp_path, "6");
-        const path_directory = path.resolve(path_directory_6, "directory");
+        const path_ignore = path.resolve(path_directory_6, "ignore");
 
         fs.mkdirSync(path_directory_6);
-        fs.mkdirSync(path_directory);
+        fs.mkdirSync(path_ignore);
 
         const directory = new ConfigDirectory(path_directory_6, new formats.RawFormat());
 
         await directory.read();
 
-        assert.equal(directory.files["directory"], undefined);
+        assert.equal(directory.files["ignore"], undefined);
     });
 
-    it("Creates ConfigDirectory \"directory\"", async () => {
-        const path_directory_7 = path.resolve(methods.temp_path, "7");
-        const path_directory = path.resolve(path_directory_7, "directory");
+    it("Reads directory \"read\" and ignores reading it's directory \"ignore\"", async () => {
+        const path_directory_8 = path.resolve(methods.temp_path, "8");
+        const path_read = path.resolve(path_directory_8, "read");
+        const path_ignore = path.resolve(path_read, "ignore");
 
-        fs.mkdirSync(path_directory_7);
-        fs.mkdirSync(path_directory);
+        fs.mkdirSync(path_directory_8);
+        fs.mkdirSync(path_read);
+        fs.mkdirSync(path_ignore);
 
-        const directory = new ConfigDirectory(path_directory_7, new formats.RawFormat());
+        const directory = new ConfigDirectory(path_directory_8, new formats.RawFormat());
 
         await directory.read({ read_directories: true });
 
-        assert.equal(directory.files["directory"] instanceof ConfigDirectory, true);
+        assert.deepEqual(directory.files["read"].files["ignore"], new ConfigDirectory(path_ignore, directory.format));
     });
 
     it("Recursively reads directory \"first\" and it's directory \"second\" and it's file \"recursive\" with content \"recursive\"", async () => {
-        const path_directory_8 = path.resolve(methods.temp_path, "8");
-        const path_first = path.resolve(path_directory_8, "first");
+        const path_directory_9 = path.resolve(methods.temp_path, "9");
+        const path_first = path.resolve(path_directory_9, "first");
         const path_second = path.resolve(path_first, "second");
         const path_recursive = path.resolve(path_second, "recursive");
 
-        fs.mkdirSync(path_directory_8);
+        fs.mkdirSync(path_directory_9);
         fs.mkdirSync(path_first);
         fs.mkdirSync(path_second);
         fs.writeFileSync(path_recursive, "recursive");
 
-        const directory = new ConfigDirectory(path_directory_8, new formats.RawFormat());
+        const directory = new ConfigDirectory(path_directory_9, new formats.RawFormat());
 
         await directory.read({
             read_directories: true,
