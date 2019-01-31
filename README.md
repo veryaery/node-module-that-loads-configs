@@ -1,5 +1,5 @@
 ![](https://i.imgur.com/LBPzwco.png)
-(Character: "Tohru" from "Miss Kobayashi's Dragon Maid")
+(Character: Tohru from Miss Kobayashi's Dragon Maid)
 
 [![](https://img.shields.io/npm/v/mtlc.svg?colorB=%23C5383B&style=flat-square)](https://www.npmjs.com/package/mtlc)
 
@@ -14,12 +14,12 @@ import {
     file
 } from "mtlc";
 
-const file: ConfigFile = await file("raw.txt") // Defaults to "RawFormat" format by default
+const file: ConfigFile = await file("raw.txt") // Defaults to RawFormat format by default
     .read();
 
 console.log(file.content);
 ```
-<pre><code><i>Contents of "raw.txt"</i></code></pre>
+<pre><code><i>Contents of raw.txt</i></code></pre>
 
 ### Reading a JSON file
 ```ts
@@ -28,7 +28,7 @@ import {
     file
 } from "mtlc";
 
-const file: ConfigFile = await file("config.json") // Associates json files with "JSONFormat" format by default
+const file: ConfigFile = await file("config.json") // Associates json files with JSONFormat format by default
     .def({
         ip: "127.0.0.1",
         port: 1337
@@ -37,7 +37,7 @@ const file: ConfigFile = await file("config.json") // Associates json files with
 
 console.log(file.content);
 ```
-<pre><code><i>Contents of "config.json"</i> | { ip: "127.0.0.1", port: 1337 }</code></pre>
+<pre><code>{ ip: "127.0.0.1", port: 1337 } | <i>Contents of config.json</i></code></pre>
 
 ### Writing a raw text file
 ```ts
@@ -46,7 +46,7 @@ import {
     file
 } from "mtlc";
 
-const file: ConfigFile = file("foo.txt"); // Defaults to "RawFormat" format by default
+const file: ConfigFile = file("foo.txt"); // Defaults to RawFormat format by default
 
 file.content = "bar";
 
@@ -80,9 +80,9 @@ const contents: any = directory.contents();
 console.log(contents["water.json"]);
 console.log(contents["cereal.json"]);
 ```
-<pre><code><i>Contents of "water.json"</i> | { steps: [ "Pour water" ] }<br>
-<i>Contents of "cereal.json"</i> | { steps: [ "Pour cereal FIRST", "THEN pour milk" ] }<br>
-<i>(Remaining files' contents from "recipies")</i></code></pre>
+<pre><code>{ steps: [ "Pour water" ] } | <i>Contents of water.json</i><br>
+{ steps: [ "Pour cereal FIRST", "THEN pour milk" ] } | <i>Contents of cereal.json</i><br>
+<i>(Remaining files' contents from recipies)</i></code></pre>
 
 # Compiling
 
