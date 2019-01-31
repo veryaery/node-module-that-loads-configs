@@ -92,7 +92,7 @@ describe("ConfigFile", () => {
 
         fs.writeFileSync(path_5, "read");
 
-        const file = new ConfigFile(path_5, new formats.formats.RawFormat());
+        const file = new ConfigFile(path_5, new formats.RawFormat());
         
         await file.read();
 
@@ -102,7 +102,7 @@ describe("ConfigFile", () => {
     it("Writes with content \"write\"", async () => {
         const path_6 = path.resolve(methods.temp_path, "6");
 
-        const file = new ConfigFile(path_6, new formats.formats.RawFormat());
+        const file = new ConfigFile(path_6, new formats.RawFormat());
         
         file.content = "write";
         await file.write();
@@ -113,7 +113,7 @@ describe("ConfigFile", () => {
     it("Defaults content to \"default\"", async () => {
         const path_7 = path.resolve(methods.temp_path, "7");
 
-        const file = new ConfigFile(path_7, new formats.formats.RawFormat());
+        const file = new ConfigFile(path_7, new formats.RawFormat());
 
         await file
             .def("default")
@@ -125,7 +125,7 @@ describe("ConfigFile", () => {
     it("Defaults then writes with content \"default\"", async () => {
         const path_8 = path.resolve(methods.temp_path, "8");
 
-        const file = new ConfigFile(path_8, new formats.formats.RawFormat());
+        const file = new ConfigFile(path_8, new formats.RawFormat());
 
         await file
             .def("default")
@@ -138,7 +138,7 @@ describe("ConfigFile", () => {
         const path_directory = path.resolve(methods.temp_path, "directory");
         const path_9 = path.resolve(path_directory, "9");
 
-        const file = new ConfigFile(path_9, new formats.formats.RawFormat());
+        const file = new ConfigFile(path_9, new formats.RawFormat());
 
         file.content = "directory";
 

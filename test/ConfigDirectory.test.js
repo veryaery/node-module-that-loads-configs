@@ -23,7 +23,7 @@ describe("ConfigDirectory", () => {
         fs.writeFileSync(path_1, "foo");
         fs.writeFileSync(path_2, "bar");
 
-        const directory = new ConfigDirectory(path_directory_1, new formats.formats.RawFormat());
+        const directory = new ConfigDirectory(path_directory_1, new formats.RawFormat());
 
         await directory.read();
 
@@ -36,16 +36,16 @@ describe("ConfigDirectory", () => {
         const path_1 = path.resolve(path_directory_2, "1");
         const path_2 = path.resolve(path_directory_2, "2");
 
-        const directory = new ConfigDirectory(path_directory_2, new formats.formats.RawFormat());
+        const directory = new ConfigDirectory(path_directory_2, new formats.RawFormat());
 
         directory.files = {
             "1": (() => {
-                const file = new ConfigFile(path_1, new formats.formats.RawFormat());
+                const file = new ConfigFile(path_1, new formats.RawFormat());
                 file.content = "foo";
                 return file;
              })(),
             "2": (() => {
-                const file = new ConfigFile(path_2, new formats.formats.RawFormat());
+                const file = new ConfigFile(path_2, new formats.RawFormat());
                 file.content = "bar";
                 return file;
             })()
@@ -60,7 +60,7 @@ describe("ConfigDirectory", () => {
     it("Defaults files #1 & #2 contents to \"foo\" & \"bar\"", async () => {
         const path_directory_3 = path.resolve(methods.temp_path, "3");
 
-        const directory = new ConfigDirectory(path_directory_3, new formats.formats.RawFormat());
+        const directory = new ConfigDirectory(path_directory_3, new formats.RawFormat());
 
         await directory
             .def({
@@ -76,7 +76,7 @@ describe("ConfigDirectory", () => {
     it("Defaults then writes files #1 & #2 with contents \"foo\" & \"bar\"", async () => {
         const path_directory_4 = path.resolve(methods.temp_path, "4");
 
-        const directory = new ConfigDirectory(path_directory_4, new formats.formats.RawFormat());
+        const directory = new ConfigDirectory(path_directory_4, new formats.RawFormat());
 
         await directory
             .def({
@@ -98,7 +98,7 @@ describe("ConfigDirectory", () => {
         fs.writeFileSync(path_include, "include");
         fs.writeFileSync(path_exclude, "exclude");
 
-        const directory = new ConfigDirectory(path_directory_5, new formats.formats.RawFormat());
+        const directory = new ConfigDirectory(path_directory_5, new formats.RawFormat());
 
         await directory
             .def({ "include": "include" })
@@ -115,7 +115,7 @@ describe("ConfigDirectory", () => {
         fs.mkdirSync(path_directory_6);
         fs.mkdirSync(path_directory);
 
-        const directory = new ConfigDirectory(path_directory_6, new formats.formats.RawFormat());
+        const directory = new ConfigDirectory(path_directory_6, new formats.RawFormat());
 
         await directory.read();
 
@@ -129,7 +129,7 @@ describe("ConfigDirectory", () => {
         fs.mkdirSync(path_directory_7);
         fs.mkdirSync(path_directory);
 
-        const directory = new ConfigDirectory(path_directory_7, new formats.formats.RawFormat());
+        const directory = new ConfigDirectory(path_directory_7, new formats.RawFormat());
 
         await directory.read({ read_directories: true });
 
@@ -147,7 +147,7 @@ describe("ConfigDirectory", () => {
         fs.mkdirSync(path_second);
         fs.writeFileSync(path_recursive, "recursive");
 
-        const directory = new ConfigDirectory(path_directory_8, new formats.formats.RawFormat());
+        const directory = new ConfigDirectory(path_directory_8, new formats.RawFormat());
 
         await directory.read({
             read_directories: true,
