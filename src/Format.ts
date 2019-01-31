@@ -4,7 +4,6 @@ export type FormatReturnObject = {
 };
 
 /**
- * Abstract Format class to be extended in your custom formats.   
  * Transforms ConfigFile data after being read and content before being written
  * @example
  * import {

@@ -2,10 +2,7 @@ import * as path from "path";
 
 import * as formats from "./formats";
 
-import {
-    Format,
-    FormatReturnObject
-} from "./Format";
+import { Format } from "./Format";
 import { RawFormat } from "./formats/RawFormat.format";
 import { JSONFormat } from "./formats/JSONFormat.format";
 
@@ -50,7 +47,7 @@ export function file(file_path: string, format?: Format): ConfigFile {
  *      formats
  * } from "mtlc";
  * 
- * const directory: ConfigDirectory = directory("configs", new formats.formats.JSONFormat());
+ * const directory: ConfigDirectory = directory("configs", new formats.JSONFormat());
  * 
  * @param { string } directory_path - Directory path relative to process.cwd() 
  * @param { Format } [ format ] 

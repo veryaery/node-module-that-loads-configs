@@ -1,6 +1,6 @@
 {
   "name": "mtlc",
-  "version": "1.0.3",
+  "version": "1.1.1",
   "description": "Pretty self-explanatory",
   "main": "compiled/index.js",
   "scripts": {
