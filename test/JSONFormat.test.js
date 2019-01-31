@@ -38,6 +38,49 @@ describe("JSONFormat", () => {
         assert.equal((new JSONFormat()).read(null, "default", null).content, "default");
     });
 
-    
+    it("Defaults object { apa: \"bapa\" } property \"foo\" to \"bar\"", async () => {
+        const o = { apa: "bapa" };
+        const def = {
+            apa: "bapa",
+            foo: "bar"
+        };
+
+        assert.deepEqual((new JSONFormat).read(
+            Buffer.from(JSON.stringify(o)),
+            def,
+            { default_properties: true }
+        ).content, def);
+    });
+
+    it("Ignores defaulting object { x: { foo: \"bar\" } } property x.y", async () => {
+        const o = { x: { foo: "bar" } };
+        const def = {
+            x: {
+                foo: "bar",
+                y: "z"
+            }
+        };
+
+        assert.deepEqual((new JSONFormat).read(Buffer.from(JSON.stringify(o)), def, { default_properties: true }).content, o);
+    });
+
+    it("Recursively defaults object { a: { foo: \"bar\" } } property a.b to \"c\"", async () => {
+        const o = { a: { foo: "bar" } };
+        const def = {
+            a: {
+                foo: "bar",
+                b: "c"
+            }
+        };
+
+        assert.deepEqual((new JSONFormat).read(
+            Buffer.from(JSON.stringify(o)),
+            def,
+            {
+                default_properties: true,
+                recursive: true
+            }
+        ).content, def);
+    });
 
 });
