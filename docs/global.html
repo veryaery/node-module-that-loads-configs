@@ -2,22 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Global</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Global - Documentation</title>
 
-    <script src="scripts/prettify/prettify.js"> </script>
-    <script src="scripts/prettify/lang-css.js"> </script>
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
 </head>
-
 <body>
 
-<div id="main">
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
 
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="ConfigDirectory.html">ConfigDirectory</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConfigDirectory.html#contents">contents</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConfigDirectory.html#def">def</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConfigDirectory.html#read">read</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConfigDirectory.html#write">write</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="ConfigFile.html">ConfigFile</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConfigFile.html#def">def</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConfigFile.html#read">read</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConfigFile.html#write">write</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Format.html">Format</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Format.html#read">read</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Format.html#write">write</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="formats.BufferFormat.html">BufferFormat</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="formats.JSONFormat.html">JSONFormat</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="formats.RawFormat.html">RawFormat</a></span></li><li class="nav-heading">Namespaces</li><li class="nav-heading"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="formats.html">formats</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="formats.html#.register_format">register_format</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="formats.html#.set_default_format">set_default_format</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#directory">directory</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#file">file</a></span></li>
+</nav>
+
+<div id="main">
+    
     <h1 class="page-title">Global</h1>
+    
 
     
 
@@ -28,7 +41,9 @@
 
 <header>
     
-        <h2></h2>
+        <h2>
+        
+        </h2>
         
     
 </header>
@@ -87,9 +102,7 @@
 
     
 
-    
-
-    
+     
 
     
 
@@ -100,120 +113,19 @@
 
         
             
+<div class="section-method">
 
     
 
-    
-    <h4 class="name" id="directory"><span class="type-signature"></span>directory<span class="signature">(directory_path, format<span class="signature-attributes">nullable</span>)</span><span class="type-signature"> &rarr; {ConfigDirectory}</span></h4>
-    
+    <h4 class="name" id="directory"><span class="type-signature"></span>directory<span class="signature">(directory_path, format<span class="signature-attributes">nullable</span>)</span><span class="type-signature"> &rarr; {<a href="ConfigDirectory.html">ConfigDirectory</a>}</span></h4>
 
     
 
 
 
 <div class="description">
-    Creates a new ConfigDirectory relative to process.cwd().The Directory's format will be applied to all of it's files
+    Creates a new ConfigDirectory relative to process.cwd().The directory's format will be passed to all of it's files
 </div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>directory_path</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">Directory path relative to process.cwd()</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>format</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Format.html">Format</a></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-                    &lt;nullable><br>
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">Data and content transformation format</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
 
 
 
@@ -267,63 +179,6 @@
 
 
 
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">ConfigDirectory</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>import * as mtlc from "mtlc";const directory: mtlc.ConfigDirectory = mtlc.directory("configs", new mtlc.formats.JSONFormat());</code></pre>
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="file"><span class="type-signature"></span>file<span class="signature">(file_path, format<span class="signature-attributes">nullable</span>)</span><span class="type-signature"> &rarr; {<a href="ConfigFile.html">ConfigFile</a>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Creates a new ConfigFile relative to process.cwd()
-</div>
-
-
-
-
-
-
-
-
-
     <h5>Parameters:</h5>
     
 
@@ -351,13 +206,13 @@
 
         <tr>
             
-                <td class="name"><code>file_path</code></td>
+                <td class="name"><code>directory_path</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type"><code>string</code></span>
 
 
             
@@ -375,7 +230,10 @@
 
             
 
-            <td class="description last">File path relative to process.cwd()</td>
+            <td class="description last">
+                Directory path relative to process.cwd()
+                
+            </td>
         </tr>
 
     
@@ -388,7 +246,7 @@
             <td class="type">
             
                 
-<span class="param-type"><a href="Format.html">Format</a></span>
+<span class="param-type"><code><a href="Format.html">Format</a></code></span>
 
 
             
@@ -408,13 +266,75 @@
 
             
 
-            <td class="description last">Data and content transformation format</td>
+            <td class="description last">
+                Data and content transformation format
+                
+            </td>
         </tr>
 
     
     </tbody>
 </table>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code><a href="ConfigDirectory.html">ConfigDirectory</a></code></span>
+
+
+    </dd>
+</dl>
+
+
+    
+</div>
+
+
+
+<div class="section-examples">
+<h5>Example</h5>
+
+    <pre class="prettyprint"><code>import * as mtlc from "mtlc";const directory: mtlc.ConfigDirectory = mtlc.directory("configs", new mtlc.formats.JSONFormat());</code></pre>
+
+</div>
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="file"><span class="type-signature"></span>file<span class="signature">(file_path, format<span class="signature-attributes">nullable</span>)</span><span class="type-signature"> &rarr; {<a href="ConfigFile.html">ConfigFile</a>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Creates a new ConfigFile relative to process.cwd()
+</div>
 
 
 
@@ -468,38 +388,147 @@
 
 
 
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>file_path</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">
+                File path relative to process.cwd()
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>format</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Format.html">Format</a></code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                    &lt;nullable><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">
+                Data and content transformation format
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
 <h5>Returns:</h5>
 
         
 
-
-<dl>
+<dl class="param-type">
     <dt>
-        Type
+        Type:
     </dt>
     <dd>
         
-<span class="param-type"><a href="ConfigFile.html">ConfigFile</a></span>
+<span class="param-type"><code><a href="ConfigFile.html">ConfigFile</a></code></span>
 
 
     </dd>
 </dl>
 
+
     
+</div>
 
 
 
+<div class="section-examples">
+<h5>Example</h5>
 
-    <h5>Example</h5>
-    
     <pre class="prettyprint"><code>import * as mtlc from "mtlc";const file: mtlc.ConfigFile = mtlc.file("config.json");</code></pre>
 
+</div>
 
-
+</div>
         
     
 
@@ -508,9 +537,231 @@
 
         
                 
+<div class="section-members">
+<h4 class="name" id="ConfigDirectoryReadOptions">ConfigDirectoryReadOptions</h4>
+
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>only_read_defaults</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>boolean</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                    &lt;nullable><br>
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Only read files with specified default content</td>
+        </tr>
+
+        
+
+    
+
+        <tr>
+            
+                <td class="name"><code>read_directories</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>boolean</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                    &lt;nullable><br>
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Read directories</td>
+        </tr>
+
+        
+
+    
+
+        <tr>
+            
+                <td class="name"><code>recursive</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>boolean</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                    &lt;nullable><br>
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Recursively read directories. Requires read_directories to be true</td>
+        </tr>
+
+        
+
+    
+
+        <tr>
+            
+                <td class="name"><code>write_if_defaulted</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>boolean</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                    &lt;nullable><br>
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Write if any of directory's files' content was defaulted in any way</td>
+        </tr>
+
+        
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ConfigDirectory.js.html">ConfigDirectory.js</a>, <a href="ConfigDirectory.js.html#line281">line 281</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+            
+                
+<div class="section-members">
 <h4 class="name" id="FormatReturnObject">FormatReturnObject</h4>
-
-
 
 
 
@@ -559,6 +810,8 @@
             <td class="description last">Transformed data</td>
         </tr>
 
+        
+
     
 
         <tr>
@@ -569,7 +822,7 @@
             <td class="type">
             
                 
-<span class="param-type">boolean</span>
+<span class="param-type"><code>boolean</code></span>
 
 
             
@@ -581,6 +834,8 @@
 
             <td class="description last">If content was defaulted in any way</td>
         </tr>
+
+        
 
     
     </tbody>
@@ -634,6 +889,9 @@
 
 
 
+
+</div>
+
             
     
 
@@ -647,17 +905,13 @@
 
 </div>
 
-<nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ConfigFile.html">ConfigFile</a></li><li><a href="Format.html">Format</a></li><li><a href="formats.BufferFormat.html">BufferFormat</a></li><li><a href="formats.JSONFormat.html">JSONFormat</a></li><li><a href="formats.RawFormat.html">RawFormat</a></li></ul><h3>Namespaces</h3><ul><li><a href="formats.html">formats</a></li></ul><h3>Global</h3><ul><li><a href="global.html#directory">directory</a></li><li><a href="global.html#file">file</a></li></ul>
-</nav>
-
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Feb 01 2019 18:13:39 GMT+0100 (GMT+01:00)
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Feb 01 2019 21:42:39 GMT+0100 (GMT+01:00) using the Minami theme.
 </footer>
 
-<script> prettyPrint(); </script>
-<script src="scripts/linenumber.js"> </script>
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
 </body>
 </html>

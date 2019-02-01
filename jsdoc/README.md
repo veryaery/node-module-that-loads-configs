@@ -1,10 +1,6 @@
 ![](https://i.imgur.com/LBPzwco.png)
 (Character: Tohru from Miss Kobayashi's Dragon Maid)
 
-[![](https://img.shields.io/npm/v/mtlc.svg?colorB=%23C5383B&style=flat-square)](https://www.npmjs.com/package/mtlc)
-
-### [Documentation](https://aery-chan.github.io/node-module-that-loads-configs/)
-
 # Examples
 
 ### Reading a raw text file
@@ -76,13 +72,3 @@ console.log(contents["cereal.json"]);
 { steps: [ "Pour cereal FIRST", "THEN pour milk" ] } | Contents of cereal.json
 (Remaining files' contents from recipies)
 ```
-
-# Compiling
-
-`npm install --only=dev`   
-`npm run-script compile`
-
-# Testing
-
-`npm install --only=dev`   
-`npm run-script test`

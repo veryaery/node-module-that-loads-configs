@@ -1,12 +1,12 @@
 {
   "name": "mtlc",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Pretty self-explanatory",
   "main": "compiled/index.js",
   "scripts": {
     "compile": "tsc",
     "test": "npm run-script compile && mocha test",
-    "docs": "npm run-script compile && jsdoc --recurse --destination ./docs ./compiled"
+    "docs": "npm run-script compile && jsdoc -c ./jsdoc/conf.json ./compiled"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,7 @@
   "devDependencies": {
     "@types/node": "^10.12.18",
     "jsdoc": "^3.5.5",
+    "minami": "^1.2.3",
     "mocha": "^5.2.0",
     "typescript": "^3.2.2"
   }

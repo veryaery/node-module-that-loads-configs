@@ -1,0 +1,8 @@
+{
+    "opts": {
+        "destination": "./docs",
+        "recurse": true,
+        "readme": "./jsdoc/README.md",
+        "template": "./node_modules/minami"
+    }
+}

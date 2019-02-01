@@ -36,7 +36,7 @@ export function file(file_path: string, format?: Format): ConfigFile {
 
 /**
  * Creates a new ConfigDirectory relative to process.cwd().   
- * The Directory's format will be applied to all of it's files
+ * The directory's format will be passed to all of it's files
  * @example
  * import * as mtlc from "mtlc";
  * 

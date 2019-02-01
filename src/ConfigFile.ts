@@ -42,7 +42,7 @@ export class ConfigFile {
      * @function def
      * @param {} default_content - What content should default to when reading
      * @param {} default_options - Options passed to format when reading telling it how to default content
-     * @returns { ConfigFile } - This config for chainability
+     * @returns { ConfigFile } - This ConfigFile for chainability
      */
     def(default_content: any, default_options?: any): ConfigFile {
         this.default_content = default_content;
@@ -51,7 +51,7 @@ export class ConfigFile {
     }
 
     /**
-     * Reads configuarion file data and updates content and defaulted after being transformed by file's format
+     * Reads file data and updates content and defaulted after being transformed by file's format
      * 
      * @memberof ConfigFile
      * @instance
@@ -59,7 +59,7 @@ export class ConfigFile {
      * @function read
      * @param { ?object } options
      * @param { ?boolean } options.write_if_defaulted - Write if content is defaulted in any way after reading
-     * @returns { Promise<ConfigFile> } - This config for chainability
+     * @returns { Promise<ConfigFile> } - This ConfigFile for chainability
      */
     async read(options?: { write_if_defaulted?: boolean }): Promise<ConfigFile> {
         return new Promise<ConfigFile>(async resolve => {
@@ -88,13 +88,13 @@ export class ConfigFile {
     }
 
     /**
-     * Writes configuarion file content after being transformed by file's format
+     * Writes file content after being transformed by file's format
      * 
      * @memberof ConfigFile
      * @instance
      * @async
      * @function write
-     * @returns { Promise<ConfigFile> } - This config for chainability
+     * @returns { Promise<ConfigFile> } - This ConfigFile for chainability
      */
     async write(): Promise<ConfigFile> {
         return new Promise<ConfigFile>(async (resolve, reject) => {
