@@ -54,6 +54,12 @@ export abstract class Format {
 }
 
 /**
+ * @typedef FormatReturnObject
+ * @property {} content - Transformed data
+ * @property { boolean } defaulted - If content was defaulted in any way
+ */
+
+/**
  * Transforms data before it's used
  * 
  * @memberOf Format

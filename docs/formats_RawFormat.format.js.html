@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: formats/BufferFormat.format.js</title>
+    <title>JSDoc: Source: formats/RawFormat.format.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: formats/BufferFormat.format.js</h1>
+    <h1 class="page-title">Source: formats/RawFormat.format.js</h1>
 
     
 
@@ -43,48 +43,58 @@ var __extends = (this &amp;&amp; this.__extends) || (function () {
 exports.__esModule = true;
 var Format_1 = require("../Format");
 /**
+ * Transforms data to raw content string
+ *
  * @memberof formats
- * @class BufferFormat
+ * @class RawFormat
  * @extends Format
  */
-var BufferFormat = /** @class */ (function (_super) {
-    __extends(BufferFormat, _super);
-    function BufferFormat() {
+var RawFormat = /** @class */ (function (_super) {
+    __extends(RawFormat, _super);
+    function RawFormat() {
         return _super !== null &amp;&amp; _super.apply(this, arguments) || this;
     }
     /**
-     * @memberof formats.BufferFormat
+     * @memberof formats.RawFormat
      * @instance
      * @function read
      * @ignore
      */
-    BufferFormat.prototype.read = function (data, default_content, default_options) {
-        if (!data &amp;&amp; default_content) {
+    RawFormat.prototype.read = function (data, default_content, default_options) {
+        if (data) {
             return {
-                content: default_content,
-                defaulted: true
-            };
-        }
-        else {
-            return {
-                content: data,
+                content: data.toString(),
                 defaulted: false
             };
         }
+        else {
+            if (default_content) {
+                return {
+                    content: default_content,
+                    defaulted: true
+                };
+            }
+            else {
+                return {
+                    content: data,
+                    defaulted: false
+                };
+            }
+        }
     };
     /**
-     * @memberof formats.BufferFormat
+     * @memberof formats.RawFormat
      * @instance
      * @function write
      * @ignore
      */
-    BufferFormat.prototype.write = function (content) {
-        return content.toString();
+    RawFormat.prototype.write = function (content) {
+        return content;
     };
-    return BufferFormat;
+    return RawFormat;
 }(Format_1.Format));
-exports.BufferFormat = BufferFormat;
-//# sourceMappingURL=BufferFormat.format.js.map</code></pre>
+exports.RawFormat = RawFormat;
+//# sourceMappingURL=RawFormat.format.js.map</code></pre>
         </article>
     </section>
 

@@ -3,6 +3,14 @@ import {
     FormatReturnObject
 } from "../Format";
 
+/**
+ * Transforms json data 
+ * 
+ * @memberof formats
+ * @class JSONFormat
+ * @extends Format
+ * @param { ?number } indent - Number of spaces to be used as indentation when writing
+ */
 export class JSONFormat extends Format {
 
     indent: number;
@@ -13,6 +21,12 @@ export class JSONFormat extends Format {
         this.indent = indent;
     }
 
+    /**
+     * @memberof formats.JSONFormat
+     * @instance
+     * @function read
+     * @ignore
+     */
     read(data: Buffer, default_content?: any, default_options?: {
         default_properties?: boolean,
         recursive?: boolean
@@ -46,6 +60,12 @@ export class JSONFormat extends Format {
         }
     }
 
+    /**
+     * @memberof formats.JSONFormat
+     * @instance
+     * @function write
+     * @ignore
+     */
     write(content: any): string {
         try {
             return this.indent ? JSON.stringify(content, null, this.indent) : JSON.stringify(content);
@@ -85,3 +105,11 @@ export class JSONFormat extends Format {
     }
 
 }
+
+/**
+ * Number of spaces to be used as indentation when writing
+ * 
+ * @memberof formats.JSONFormat
+ * @instance
+ * @member { number } indent
+ */

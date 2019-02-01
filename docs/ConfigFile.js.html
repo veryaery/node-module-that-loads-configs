@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: ConfigFile.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: ConfigFile.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>"use strict";
+var __awaiter = (this &amp;&amp; this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this &amp;&amp; this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] &amp; 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" &amp;&amp; (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y &amp;&amp; (t = op[0] &amp; 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) &amp;&amp; t.call(y), 0) : y.next) &amp;&amp; !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] &amp; 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 &amp;&amp; t[t.length - 1]) &amp;&amp; (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 &amp;&amp; (!t || (op[1] > t[0] &amp;&amp; op[1] &lt; t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 &amp;&amp; _.label &lt; t[1]) { _.label = t[1]; t = op; break; }
+                    if (t &amp;&amp; _.label &lt; t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] &amp; 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+exports.__esModule = true;
+var fs_1 = require("fs");
+var path = require("path");
+var formats = require("./formats");
+/**
+ * A configuration file
+ *
+ * @class ConfigFile
+ * @param { string } file_path - Absolute path to file
+ * @param { ?Format } format - Format that will transform data and content
+ */
+var ConfigFile = /** @class */ (function () {
+    function ConfigFile(file_path, format) {
+        this.file_path = file_path;
+        this.format = format || this.get_format();
+    }
+    /**
+     * Specify what and how the file's format should default content when reading
+     *
+     * @memberof ConfigFile
+     * @instance
+     * @function def
+     * @param {} default_content - What content should default to when reading
+     * @param {} default_options - Options passed to format when reading telling it how to default content
+     * @returns { ConfigFile } - This config for chainability
+     */
+    ConfigFile.prototype.def = function (default_content, default_options) {
+        this.default_content = default_content;
+        this.default_options = default_options;
+        return this;
+    };
+    /**
+     * Reads configuarion file data and updates content and defaulted after being transformed by file's format
+     *
+     * @memberof ConfigFile
+     * @instance
+     * @async
+     * @function read
+     * @param { ?object } options
+     * @param { ?boolean } options.write_if_defaulted - Write if content is defaulted in any way after reading
+     * @returns { Promise&lt;ConfigFile> } - This config for chainability
+     */
+    ConfigFile.prototype.read = function (options) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve) { return __awaiter(_this, void 0, void 0, function () {
+                        var _this = this;
+                        return __generator(this, function (_a) {
+                            fs_1.readFile(this.file_path, function (error, data) {
+                                if (data === void 0) { data = null; }
+                                return __awaiter(_this, void 0, void 0, function () {
+                                    var result;
+                                    return __generator(this, function (_a) {
+                                        switch (_a.label) {
+                                            case 0:
+                                                result = this.format.read(data, this.default_content, this.default_options);
+                                                if (!(result instanceof Promise)) return [3 /*break*/, 2];
+                                                return [4 /*yield*/, result];
+                                            case 1:
+                                                result = (_a.sent());
+                                                return [3 /*break*/, 3];
+                                            case 2:
+                                                result = result;
+                                                _a.label = 3;
+                                            case 3:
+                                                this.content = result.content;
+                                                this.defaulted = false;
+                                                if (!(result.defaulted == true)) return [3 /*break*/, 5];
+                                                this.defaulted = true;
+                                                if (!(options &amp;&amp; options.write_if_defaulted)) return [3 /*break*/, 5];
+                                                return [4 /*yield*/, this.write()];
+                                            case 4:
+                                                _a.sent();
+                                                _a.label = 5;
+                                            case 5:
+                                                resolve(this);
+                                                return [2 /*return*/];
+                                        }
+                                    });
+                                });
+                            });
+                            return [2 /*return*/];
+                        });
+                    }); })];
+            });
+        });
+    };
+    /**
+     * Writes configuarion file content after being transformed by file's format
+     *
+     * @memberof ConfigFile
+     * @instance
+     * @async
+     * @function write
+     * @returns { Promise&lt;ConfigFile> } - This config for chainability
+     */
+    ConfigFile.prototype.write = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
+                        var directory, result, error_1;
+                        var _this = this;
+                        return __generator(this, function (_a) {
+                            switch (_a.label) {
+                                case 0:
+                                    directory = path.dirname(this.file_path);
+                                    result = this.format.write(this.content);
+                                    if (!(result instanceof Promise)) return [3 /*break*/, 2];
+                                    return [4 /*yield*/, result];
+                                case 1:
+                                    result = (_a.sent());
+                                    return [3 /*break*/, 3];
+                                case 2:
+                                    result = result;
+                                    _a.label = 3;
+                                case 3: return [4 /*yield*/, this.exists(directory)];
+                                case 4:
+                                    if (!!(_a.sent())) return [3 /*break*/, 8];
+                                    _a.label = 5;
+                                case 5:
+                                    _a.trys.push([5, 7, , 8]);
+                                    return [4 /*yield*/, this.mkdir(directory)];
+                                case 6:
+                                    _a.sent();
+                                    return [3 /*break*/, 8];
+                                case 7:
+                                    error_1 = _a.sent();
+                                    return [2 /*return*/, reject(error_1)];
+                                case 8:
+                                    fs_1.writeFile(this.file_path, result, function (error) {
+                                        if (error) {
+                                            reject(error);
+                                        }
+                                        else {
+                                            resolve(_this);
+                                        }
+                                    });
+                                    return [2 /*return*/];
+                            }
+                        });
+                    }); })];
+            });
+        });
+    };
+    ConfigFile.prototype.get_format = function () {
+        var file_extention_name = path.extname(this.file_path);
+        if (file_extention_name &amp;&amp; file_extention_name.startsWith(".")) {
+            file_extention_name = file_extention_name.substring(1, file_extention_name.length);
+        }
+        var file_extention_name_format = formats.file_extention_name_formats[file_extention_name];
+        if (file_extention_name_format) {
+            return new file_extention_name_format();
+        }
+        else {
+            return new formats.default_format();
+        }
+    };
+    ConfigFile.prototype.exists = function (file) {
+        return new Promise(function (resolve) {
+            fs_1.access(file, function (error) {
+                if (error) {
+                    resolve(false);
+                }
+                else {
+                    resolve(true);
+                }
+            });
+        });
+    };
+    ConfigFile.prototype.mkdir = function (directory) {
+        return new Promise(function (resolve, reject) {
+            fs_1.mkdir(directory, function (error) {
+                if (error) {
+                    reject(error);
+                }
+                else {
+                    resolve();
+                }
+            });
+        });
+    };
+    return ConfigFile;
+}());
+exports.ConfigFile = ConfigFile;
+/**
+ * File content
+ *
+ * @memberof ConfigFile
+ * @instance
+ * @member {} content
+ */
+/**
+ * If content was defaulted in any way after reading
+ *
+ * @memberof ConfigFile
+ * @instance
+ * @member { boolean } defaulted
+ */
+/**
+ * Absolute path to file
+ *
+ * @memberof ConfigFile
+ * @instance
+ * @member { string } file_path
+ */
+/**
+ * Format that will transform data and content
+ *
+ * @memberof ConfigFile
+ * @instance
+ * @member { Format } format
+ */
+/**
+ * What content should default to when reading
+ *
+ * @memberof ConfigFile
+ * @instance
+ * @member {} default_content
+ */
+/**
+ * Options passed to format when reading telling it how to default content
+ *
+ * @memberof ConfigFile
+ * @instance
+ * @member {} default_options
+ */ 
+//# sourceMappingURL=ConfigFile.js.map</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ConfigFile.html">ConfigFile</a></li><li><a href="Format.html">Format</a></li><li><a href="formats.BufferFormat.html">BufferFormat</a></li><li><a href="formats.JSONFormat.html">JSONFormat</a></li><li><a href="formats.RawFormat.html">RawFormat</a></li></ul><h3>Namespaces</h3><ul><li><a href="formats.html">formats</a></li></ul><h3>Global</h3><ul><li><a href="global.html#directory">directory</a></li><li><a href="global.html#file">file</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Feb 01 2019 18:13:39 GMT+0100 (GMT+01:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

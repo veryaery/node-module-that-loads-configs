@@ -9,12 +9,9 @@
 
 ### Reading a raw text file
 ```ts
-import {
-    ConfigFile,
-    file
-} from "mtlc";
+import * as mtlc from "mtlc";
 
-const file: ConfigFile = await file("raw.txt") // Defaults to RawFormat format by default
+const file: mtlc.ConfigFile = await mtlc.file("raw.txt") // Defaults to RawFormat format by default
     .read();
 
 console.log(file.content);
@@ -23,17 +20,14 @@ console.log(file.content);
 
 ### Reading a JSON file
 ```ts
-import {
-    ConfigFile,
-    file
-} from "mtlc";
+import * as mtlc from "mtlc";
 
-const file: ConfigFile = await file("config.json") // Associates json files with JSONFormat format by default
+const file: mtlc.ConfigFile = await mtlcfile("config.json") // Associates json files with JSONFormat format by default
     .def({
         ip: "127.0.0.1",
         port: 1337
-    }) // What the content should default to
-    .read({ write_if_defaulted: true }); // Write file if the content is in any way defaulted
+    }) // What content should default to when reading
+    .read({ write_if_defaulted: true }); // Write if content is defaulted in any way after reading
 
 console.log(file.content);
 ```
@@ -41,12 +35,9 @@ console.log(file.content);
 
 ### Writing a raw text file
 ```ts
-import {
-    ConfigFile,
-    file
-} from "mtlc";
+import * as mtlc from "mtlc";
 
-const file: ConfigFile = file("foo.txt"); // Defaults to RawFormat format by default
+const file: mtlc.ConfigFile = mtlc.file("foo.txt"); // Defaults to RawFormat format by default
 
 file.content = "bar";
 
@@ -55,13 +46,9 @@ file.write();
 
 ### Reading a directory
 ```ts
-import {
-    ConfigDirectory,
-    directory,
-    formats
-} from "mtlc";
+import * as mtlc from "mtlc";
 
-const directory: ConfigDirectory = await directory("recipies", new formats.JSONFormat())
+const directory: mtlc.ConfigDirectory = await mtlc.directory("recipies", new mtlc.formats.JSONFormat())
     .def({
         "water.json": {
             steps: [ "Pour water" ]
@@ -72,7 +59,7 @@ const directory: ConfigDirectory = await directory("recipies", new formats.JSONF
                 "THEN pour milk"
             ]
         }
-    }) // What the directory's file's content should default to
+    }) // What the directory's files' content should default to when reading
     .read();
 
 const contents: any = directory.contents();

@@ -104,7 +104,7 @@
     
 
     
-    <h4 class="name" id="directory"><span class="type-signature"></span>directory<span class="signature">(directory_path, format<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {ConfigDirectory}</span></h4>
+    <h4 class="name" id="directory"><span class="type-signature"></span>directory<span class="signature">(directory_path, format<span class="signature-attributes">nullable</span>)</span><span class="type-signature"> &rarr; {ConfigDirectory}</span></h4>
     
 
     
@@ -196,9 +196,9 @@
             
                 <td class="attributes">
                 
-                    &lt;optional><br>
-                
 
+                
+                    &lt;nullable><br>
                 
 
                 
@@ -207,7 +207,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last">Data and content transformation format</td>
         </tr>
 
     
@@ -248,7 +248,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line52">line 52</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line45">line 45</a>
     </li></ul></dd>
     
 
@@ -295,7 +295,7 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>import {     ConfigDirectory,     directory,     formats} from "mtlc";const directory: ConfigDirectory = directory("configs", new formats.formats.JSONFormat());</code></pre>
+    <pre class="prettyprint"><code>import * as mtlc from "mtlc";const directory: mtlc.ConfigDirectory = mtlc.directory("configs", new mtlc.formats.JSONFormat());</code></pre>
 
 
 
@@ -305,7 +305,7 @@
     
 
     
-    <h4 class="name" id="file"><span class="type-signature"></span>file<span class="signature">(file_path, format<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {ConfigFile}</span></h4>
+    <h4 class="name" id="file"><span class="type-signature"></span>file<span class="signature">(file_path, format<span class="signature-attributes">nullable</span>)</span><span class="type-signature"> &rarr; {<a href="ConfigFile.html">ConfigFile</a>}</span></h4>
     
 
     
@@ -397,9 +397,9 @@
             
                 <td class="attributes">
                 
-                    &lt;optional><br>
-                
 
+                
+                    &lt;nullable><br>
                 
 
                 
@@ -408,7 +408,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last">Data and content transformation format</td>
         </tr>
 
     
@@ -449,7 +449,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line32">line 32</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line29">line 29</a>
     </li></ul></dd>
     
 
@@ -483,7 +483,7 @@
     </dt>
     <dd>
         
-<span class="param-type">ConfigFile</span>
+<span class="param-type"><a href="ConfigFile.html">ConfigFile</a></span>
 
 
     </dd>
@@ -496,13 +496,145 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>import {     ConfigFile,     file} from "mtlc";const file: ConfigFile = file("config.json");</code></pre>
+    <pre class="prettyprint"><code>import * as mtlc from "mtlc";const file: mtlc.ConfigFile = mtlc.file("config.json");</code></pre>
 
 
 
         
     
 
+    
+        <h3 class="subsection-title">Type Definitions</h3>
+
+        
+                
+<h4 class="name" id="FormatReturnObject">FormatReturnObject</h4>
+
+
+
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>content</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Transformed data</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>defaulted</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">If content was defaulted in any way</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Format.js.html">Format.js</a>, <a href="Format.js.html#line51">line 51</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+            
     
 
     
@@ -516,13 +648,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Format.html">Format</a></li><li><a href="formats.BufferFormat.html">BufferFormat</a></li></ul><h3>Namespaces</h3><ul><li><a href="formats.html">formats</a></li></ul><h3>Global</h3><ul><li><a href="global.html#directory">directory</a></li><li><a href="global.html#file">file</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ConfigFile.html">ConfigFile</a></li><li><a href="Format.html">Format</a></li><li><a href="formats.BufferFormat.html">BufferFormat</a></li><li><a href="formats.JSONFormat.html">JSONFormat</a></li><li><a href="formats.RawFormat.html">RawFormat</a></li></ul><h3>Namespaces</h3><ul><li><a href="formats.html">formats</a></li></ul><h3>Global</h3><ul><li><a href="global.html#directory">directory</a></li><li><a href="global.html#file">file</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Jan 31 2019 22:43:28 GMT+0100 (GMT+01:00)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Feb 01 2019 18:13:39 GMT+0100 (GMT+01:00)
 </footer>
 
 <script> prettyPrint(); </script>

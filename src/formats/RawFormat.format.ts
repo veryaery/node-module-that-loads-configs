@@ -3,8 +3,21 @@ import {
     FormatReturnObject
 } from "../Format";
 
+/**
+ * Transforms data to raw content string
+ * 
+ * @memberof formats
+ * @class RawFormat
+ * @extends Format
+ */
 export class RawFormat extends Format {
 
+    /**
+     * @memberof formats.RawFormat
+     * @instance
+     * @function read
+     * @ignore
+     */
     read(data: Buffer, default_content?: string, default_options?: null): FormatReturnObject {
         if (data) {
             return {
@@ -26,6 +39,12 @@ export class RawFormat extends Format {
         }
     }
 
+    /**
+     * @memberof formats.RawFormat
+     * @instance
+     * @function write
+     * @ignore
+     */
     write(content: string): string {
         return content;
     }

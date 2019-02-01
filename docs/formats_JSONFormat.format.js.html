@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: formats/JSONFormat.format.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: formats/JSONFormat.format.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>"use strict";
+var __extends = (this &amp;&amp; this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array &amp;&amp; function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+exports.__esModule = true;
+var Format_1 = require("../Format");
+/**
+ * Transforms json data
+ *
+ * @memberof formats
+ * @class JSONFormat
+ * @extends Format
+ * @param { ?number } indent - Number of spaces to be used as indentation when writing
+ */
+var JSONFormat = /** @class */ (function (_super) {
+    __extends(JSONFormat, _super);
+    function JSONFormat(indent) {
+        var _this = _super.call(this) || this;
+        _this.indent = indent;
+        return _this;
+    }
+    /**
+     * @memberof formats.JSONFormat
+     * @instance
+     * @function read
+     * @ignore
+     */
+    JSONFormat.prototype.read = function (data, default_content, default_options) {
+        if (!data &amp;&amp; default_content) {
+            return {
+                content: default_content,
+                defaulted: true
+            };
+        }
+        else {
+            try {
+                var content = JSON.parse(data.toString());
+                var defaulted = false;
+                if (default_options &amp;&amp; default_options.default_properties) {
+                    var returned = this.default_properties(content, default_content, !!default_options.recursive);
+                    content = returned.content;
+                    if (returned.defaulted == true) {
+                        defaulted = true;
+                    }
+                }
+                return {
+                    content: content,
+                    defaulted: defaulted
+                };
+            }
+            catch (error) {
+                throw error;
+            }
+        }
+    };
+    /**
+     * @memberof formats.JSONFormat
+     * @instance
+     * @function write
+     * @ignore
+     */
+    JSONFormat.prototype.write = function (content) {
+        try {
+            return this.indent ? JSON.stringify(content, null, this.indent) : JSON.stringify(content);
+        }
+        catch (error) {
+            throw error;
+        }
+    };
+    JSONFormat.prototype.default_properties = function (content, default_content, recursive) {
+        var defaulted = false;
+        if (typeof default_content == "object") {
+            if (typeof content != "object") {
+                content = {};
+                defaulted = true;
+            }
+            else {
+                for (var key in default_content) {
+                    if (!content.hasOwnProperty(key)) {
+                        content[key] = default_content[key];
+                        defaulted = true;
+                    }
+                    else if (recursive) {
+                        var returned = this.default_properties(content[key], default_content[key], true);
+                        content[key] = returned.content;
+                        if (returned.defaulted == true) {
+                            defaulted = true;
+                        }
+                    }
+                }
+            }
+        }
+        return {
+            content: content,
+            defaulted: defaulted
+        };
+    };
+    return JSONFormat;
+}(Format_1.Format));
+exports.JSONFormat = JSONFormat;
+/**
+ * Number of spaces to be used as indentation when writing
+ *
+ * @memberof formats.JSONFormat
+ * @instance
+ * @member { number } indent
+ */ 
+//# sourceMappingURL=JSONFormat.format.js.map</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ConfigFile.html">ConfigFile</a></li><li><a href="Format.html">Format</a></li><li><a href="formats.BufferFormat.html">BufferFormat</a></li><li><a href="formats.JSONFormat.html">JSONFormat</a></li><li><a href="formats.RawFormat.html">RawFormat</a></li></ul><h3>Namespaces</h3><ul><li><a href="formats.html">formats</a></li></ul><h3>Global</h3><ul><li><a href="global.html#directory">directory</a></li><li><a href="global.html#file">file</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Feb 01 2019 18:13:39 GMT+0100 (GMT+01:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
