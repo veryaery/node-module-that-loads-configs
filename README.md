@@ -11,7 +11,7 @@ A simple, functional, and flexible way to load your configuration files
 * Functional, read with or without defaults and write both files and directories
 * Flexible, create support for formats of your needs
 * TypeScript, built in type definitions
-* JSDocs, together with TypeScript's type definitions for helpful intellisense 
+* JSDocs, together with TypeScript's type definitions for helpful IntelliSense 
 * Promises
 
 ### [Documentation](https://aery-chan.github.io/node-module-that-loads-configs/)
