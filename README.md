@@ -3,6 +3,17 @@
 
 [![](https://img.shields.io/npm/v/mtlc.svg?colorB=%23C5383B&style=flat-square)](https://www.npmjs.com/package/mtlc)
 
+A simple, functional, and flexible way to load your configuration files
+
+### Features
+
+* Simple, configs loaded with 2 lines of code
+* Functional, read with or without defaults and write both files and directories
+* Flexible, create support for formats of your needs
+* TypeScript, built in type definitions
+* JSDocs, together with TypeScript's type definitions for helpful intellisense 
+* Promises
+
 ### [Documentation](https://aery-chan.github.io/node-module-that-loads-configs/)
 
 # Examples
