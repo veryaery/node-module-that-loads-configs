@@ -10,7 +10,11 @@ import { ConfigFile } from "./ConfigFile";
 import { ConfigDirectory } from "./ConfigDirectory";
 
 export { ConfigFile } from "./ConfigFile";
-export { ConfigDirectory } from "./ConfigDirectory";
+export { 
+    ConfigDirectory,
+    ConfigDirectoryReadOptions
+} from "./ConfigDirectory";
+export { FormatReturnObject} from "./Format";
 
 export { Format };
 export { formats };

@@ -8,7 +8,7 @@ import { Format } from "./Format";
 
 import { ConfigFile } from "./ConfigFile";
 
-type ConfigDirectoryReadOptions = {
+export type ConfigDirectoryReadOptions = {
     only_read_defaults?: boolean,
     read_directories?: boolean,
     recursive?: boolean,
