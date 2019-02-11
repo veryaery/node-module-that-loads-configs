@@ -9,7 +9,7 @@ export type FormatReturnObject = {
  * import {
  *      Format,
  *      FormatReturnObject
- * } from "mtlc";
+ * } from "@aery/mlc";
  * 
  * class MyFormat extends Format {
  * 

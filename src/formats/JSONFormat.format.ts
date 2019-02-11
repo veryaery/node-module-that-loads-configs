@@ -31,12 +31,7 @@ export class JSONFormat extends Format {
         default_properties?: boolean,
         recursive?: boolean
     }): FormatReturnObject {
-        if (!data && default_content) {
-            return {
-                content: default_content,
-                defaulted: true
-            };
-        } else {
+        if (data) {
             try {
                 let content = JSON.parse(data.toString());
                 let defaulted: boolean = false;
@@ -56,6 +51,18 @@ export class JSONFormat extends Format {
                 };
             } catch (error) {
                 throw error;
+            }
+        } else {
+            if (default_content) {
+                return {
+                    content: default_content,
+                    defaulted: true
+                };
+            } else {
+                return {
+                    content: data,
+                    defaulted: false
+                };
             }
         }
     }

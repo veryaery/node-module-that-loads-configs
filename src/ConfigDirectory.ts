@@ -44,9 +44,9 @@ export class ConfigDirectory {
     /**
      * Specifies default contents and options passed to directory's files
      * @example
-     * import * as mtlc from "mtlc";
+     * import * as mlc from "@aery/mlc";
      * 
-     * const directory: mtlc.ConfigDirectory = mtlc.directory("configs", new mtlc.formats.JSONFormat());
+     * const directory: mlc.ConfigDirectory = mlc.directory("configs", new mlc.formats.JSONFormat());
      * 
      * directory.def({
      *      "config.json": {

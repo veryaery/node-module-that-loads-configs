@@ -1,13 +1,13 @@
-![](https://i.imgur.com/LBPzwco.png)
+![](https://i.imgur.com/COJK5ss.png)
 (Character: Tohru from Miss Kobayashi's Dragon Maid)
 
 # Examples
 
 ### Reading a raw text file
 ```ts
-import * as mtlc from "mtlc";
+import * as mlc from "@aery/mlc";
 
-const file: mtlc.ConfigFile = await mtlc.file("raw.txt") // Defaults to RawFormat format by default
+const file: mlc.ConfigFile = await mlc.file("raw.txt") // Defaults to RawFormat format by default
     .read();
 
 console.log(file.content);
@@ -18,9 +18,9 @@ Contents of raw.txt
 
 ### Reading a JSON file
 ```ts
-import * as mtlc from "mtlc";
+import * as mlc from "@aery/mlc";
 
-const file: mtlc.ConfigFile = await mtlcfile("config.json") // Associates json files with JSONFormat format by default
+const file: mlc.ConfigFile = await mlc.file("config.json") // Associates json files with JSONFormat format by default
     .def({
         ip: "127.0.0.1",
         port: 1337
@@ -30,14 +30,14 @@ const file: mtlc.ConfigFile = await mtlcfile("config.json") // Associates json f
 console.log(file.content);
 ```
 ```
-{ ip: "127.0.0.1", port: 1337 } | Contents of config.json
+{ ip: "127.0.0.1", port: 1337 }
 ```
 
 ### Writing a raw text file
 ```ts
-import * as mtlc from "mtlc";
+import * as mlc from "@aery/mlc";
 
-const file: mtlc.ConfigFile = mtlc.file("foo.txt"); // Defaults to RawFormat format by default
+const file: mlc.ConfigFile = mlc.file("foo.txt"); // Defaults to RawFormat format by default
 
 file.content = "bar";
 
@@ -46,9 +46,9 @@ file.write();
 
 ### Reading a directory
 ```ts
-import * as mtlc from "mtlc";
+import * as mlc from "@aery/mlc";
 
-const directory: mtlc.ConfigDirectory = await mtlc.directory("recipies", new mtlc.formats.JSONFormat())
+const directory: mlc.ConfigDirectory = await mlc.directory("recipies", new mlc.formats.JSONFormat())
     .def({
         "water.json": {
             steps: [ "Pour water" ]
@@ -62,13 +62,12 @@ const directory: mtlc.ConfigDirectory = await mtlc.directory("recipies", new mtl
     }) // What the directory's files' content should default to when reading
     .read();
 
-const contents: any = directory.contents();
+const contents: object = directory.contents();
 
 console.log(contents["water.json"]);
 console.log(contents["cereal.json"]);
 ```
 ```
-{ steps: [ "Pour water" ] } | Contents of water.json
-{ steps: [ "Pour cereal FIRST", "THEN pour milk" ] } | Contents of cereal.json
-(Remaining files' contents from recipies)
+{ steps: [ "Pour water" ] }
+{ steps: [ "Pour cereal FIRST", "THEN pour milk" ] }
 ```

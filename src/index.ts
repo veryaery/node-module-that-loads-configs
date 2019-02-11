@@ -26,9 +26,9 @@ formats.set_default_format(RawFormat);
 /**
  * Creates a new ConfigFile relative to process.cwd()
  * @example
- * import * as mtlc from "mtlc";
+ * import * as mlc from "@aery/mlc";
  * 
- * const file: mtlc.ConfigFile = mtlc.file("config.json");
+ * const file: mlc.ConfigFile = mlc.file("config.json");
  * 
  * @param { string } file_path - File path relative to process.cwd()
  * @param { ?Format } format - Data and content transformation format
@@ -42,9 +42,9 @@ export function file(file_path: string, format?: Format): ConfigFile {
  * Creates a new ConfigDirectory relative to process.cwd().   
  * The directory's format will be passed to all of it's files
  * @example
- * import * as mtlc from "mtlc";
+ * import * as mlc from "@aery/mlc";
  * 
- * const directory: mtlc.ConfigDirectory = mtlc.directory("configs", new mtlc.formats.JSONFormat());
+ * const directory: mlc.ConfigDirectory = mlc.directory("configs", new mlc.formats.JSONFormat());
  * 
  * @param { string } directory_path - Directory path relative to process.cwd() 
  * @param { ?Format } format - Data and content transformation format
