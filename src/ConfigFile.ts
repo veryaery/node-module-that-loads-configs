@@ -67,9 +67,7 @@ export class ConfigFile {
                 let result: FormatReturnObject | Promise<FormatReturnObject> = this.format.read(data, this.default_content, this.default_options);
 
                 if (result instanceof Promise) {
-                    result = <FormatReturnObject>await result;
-                } else {
-                    result = <FormatReturnObject>result;
+                    result = await result;
                 }
 
                 this.content = result.content;
@@ -103,9 +101,7 @@ export class ConfigFile {
             let result: string | Promise<string> = this.format.write(this.content);
 
             if (result instanceof Promise) {
-                result = <string>await result;
-            } else {
-                result = <string>result;
+                result = await result;
             }
             
             if (!await this.exists(directory)) {
