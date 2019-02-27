@@ -1,4 +1,4 @@
-![](https://i.imgur.com/COJK5ss.png)
+![](https://i.imgur.com/2tDOn1l.png)
 (Character: Tohru from Miss Kobayashi's Dragon Maid)
 
 # Examples
