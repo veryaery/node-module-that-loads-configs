@@ -1,4 +1,4 @@
-![](https://i.imgur.com/COJK5ss.png)
+![](https://i.imgur.com/2tDOn1l.png)
 (Character: Tohru from Miss Kobayashi's Dragon Maid)
 
 [![](https://img.shields.io/npm/v/@aery/mlc.svg?colorB=%23C5383B&style=flat-square)](https://www.npmjs.com/package/@aery/mlc)
