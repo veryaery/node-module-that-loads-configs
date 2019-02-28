@@ -4,6 +4,8 @@ import {
 } from "../Format";
 
 /**
+ * Makes no transformations to data
+ * 
  * @memberof formats
  * @class BufferFormat
  * @extends Format

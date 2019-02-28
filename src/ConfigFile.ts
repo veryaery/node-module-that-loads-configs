@@ -14,11 +14,11 @@ import {
 } from "./Format";
 
 /**
- * A configuration file
+ * Represents a configuration file
  * 
  * @class ConfigFile
  * @param { string } file_path - Absolute path to file
- * @param { ?Format } format - Format that will transform data and content
+ * @param { ?Format } format - Format responsible for data and content transformation for ConfigDirectory's ConfigFiles to use
  */
 export class ConfigFile {
 
@@ -35,13 +35,13 @@ export class ConfigFile {
     }
 
     /**
-     * Specify what and how the file's format should default content when reading
+     * Specify what and how format should default content when reading
      * 
      * @memberof ConfigFile
      * @instance
      * @function def
-     * @param {} default_content - What content should default to when reading
-     * @param {} default_options - Options passed to format when reading telling it how to default content
+     * @param {} default_content - What content format should default to when reading
+     * @param {} default_options - Options telling format how to default content when reading
      * @returns { ConfigFile } - This ConfigFile for chainability
      */
     def(default_content: object, default_options?: any): ConfigFile {
@@ -51,14 +51,14 @@ export class ConfigFile {
     }
 
     /**
-     * Reads file data and updates content and defaulted after being transformed by file's format
+     * Reads file and sets content and defaulted after being transformed by format
      * 
      * @memberof ConfigFile
      * @instance
      * @async
      * @function read
      * @param { ?object } options
-     * @param { ?boolean } options.write_if_defaulted - Write if content is defaulted in any way after reading
+     * @param { ?boolean } options.write_if_defaulted - Call write method if content was defaulted in any way after reading
      * @returns { Promise<ConfigFile> } - This ConfigFile for chainability
      */
     async read(options?: { write_if_defaulted?: boolean }): Promise<ConfigFile> {
@@ -86,7 +86,7 @@ export class ConfigFile {
     }
 
     /**
-     * Writes file content after being transformed by file's format
+     * Writes content after being transformed by format
      * 
      * @memberof ConfigFile
      * @instance
@@ -165,7 +165,7 @@ export class ConfigFile {
 }
 
 /**
- * File content
+ * Transformed data
  * 
  * @memberof ConfigFile
  * @instance
@@ -189,7 +189,7 @@ export class ConfigFile {
  */
 
 /**
- * Format that will transform data and content
+ * Format responsible for data and content transformation
  * 
  * @memberof ConfigFile
  * @instance
@@ -197,7 +197,7 @@ export class ConfigFile {
  */
 
 /**
- * What content should default to when reading
+ * What content format should default to when reading
  * 
  * @memberof ConfigFile
  * @instance
@@ -205,7 +205,7 @@ export class ConfigFile {
  */
 
 /**
- * Options passed to format when reading telling it how to default content
+ * Options telling format how to default content when reading
  * 
  * @memberof ConfigFile
  * @instance

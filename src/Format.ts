@@ -4,8 +4,9 @@ export type FormatReturnObject = {
 };
 
 /**
- * Transforms ConfigFile data after being read and content before being written
- * @example
+ * Responsible for transforming data before being set as content aswell as content before being written
+ * 
+ * ```ts
  * import {
  *      Format,
  *      FormatReturnObject
@@ -41,6 +42,7 @@ export type FormatReturnObject = {
  *      }
  * 
  * }
+ * ```
  * 
  * @abstract
  * @class
@@ -60,7 +62,7 @@ export abstract class Format {
  */
 
 /**
- * Transforms data before it's used
+ * Transforms data before being set as content
  * 
  * @memberOf Format
  * @instance
@@ -73,12 +75,12 @@ export abstract class Format {
  */
 
 /**
- * Transforms content before it's written
+ * Transforms content before being written
  * 
  * @memberOf Format
  * @instance
  * @abstract
  * @function write
  * @param content
- * @returns { string | Promise<string> } - Transformed content in the form of a string
+ * @returns { string | Promise<string> } - Transformed content
  */

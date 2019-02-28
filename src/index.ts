@@ -25,13 +25,15 @@ formats.set_default_format(RawFormat);
 
 /**
  * Creates a new ConfigFile relative to process.cwd()
- * @example
+ * 
+ * ```ts
  * import * as mlc from "@aery/mlc";
  * 
  * const file: mlc.ConfigFile = mlc.file("config.json");
+ * ```
  * 
  * @param { string } file_path - File path relative to process.cwd()
- * @param { ?Format } format - Data and content transformation format
+ * @param { ?Format } format - Format responsible for data and content transformation
  * @returns { ConfigFile }
  */
 export function file(file_path: string, format?: Format): ConfigFile {
@@ -40,14 +42,16 @@ export function file(file_path: string, format?: Format): ConfigFile {
 
 /**
  * Creates a new ConfigDirectory relative to process.cwd().   
- * The directory's format will be passed to all of it's files
- * @example
+ * When reading or writing, the ConfigDirectory's format will be used on it's ConfigFiles
+ * 
+ * ```ts
  * import * as mlc from "@aery/mlc";
  * 
  * const directory: mlc.ConfigDirectory = mlc.directory("configs", new mlc.formats.JSONFormat());
+ * ```
  * 
  * @param { string } directory_path - Directory path relative to process.cwd() 
- * @param { ?Format } format - Data and content transformation format
+ * @param { ?Format } format - Format responsible for data and content transformation
  * @returns { ConfigDirectory }
  */
 export function directory(directory_path: string, format?: Format): ConfigDirectory {

@@ -124,7 +124,11 @@
 
 
 <div class="description">
-    Creates a new ConfigDirectory relative to process.cwd().The directory's format will be passed to all of it's files
+    <p>Creates a new ConfigDirectory relative to process.cwd().
+When reading or writing, the ConfigDirectory's format will be used on it's ConfigFiles</p>
+<pre class="prettyprint source lang-ts"><code>import * as mlc from &quot;@aery/mlc&quot;;
+
+const directory: mlc.ConfigDirectory = mlc.directory(&quot;configs&quot;, new mlc.formats.JSONFormat());</code></pre>
 </div>
 
 
@@ -160,7 +164,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line45">line 45</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line49">line 49</a>
     </li></ul></dd>
     
 
@@ -231,7 +235,7 @@
             
 
             <td class="description last">
-                Directory path relative to process.cwd()
+                <p>Directory path relative to process.cwd()</p>
                 
             </td>
         </tr>
@@ -267,7 +271,7 @@
             
 
             <td class="description last">
-                Data and content transformation format
+                <p>Format responsible for data and content transformation</p>
                 
             </td>
         </tr>
@@ -312,13 +316,6 @@
 
 
 
-<div class="section-examples">
-<h5>Example</h5>
-
-    <pre class="prettyprint"><code>import * as mlc from "@aery/mlc";const directory: mlc.ConfigDirectory = mlc.directory("configs", new mlc.formats.JSONFormat());</code></pre>
-
-</div>
-
 </div>
         
             
@@ -333,7 +330,10 @@
 
 
 <div class="description">
-    Creates a new ConfigFile relative to process.cwd()
+    <p>Creates a new ConfigFile relative to process.cwd()</p>
+<pre class="prettyprint source lang-ts"><code>import * as mlc from &quot;@aery/mlc&quot;;
+
+const file: mlc.ConfigFile = mlc.file(&quot;config.json&quot;);</code></pre>
 </div>
 
 
@@ -369,7 +369,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line29">line 29</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line31">line 31</a>
     </li></ul></dd>
     
 
@@ -440,7 +440,7 @@
             
 
             <td class="description last">
-                File path relative to process.cwd()
+                <p>File path relative to process.cwd()</p>
                 
             </td>
         </tr>
@@ -476,7 +476,7 @@
             
 
             <td class="description last">
-                Data and content transformation format
+                <p>Format responsible for data and content transformation</p>
                 
             </td>
         </tr>
@@ -520,13 +520,6 @@
 </div>
 
 
-
-<div class="section-examples">
-<h5>Example</h5>
-
-    <pre class="prettyprint"><code>import * as mlc from "@aery/mlc";const file: mlc.ConfigFile = mlc.file("config.json");</code></pre>
-
-</div>
 
 </div>
         
@@ -599,7 +592,7 @@
 
             
 
-            <td class="description last">Only read files with specified default content</td>
+            <td class="description last"><p>Only read files with specified default content</p></td>
         </tr>
 
         
@@ -632,7 +625,7 @@
 
             
 
-            <td class="description last">Read directories</td>
+            <td class="description last"><p>Read directories</p></td>
         </tr>
 
         
@@ -665,7 +658,7 @@
 
             
 
-            <td class="description last">Recursively read directories. Requires read_directories to be true</td>
+            <td class="description last"><p>Recursively read directories. Needs read_directories to work</p></td>
         </tr>
 
         
@@ -698,7 +691,7 @@
 
             
 
-            <td class="description last">Write if any of directory's files' content was defaulted in any way</td>
+            <td class="description last"><p>Call write method if any of directory's files' contents were defaulted in any way after reading</p></td>
         </tr>
 
         
@@ -739,7 +732,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ConfigDirectory.js.html">ConfigDirectory.js</a>, <a href="ConfigDirectory.js.html#line281">line 281</a>
+        <a href="ConfigDirectory.js.html">ConfigDirectory.js</a>, <a href="ConfigDirectory.js.html#line300">line 300</a>
     </li></ul></dd>
     
 
@@ -807,7 +800,7 @@
 
             
 
-            <td class="description last">Transformed data</td>
+            <td class="description last"><p>Transformed data</p></td>
         </tr>
 
         
@@ -832,7 +825,7 @@
 
             
 
-            <td class="description last">If content was defaulted in any way</td>
+            <td class="description last"><p>If content was defaulted in any way</p></td>
         </tr>
 
         
@@ -873,7 +866,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Format.js.html">Format.js</a>, <a href="Format.js.html#line51">line 51</a>
+        <a href="Format.js.html">Format.js</a>, <a href="Format.js.html#line53">line 53</a>
     </li></ul></dd>
     
 
@@ -908,7 +901,7 @@
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Feb 27 2019 03:30:48 GMT+0100 (GMT+01:00) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Feb 28 2019 13:47:11 GMT+0100 (GMT+01:00) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>

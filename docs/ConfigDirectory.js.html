@@ -80,11 +80,11 @@ var fs_1 = require("fs");
 var path = require("path");
 var ConfigFile_1 = require("./ConfigFile");
 /**
- * A configuration directory
+ * Represents a configuration directory
  *
  * @class ConfigDirectory
  * @param { string } directory_path - Absolute path to directory
- * @param { ?Format } format - Format passed to directory's files
+ * @param { ?Format } format - Format responsible for data and content transformation. Passed when initializing a new ConfigFile when reading
  */
 var ConfigDirectory = /** @class */ (function () {
     function ConfigDirectory(directory_path, format) {
@@ -92,24 +92,26 @@ var ConfigDirectory = /** @class */ (function () {
         this.format = format;
     }
     /**
-     * Specifies default contents and options passed to directory's files
-     * @example
-     * import * as mlc from "@aery/mlc";
+     * Specify what and how each ConfigFile's format should default content when reading
      *
-     * const directory: mlc.ConfigDirectory = mlc.directory("configs", new mlc.formats.JSONFormat());
-     *
-     * directory.def({
-     *      "config.json": {
-     *          ip: "127.0.0.1",
-     *          port: 1337
-     *      }
-     * });
+```ts
+import * as mlc from "@aery/mlc";
+    
+const directory: mlc.ConfigDirectory = mlc.directory("configs", new mlc.formats.JSONFormat());
+
+directory.def({
+    "config.json": {
+        ip: "127.0.0.1",
+        port: 1337
+    }
+});
+```
      *
      * @memberof ConfigDirectory
      * @instance
      * @function def
-     * @param {} default_files - Contents passed to files that should be defaulted to when reading
-     * @param {} default_options - Options passed to file telling it's format how to default content when reading
+     * @param {} default_files - Content each ConfigFile's format should default to when reading
+     * @param {} default_options - Options telling format how to default content when reading
      * @returns { ConfigDirectory } - This ConfigDirectory for chainability
      */
     ConfigDirectory.prototype.def = function (default_files, default_options) {
@@ -118,12 +120,12 @@ var ConfigDirectory = /** @class */ (function () {
         return this;
     };
     /**
-     * Returns an object with only directory's files' and directories' contents
+     * Returns an object of ConfigDirectory's ConfigFiles' and ConfigDirectory's contents
      *
      * @memberof ConfigDirectory
      * @instance
      * @function contents
-     * @returns { object } - Directory's files' and directories' contents
+     * @returns { object } - ConfigDirectory's ConfigFiles' and ConfigDirectory's contents
      */
     ConfigDirectory.prototype.contents = function () {
         var contents = {};
@@ -141,7 +143,7 @@ var ConfigDirectory = /** @class */ (function () {
         return contents;
     };
     /**
-     * Reads directory's files and updates files and defaulted after files have been transformed by their formats
+     * Reads directory's files and sets ConfigFile's content and defaulted being transformed by their formats
      *
      * @memberof ConfigDirectory
      * @instance
@@ -152,10 +154,35 @@ var ConfigDirectory = /** @class */ (function () {
      */
     ConfigDirectory.prototype.read = function (options) {
         return __awaiter(this, void 0, void 0, function () {
-            var default_files, file, result;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var _a, _b, _i, file, config_file, error_1, default_files, file, result;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
                     case 0:
+                        if (!this.files) return [3 /*break*/, 7];
+                        _a = [];
+                        for (_b in this.files)
+                            _a.push(_b);
+                        _i = 0;
+                        _c.label = 1;
+                    case 1:
+                        if (!(_i &lt; _a.length)) return [3 /*break*/, 6];
+                        file = _a[_i];
+                        config_file = this.files[file];
+                        _c.label = 2;
+                    case 2:
+                        _c.trys.push([2, 4, , 5]);
+                        return [4 /*yield*/, config_file.read()];
+                    case 3:
+                        _c.sent();
+                        return [3 /*break*/, 5];
+                    case 4:
+                        error_1 = _c.sent();
+                        throw error_1;
+                    case 5:
+                        _i++;
+                        return [3 /*break*/, 1];
+                    case 6: return [2 /*return*/, this];
+                    case 7:
                         default_files = {};
                         if (this.default_files) {
                             for (file in this.default_files) {
@@ -163,8 +190,8 @@ var ConfigDirectory = /** @class */ (function () {
                             }
                         }
                         return [4 /*yield*/, this.read_directory(this.directory_path, options, default_files, true)];
-                    case 1:
-                        result = _a.sent();
+                    case 8:
+                        result = _c.sent();
                         this.files = result.files;
                         this.defaulted = result.defaulted;
                         return [2 /*return*/, this];
@@ -173,7 +200,7 @@ var ConfigDirectory = /** @class */ (function () {
         });
     };
     /**
-     * Writes directory's files' contents after being transformed by their format
+     * Writes ConfigDirectory's ConfigFiles' contents after being transformed by their formats
      *
      * @memberof ConfigDirectory
      * @instance
@@ -183,42 +210,34 @@ var ConfigDirectory = /** @class */ (function () {
      */
     ConfigDirectory.prototype.write = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var _this = this;
-            return __generator(this, function (_a) {
-                return [2 /*return*/, new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
-                        var _a, _b, _i, file, config_file, error_1;
-                        return __generator(this, function (_c) {
-                            switch (_c.label) {
-                                case 0:
-                                    _a = [];
-                                    for (_b in this.files)
-                                        _a.push(_b);
-                                    _i = 0;
-                                    _c.label = 1;
-                                case 1:
-                                    if (!(_i &lt; _a.length)) return [3 /*break*/, 6];
-                                    file = _a[_i];
-                                    config_file = this.files[file];
-                                    _c.label = 2;
-                                case 2:
-                                    _c.trys.push([2, 4, , 5]);
-                                    return [4 /*yield*/, config_file.write()];
-                                case 3:
-                                    _c.sent();
-                                    return [3 /*break*/, 5];
-                                case 4:
-                                    error_1 = _c.sent();
-                                    reject(error_1);
-                                    return [3 /*break*/, 5];
-                                case 5:
-                                    _i++;
-                                    return [3 /*break*/, 1];
-                                case 6:
-                                    resolve(this);
-                                    return [2 /*return*/];
-                            }
-                        });
-                    }); })];
+            var _a, _b, _i, file, config_file, error_2;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        _a = [];
+                        for (_b in this.files)
+                            _a.push(_b);
+                        _i = 0;
+                        _c.label = 1;
+                    case 1:
+                        if (!(_i &lt; _a.length)) return [3 /*break*/, 6];
+                        file = _a[_i];
+                        config_file = this.files[file];
+                        _c.label = 2;
+                    case 2:
+                        _c.trys.push([2, 4, , 5]);
+                        return [4 /*yield*/, config_file.write()];
+                    case 3:
+                        _c.sent();
+                        return [3 /*break*/, 5];
+                    case 4:
+                        error_2 = _c.sent();
+                        throw error_2;
+                    case 5:
+                        _i++;
+                        return [3 /*break*/, 1];
+                    case 6: return [2 /*return*/, this];
+                }
             });
         });
     };
@@ -323,18 +342,18 @@ exports.ConfigDirectory = ConfigDirectory;
  * @typedef ConfigDirectoryReadOptions
  * @property { ?boolean } only_read_defaults - Only read files with specified default content
  * @property { ?boolean } read_directories - Read directories
- * @property { ?boolean } recursive - Recursively read directories. Requires read_directories to be true
- * @property { ?boolean } write_if_defaulted - Write if any of directory's files' content was defaulted in any way
+ * @property { ?boolean } recursive - Recursively read directories. Needs read_directories to work
+ * @property { ?boolean } write_if_defaulted - Call write method if any of directory's files' contents were defaulted in any way after reading
  */
 /**
-* Directory files
+* ConfigDirectory's ConfigFiles
 *
 * @memberof ConfigDirectory
 * @instance
 * @member { object } files
 */
 /**
- * If any of directory's files' content was defaulted in any way after reading
+ * If any of directory's files' contents were defaulted in any way after reading
  *
  * @memberof ConfigDirectory
  * @instance
@@ -348,21 +367,21 @@ exports.ConfigDirectory = ConfigDirectory;
  * @member { string } directory_path
  */
 /**
- * Format passed to directory's files
+ * Format responsible for data and content transformation. Passed when initializing a new ConfigFile when reading
  *
  * @memberof ConfigDirectory
  * @instance
  * @member { Format } format
  */
 /**
- * Contents passed to files that should be defaulted to when reading
+ * Content each ConfigFile's format should default to when reading
  *
  * @memberof ConfigDirectory
  * @instance
  * @member {} default_content
  */
 /**
- * Options passed to file telling it's format how to default content when reading
+ * Options telling format how to default content when reading
  *
  * @memberof ConfigDirectory
  * @instance
@@ -380,7 +399,7 @@ exports.ConfigDirectory = ConfigDirectory;
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Feb 27 2019 03:30:48 GMT+0100 (GMT+01:00) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Feb 28 2019 13:47:11 GMT+0100 (GMT+01:00) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>

@@ -4,7 +4,7 @@ import {
 } from "../Format";
 
 /**
- * Transforms json data 
+ * Transforms json data
  * 
  * @memberof formats
  * @class JSONFormat

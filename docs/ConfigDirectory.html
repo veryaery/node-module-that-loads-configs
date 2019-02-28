@@ -63,7 +63,7 @@
 
 
 <div class="description">
-    A configuration directory
+    <p>Represents a configuration directory</p>
 </div>
 
 
@@ -170,7 +170,7 @@
             
 
             <td class="description last">
-                Absolute path to directory
+                <p>Absolute path to directory</p>
                 
             </td>
         </tr>
@@ -206,7 +206,7 @@
             
 
             <td class="description last">
-                Format passed to directory's files
+                <p>Format responsible for data and content transformation. Passed when initializing a new ConfigFile when reading</p>
                 
             </td>
         </tr>
@@ -256,7 +256,7 @@
 
 
 <div class="description">
-    Contents passed to files that should be defaulted to when reading
+    <p>Content each ConfigFile's format should default to when reading</p>
 </div>
 
 
@@ -292,7 +292,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ConfigDirectory.js.html">ConfigDirectory.js</a>, <a href="ConfigDirectory.js.html#line316">line 316</a>
+        <a href="ConfigDirectory.js.html">ConfigDirectory.js</a>, <a href="ConfigDirectory.js.html#line335">line 335</a>
     </li></ul></dd>
     
 
@@ -320,7 +320,7 @@
 
 
 <div class="description">
-    Options passed to file telling it's format how to default content when reading
+    <p>Options telling format how to default content when reading</p>
 </div>
 
 
@@ -356,7 +356,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ConfigDirectory.js.html">ConfigDirectory.js</a>, <a href="ConfigDirectory.js.html#line323">line 323</a>
+        <a href="ConfigDirectory.js.html">ConfigDirectory.js</a>, <a href="ConfigDirectory.js.html#line342">line 342</a>
     </li></ul></dd>
     
 
@@ -384,7 +384,7 @@
 
 
 <div class="description">
-    If any of directory's files' content was defaulted in any way after reading
+    <p>If any of directory's files' contents were defaulted in any way after reading</p>
 </div>
 
 
@@ -420,7 +420,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ConfigDirectory.js.html">ConfigDirectory.js</a>, <a href="ConfigDirectory.js.html#line295">line 295</a>
+        <a href="ConfigDirectory.js.html">ConfigDirectory.js</a>, <a href="ConfigDirectory.js.html#line314">line 314</a>
     </li></ul></dd>
     
 
@@ -458,7 +458,7 @@
 
 
 <div class="description">
-    Absolute path to directory
+    <p>Absolute path to directory</p>
 </div>
 
 
@@ -494,7 +494,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ConfigDirectory.js.html">ConfigDirectory.js</a>, <a href="ConfigDirectory.js.html#line302">line 302</a>
+        <a href="ConfigDirectory.js.html">ConfigDirectory.js</a>, <a href="ConfigDirectory.js.html#line321">line 321</a>
     </li></ul></dd>
     
 
@@ -532,7 +532,7 @@
 
 
 <div class="description">
-    Directory files
+    <p>ConfigDirectory's ConfigFiles</p>
 </div>
 
 
@@ -568,7 +568,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ConfigDirectory.js.html">ConfigDirectory.js</a>, <a href="ConfigDirectory.js.html#line288">line 288</a>
+        <a href="ConfigDirectory.js.html">ConfigDirectory.js</a>, <a href="ConfigDirectory.js.html#line307">line 307</a>
     </li></ul></dd>
     
 
@@ -606,7 +606,7 @@
 
 
 <div class="description">
-    Format passed to directory's files
+    <p>Format responsible for data and content transformation. Passed when initializing a new ConfigFile when reading</p>
 </div>
 
 
@@ -642,7 +642,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ConfigDirectory.js.html">ConfigDirectory.js</a>, <a href="ConfigDirectory.js.html#line309">line 309</a>
+        <a href="ConfigDirectory.js.html">ConfigDirectory.js</a>, <a href="ConfigDirectory.js.html#line328">line 328</a>
     </li></ul></dd>
     
 
@@ -690,7 +690,7 @@
 
 
 <div class="description">
-    Returns an object with only directory's files' and directories' contents
+    <p>Returns an object of ConfigDirectory's ConfigFiles' and ConfigDirectory's contents</p>
 </div>
 
 
@@ -726,7 +726,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ConfigDirectory.js.html">ConfigDirectory.js</a>, <a href="ConfigDirectory.js.html#line79">line 79</a>
+        <a href="ConfigDirectory.js.html">ConfigDirectory.js</a>, <a href="ConfigDirectory.js.html#line81">line 81</a>
     </li></ul></dd>
     
 
@@ -776,7 +776,9 @@
 
 
 <div class="param-desc">
-    - Directory's files' and directories' contents
+    <ul>
+<li>ConfigDirectory's ConfigFiles' and ConfigDirectory's contents</li>
+</ul>
 </div>
 
     
@@ -798,7 +800,17 @@
 
 
 <div class="description">
-    Specifies default contents and options passed to directory's files
+    <p>Specify what and how each ConfigFile's format should default content when reading</p>
+<pre class="prettyprint source lang-ts"><code>import * as mlc from &quot;@aery/mlc&quot;;
+
+const directory: mlc.ConfigDirectory = mlc.directory(&quot;configs&quot;, new mlc.formats.JSONFormat());
+
+directory.def({
+    &quot;config.json&quot;: {
+        ip: &quot;127.0.0.1&quot;,
+        port: 1337
+    }
+});</code></pre>
 </div>
 
 
@@ -890,7 +902,7 @@
             
 
             <td class="description last">
-                Contents passed to files that should be defaulted to when reading
+                <p>Content each ConfigFile's format should default to when reading</p>
                 
             </td>
         </tr>
@@ -911,7 +923,7 @@
             
 
             <td class="description last">
-                Options passed to file telling it's format how to default content when reading
+                <p>Options telling format how to default content when reading</p>
                 
             </td>
         </tr>
@@ -952,20 +964,15 @@
 
 
 <div class="param-desc">
-    - This ConfigDirectory for chainability
+    <ul>
+<li>This ConfigDirectory for chainability</li>
+</ul>
 </div>
 
     
 </div>
 
 
-
-<div class="section-examples">
-<h5>Example</h5>
-
-    <pre class="prettyprint"><code>import * as mlc from "@aery/mlc";const directory: mlc.ConfigDirectory = mlc.directory("configs", new mlc.formats.JSONFormat());directory.def({     "config.json": {         ip: "127.0.0.1",         port: 1337     }});</code></pre>
-
-</div>
 
 </div>
         
@@ -981,7 +988,7 @@
 
 
 <div class="description">
-    Reads directory's files and updates files and defaulted after files have been transformed by their formats
+    <p>Reads directory's files and sets ConfigFile's content and defaulted being transformed by their formats</p>
 </div>
 
 
@@ -1017,7 +1024,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ConfigDirectory.js.html">ConfigDirectory.js</a>, <a href="ConfigDirectory.js.html#line102">line 102</a>
+        <a href="ConfigDirectory.js.html">ConfigDirectory.js</a>, <a href="ConfigDirectory.js.html#line104">line 104</a>
     </li></ul></dd>
     
 
@@ -1131,7 +1138,9 @@
 
 
 <div class="param-desc">
-    - This ConfigDirectory for chainability
+    <ul>
+<li>This ConfigDirectory for chainability</li>
+</ul>
 </div>
 
     
@@ -1153,7 +1162,7 @@
 
 
 <div class="description">
-    Writes directory's files' contents after being transformed by their format
+    <p>Writes ConfigDirectory's ConfigFiles' contents after being transformed by their formats</p>
 </div>
 
 
@@ -1189,7 +1198,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ConfigDirectory.js.html">ConfigDirectory.js</a>, <a href="ConfigDirectory.js.html#line134">line 134</a>
+        <a href="ConfigDirectory.js.html">ConfigDirectory.js</a>, <a href="ConfigDirectory.js.html#line161">line 161</a>
     </li></ul></dd>
     
 
@@ -1239,7 +1248,9 @@
 
 
 <div class="param-desc">
-    - This ConfigDirectory for chainability
+    <ul>
+<li>This ConfigDirectory for chainability</li>
+</ul>
 </div>
 
     
@@ -1266,7 +1277,7 @@
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Feb 27 2019 03:30:48 GMT+0100 (GMT+01:00) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Feb 28 2019 13:47:11 GMT+0100 (GMT+01:00) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>

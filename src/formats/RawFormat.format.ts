@@ -4,7 +4,7 @@ import {
 } from "../Format";
 
 /**
- * Transforms data to raw content string
+ * Transforms data to string
  * 
  * @memberof formats
  * @class RawFormat

@@ -21,11 +21,11 @@ type ConfigDirectoryReadDirectoryReturnObject = {
 };
 
 /**
- * A configuration directory
+ * Represents a configuration directory
  * 
  * @class ConfigDirectory
  * @param { string } directory_path - Absolute path to directory
- * @param { ?Format } format - Format passed to directory's files
+ * @param { ?Format } format - Format responsible for data and content transformation. Passed when initializing a new ConfigFile when reading 
  */
 export class ConfigDirectory {
 
@@ -42,24 +42,26 @@ export class ConfigDirectory {
     }
 
     /**
-     * Specifies default contents and options passed to directory's files
-     * @example
-     * import * as mlc from "@aery/mlc";
+     * Specify what and how each ConfigFile's format should default content when reading
      * 
-     * const directory: mlc.ConfigDirectory = mlc.directory("configs", new mlc.formats.JSONFormat());
-     * 
-     * directory.def({
-     *      "config.json": {
-     *          ip: "127.0.0.1",
-     *          port: 1337
-     *      }
-     * });
+```ts
+import * as mlc from "@aery/mlc";
+    
+const directory: mlc.ConfigDirectory = mlc.directory("configs", new mlc.formats.JSONFormat());
+
+directory.def({
+    "config.json": {
+        ip: "127.0.0.1",
+        port: 1337
+    }
+});
+```
      * 
      * @memberof ConfigDirectory
      * @instance
      * @function def
-     * @param {} default_files - Contents passed to files that should be defaulted to when reading
-     * @param {} default_options - Options passed to file telling it's format how to default content when reading
+     * @param {} default_files - Content each ConfigFile's format should default to when reading
+     * @param {} default_options - Options telling format how to default content when reading
      * @returns { ConfigDirectory } - This ConfigDirectory for chainability
      */
     def(default_files: object, default_options: any): ConfigDirectory {
@@ -69,12 +71,12 @@ export class ConfigDirectory {
     }
 
     /**
-     * Returns an object with only directory's files' and directories' contents
+     * Returns an object of ConfigDirectory's ConfigFiles' and ConfigDirectory's contents
      * 
      * @memberof ConfigDirectory
      * @instance
      * @function contents
-     * @returns { object } - Directory's files' and directories' contents
+     * @returns { object } - ConfigDirectory's ConfigFiles' and ConfigDirectory's contents
      */
     contents(): object {
         const contents: object = {};
@@ -95,7 +97,7 @@ export class ConfigDirectory {
     }
 
     /**
-     * Reads directory's files and updates files and defaulted after files have been transformed by their formats
+     * Reads directory's files and sets ConfigFile's content and defaulted being transformed by their formats
      * 
      * @memberof ConfigDirectory
      * @instance
@@ -105,24 +107,38 @@ export class ConfigDirectory {
      * @returns { Promise<ConfigDirectory> } - This ConfigDirectory for chainability
      */
     async read(options?: ConfigDirectoryReadOptions): Promise<ConfigDirectory> {
-        // Map default_files to absolute file paths
-        const default_files: object = {};
+        if (this.files) {
+            for (const file in this.files) {
+                const config_file = this.files[file];
 
-        if (this.default_files) {
-            for (const file in this.default_files) {
-                default_files[path.resolve(this.directory_path, file)] = this.default_files[file];
+                try {
+                    await config_file.read();
+                } catch (error) {
+                    throw error;
+                }
             }
+
+            return this;
+        } else {
+            // Map default_files to absolute file paths
+            const default_files: object = {};
+    
+            if (this.default_files) {
+                for (const file in this.default_files) {
+                    default_files[path.resolve(this.directory_path, file)] = this.default_files[file];
+                }
+            }
+    
+            const result: ConfigDirectoryReadDirectoryReturnObject = await this.read_directory(this.directory_path, options, default_files, true);
+    
+            this.files = result.files;
+            this.defaulted = result.defaulted;
+            return this;
         }
-
-        const result: ConfigDirectoryReadDirectoryReturnObject = await this.read_directory(this.directory_path, options, default_files, true);
-
-        this.files = result.files;
-        this.defaulted = result.defaulted;
-        return this;
     }
     
     /**
-     * Writes directory's files' contents after being transformed by their format
+     * Writes ConfigDirectory's ConfigFiles' contents after being transformed by their formats
      * 
      * @memberof ConfigDirectory
      * @instance
@@ -131,19 +147,17 @@ export class ConfigDirectory {
      * @returns { Promise<ConfigDirectory> } - This ConfigDirectory for chainability
      */
     async write(): Promise<ConfigDirectory> {
-        return new Promise(async (resolve, reject) => {
-            for (const file in this.files) {
-                const config_file = this.files[file];
+        for (const file in this.files) {
+            const config_file = this.files[file];
 
-                try {
-                    await config_file.write();
-                } catch (error) {
-                    reject(error);
-                }
+            try {
+                await config_file.write();
+            } catch (error) {
+                throw error;
             }
+        }
 
-            resolve(this);
-        });
+        return this;
     }
 
     private is_directory(file_path: string): Promise<boolean> {
@@ -178,11 +192,11 @@ export class ConfigDirectory {
                         files.push(file);
                     }
                 }
-        
+
                 // Read files
                 for (const file of files) {
                     let config: ConfigFile | ConfigDirectory;
-        
+
                     if (await this.is_directory(file)) {
                         if (options && options.read_directories) {
                             config = new ConfigDirectory(file, this.format);
@@ -224,12 +238,12 @@ export class ConfigDirectory {
  * @typedef ConfigDirectoryReadOptions
  * @property { ?boolean } only_read_defaults - Only read files with specified default content
  * @property { ?boolean } read_directories - Read directories
- * @property { ?boolean } recursive - Recursively read directories. Requires read_directories to be true
- * @property { ?boolean } write_if_defaulted - Write if any of directory's files' content was defaulted in any way
+ * @property { ?boolean } recursive - Recursively read directories. Needs read_directories to work
+ * @property { ?boolean } write_if_defaulted - Call write method if any of directory's files' contents were defaulted in any way after reading
  */
 
  /**
- * Directory files
+ * ConfigDirectory's ConfigFiles
  * 
  * @memberof ConfigDirectory
  * @instance
@@ -237,7 +251,7 @@ export class ConfigDirectory {
  */
 
 /**
- * If any of directory's files' content was defaulted in any way after reading
+ * If any of directory's files' contents were defaulted in any way after reading
  * 
  * @memberof ConfigDirectory
  * @instance
@@ -253,7 +267,7 @@ export class ConfigDirectory {
  */
 
 /**
- * Format passed to directory's files
+ * Format responsible for data and content transformation. Passed when initializing a new ConfigFile when reading 
  * 
  * @memberof ConfigDirectory
  * @instance
@@ -261,7 +275,7 @@ export class ConfigDirectory {
  */
 
 /**
- * Contents passed to files that should be defaulted to when reading
+ * Content each ConfigFile's format should default to when reading
  * 
  * @memberof ConfigDirectory
  * @instance
@@ -269,7 +283,7 @@ export class ConfigDirectory {
  */
 
 /**
- * Options passed to file telling it's format how to default content when reading
+ * Options telling format how to default content when reading
  * 
  * @memberof ConfigDirectory
  * @instance
