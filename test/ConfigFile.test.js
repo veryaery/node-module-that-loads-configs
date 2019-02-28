@@ -13,7 +13,7 @@ const methods = require("./methods.js");
 describe("ConfigFile", () => {
     before(async () => await methods.setup());
 
-    it("Calls custom format's read method", done => {
+    it("Calls format's read method", done => {
         const path_1 = path.resolve(methods.temp_path, "1");
 
         const file = new ConfigFile(path_1, new (class ReadFormat extends Format {
@@ -30,7 +30,7 @@ describe("ConfigFile", () => {
         file.read();
     });
 
-    it("Calls custom format's write method", done => {
+    it("Calls format's write method", done => {
         const path_2 = path.resolve(methods.temp_path, "2");
 
         const file = new ConfigFile(path_2, new (class WriteFormat extends Format {
@@ -49,7 +49,7 @@ describe("ConfigFile", () => {
         file.write();
     });
 
-    it("Calls custom format associated with file extention name \"ext\"", done => {
+    it("Calls format associated with file extention name", done => {
         const path_3 = path.resolve(methods.temp_path, "3.ext");
 
         formats.register_format(class ExtentionFormat extends Format {
@@ -68,7 +68,7 @@ describe("ConfigFile", () => {
         file.read();
     });
 
-    it("Calls custom format by default", done => {
+    it("Calls format by default", done => {
         const path_4 = path.resolve(methods.temp_path, "4");
     
         formats.set_default_format(class DefaultFormat extends Format {
@@ -87,7 +87,7 @@ describe("ConfigFile", () => {
         file.read();
     });
 
-    it("Reads with content \"read\"", async () => {
+    it("Reads file's content", async () => {
         const path_5 = path.resolve(methods.temp_path, "5");
 
         fs.writeFileSync(path_5, "read");
@@ -99,7 +99,7 @@ describe("ConfigFile", () => {
         assert.equal(file.content, "read");
     });
 
-    it("Writes with content \"write\"", async () => {
+    it("Writes ConfigFile's content", async () => {
         const path_6 = path.resolve(methods.temp_path, "6");
 
         const file = new ConfigFile(path_6, new formats.RawFormat());
@@ -110,7 +110,7 @@ describe("ConfigFile", () => {
         assert.equal(fs.readFileSync(path_6).toString(), "write");
     });
 
-    it("Defaults content to \"default\"", async () => {
+    it("Defaults file's content", async () => {
         const path_7 = path.resolve(methods.temp_path, "7");
 
         const file = new ConfigFile(path_7, new formats.RawFormat());
@@ -122,7 +122,7 @@ describe("ConfigFile", () => {
         assert.equal(file.content, "default");
     });
 
-    it("Defaults then writes with content \"default\"", async () => {
+    it("Defaults then writes ConfigFile's content", async () => {
         const path_8 = path.resolve(methods.temp_path, "8");
 
         const file = new ConfigFile(path_8, new formats.RawFormat());
@@ -134,7 +134,7 @@ describe("ConfigFile", () => {
         assert.equal(fs.readFileSync(path_8).toString(), "default");
     });
 
-    it("Creates directory \"directory\" if it doesn't exist while writing with content \"directory\"", async () => {
+    it("Creates directory if it doesn't exist when writing ConfigFile's content", async () => {
         const path_directory = path.resolve(methods.temp_path, "directory");
         const path_9 = path.resolve(path_directory, "9");
 
@@ -145,6 +145,32 @@ describe("ConfigFile", () => {
         await file.write();
 
         assert.equal(fs.readFileSync(path_9).toString(), "directory");
+    });
+
+    it("Reads file's content and has defaulted correctly set to false", async () => {
+        const path_10 = path.resolve(methods.temp_path, "10");
+
+        fs.writeFileSync(path_10, "false");
+
+        const file = new ConfigFile(path_10, new formats.RawFormat());
+
+        await file
+            .def("false")
+            .read();
+
+        assert.equal(file.defaulted, false);
+    });
+
+    it("Defaults file's content and has defaulted correctly set to true", async () => {
+        const path_11 = path.relative(methods.temp_path, "11");
+
+        const file = new ConfigFile(path_11, new formats.RawFormat());
+
+        await file
+            .def("true")
+            .read();
+
+        assert.equal(file.defaulted, true);
     });
 
     after(async () => await methods.cleanup());

@@ -62,7 +62,7 @@ export class ConfigDirectory {
      * @param {} default_options - Options passed to file telling it's format how to default content when reading
      * @returns { ConfigDirectory } - This ConfigDirectory for chainability
      */
-    def(default_files: any, default_options: any): ConfigDirectory {
+    def(default_files: object, default_options: any): ConfigDirectory {
         this.default_files = default_files;
         this.default_options = default_options;
         return this;

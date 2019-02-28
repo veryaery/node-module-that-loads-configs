@@ -14,7 +14,7 @@ describe("ConfigDirectory", () => {
     
     before(async () => await methods.setup());
 
-    it("Reads with files #1 & #2 with contents \"foo\" & \"bar\"", async () => {
+    it("Reads files' content", async () => {
         const path_directory_1 = path.resolve(methods.temp_path, "1");
         const path_1 = path.resolve(path_directory_1, "1");
         const path_2 = path.resolve(path_directory_1, "2");
@@ -31,7 +31,7 @@ describe("ConfigDirectory", () => {
         assert.equal(directory.files["2"].content, "bar");
     });
 
-    it("Writes with files #1 & #2 with contents \"foo\" & \"bar\"", async () => {
+    it("Writes ConfigDirectory's ConfigFiles' content", async () => {
         const path_directory_2 = path.resolve(methods.temp_path, "2");
         const path_1 = path.resolve(path_directory_2, "1");
         const path_2 = path.resolve(path_directory_2, "2");
@@ -57,7 +57,7 @@ describe("ConfigDirectory", () => {
         assert.equal(fs.readFileSync(path_2).toString(), "bar");
     });
 
-    it("Defaults files #1 & #2 contents to \"foo\" & \"bar\"", async () => {
+    it("Defaults files' content", async () => {
         const path_directory_3 = path.resolve(methods.temp_path, "3");
 
         const directory = new ConfigDirectory(path_directory_3, new formats.RawFormat());
@@ -73,7 +73,7 @@ describe("ConfigDirectory", () => {
         assert.equal(directory.files["2"].content, "bar");
     });
 
-    it("Defaults then writes files #1 & #2 with contents \"foo\" & \"bar\"", async () => {
+    it("Defaults then writes ConfigDirectory's ConfigFiles' content", async () => {
         const path_directory_4 = path.resolve(methods.temp_path, "4");
 
         const directory = new ConfigDirectory(path_directory_4, new formats.RawFormat());
@@ -89,7 +89,7 @@ describe("ConfigDirectory", () => {
         assert.equal(fs.readFileSync(path.resolve(path_directory_4, "2")).toString(), "bar");
     });
 
-    it("Exclusively reads default file \"include\" and ignores file \"exclude\"", async () => {
+    it("Exclusively reads default file and ingores non-default file", async () => {
         const path_directory_5 = path.resolve(methods.temp_path, "5");
         const path_include = path.resolve(path_directory_5, "include");
         const path_exclude = path.resolve(path_directory_5, "exclude");
@@ -108,7 +108,7 @@ describe("ConfigDirectory", () => {
         assert.equal(directory.files["exclude"], undefined);
     });
 
-    it("Ignores directory \"ignore\"", async () => {
+    it("Ignores recursively reading directory", async () => {
         const path_directory_6 = path.resolve(methods.temp_path, "6");
         const path_ignore = path.resolve(path_directory_6, "ignore");
 
@@ -122,7 +122,7 @@ describe("ConfigDirectory", () => {
         assert.equal(directory.files["ignore"], undefined);
     });
 
-    it("Reads directory \"read\" and ignores reading it's directory \"ignore\"", async () => {
+    it("Reads directory and ignores reading it's directory", async () => {
         const path_directory_8 = path.resolve(methods.temp_path, "8");
         const path_read = path.resolve(path_directory_8, "read");
         const path_ignore = path.resolve(path_read, "ignore");
@@ -138,7 +138,7 @@ describe("ConfigDirectory", () => {
         assert.deepEqual(directory.files["read"].files["ignore"], new ConfigDirectory(path_ignore, directory.format));
     });
 
-    it("Recursively reads directory \"first\" and it's directory \"second\" and it's file \"recursive\" with content \"recursive\"", async () => {
+    it("Recursively reads directory and it's directory and it's file", async () => {
         const path_directory_9 = path.resolve(methods.temp_path, "9");
         const path_first = path.resolve(path_directory_9, "first");
         const path_second = path.resolve(path_first, "second");
@@ -157,6 +157,46 @@ describe("ConfigDirectory", () => {
         });
 
         assert.equal(directory.files["first"].files["second"].files["recursive"].content, "recursive");
+    });
+
+    it("Reads files' content and has defaulted correctly set to false", async () => {
+        const path_directory_10 = path.resolve(methods.temp_path, "10");
+        const path_1 = path.resolve(path_directory_10, "1");
+        const path_2 = path.resolve(path_directory_10, "2");
+
+        fs.mkdirSync(path_directory_10);
+        fs.writeFileSync(path_1, "foo");
+        fs.writeFileSync(path_2, "bar");
+
+        const directory = new ConfigDirectory(path_directory_10, new formats.RawFormat());
+
+        await directory
+            .def({
+                "1": "foo",
+                "2": "bar"
+            })
+            .read();
+
+        assert.equal(directory.defaulted, false);
+    });
+
+    it("Defaults one file's content and has defaulted correctly set to true", async () => {
+        const path_directory_11 = path.resolve(methods.temp_path, "11");
+        const path_false = path.resolve(path_directory_11, "false");
+
+        fs.mkdirSync(path_directory_11);
+        fs.writeFileSync(path_false, "false");
+
+        const directory = new ConfigDirectory(path_directory_11, new formats.RawFormat());
+
+        await directory
+            .def({
+                "false": "false",
+                "true": "true"
+            })
+            .read();
+
+        assert.equal(directory.defaulted, true);
     });
 
     after(async () => await methods.cleanup());
