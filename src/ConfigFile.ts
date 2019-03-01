@@ -96,7 +96,7 @@ export class ConfigFile {
      */
     async write(): Promise<ConfigFile> {
         return new Promise<ConfigFile>(async (resolve, reject) => {
-            const directory: string = path.dirname(this.file_path);
+            const directory_path: string = path.dirname(this.file_path);
 
             let result: string | Promise<string> = this.format.write(this.content);
 
@@ -104,9 +104,9 @@ export class ConfigFile {
                 result = await result;
             }
             
-            if (!await this.exists(directory)) {
+            if (!await this.exists(directory_path)) {
                 try {
-                    await this.mkdir(directory);
+                    await this.mkdir(directory_path);
                 } catch (error) {
                     return reject(error);
                 }

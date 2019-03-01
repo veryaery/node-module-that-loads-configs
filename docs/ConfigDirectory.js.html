@@ -154,44 +154,19 @@ directory.def({
      */
     ConfigDirectory.prototype.read = function (options) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, _b, _i, file, config_file, error_1, default_files, file, result;
-            return __generator(this, function (_c) {
-                switch (_c.label) {
+            var default_files, file, result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
                     case 0:
-                        if (!this.files) return [3 /*break*/, 7];
-                        _a = [];
-                        for (_b in this.files)
-                            _a.push(_b);
-                        _i = 0;
-                        _c.label = 1;
-                    case 1:
-                        if (!(_i &lt; _a.length)) return [3 /*break*/, 6];
-                        file = _a[_i];
-                        config_file = this.files[file];
-                        _c.label = 2;
-                    case 2:
-                        _c.trys.push([2, 4, , 5]);
-                        return [4 /*yield*/, config_file.read()];
-                    case 3:
-                        _c.sent();
-                        return [3 /*break*/, 5];
-                    case 4:
-                        error_1 = _c.sent();
-                        throw error_1;
-                    case 5:
-                        _i++;
-                        return [3 /*break*/, 1];
-                    case 6: return [2 /*return*/, this];
-                    case 7:
                         default_files = {};
                         if (this.default_files) {
                             for (file in this.default_files) {
                                 default_files[path.resolve(this.directory_path, file)] = this.default_files[file];
                             }
                         }
-                        return [4 /*yield*/, this.read_directory(this.directory_path, options, default_files, true)];
-                    case 8:
-                        result = _c.sent();
+                        return [4 /*yield*/, this.read_directory(this.directory_path, this.files, options, default_files, true)];
+                    case 1:
+                        result = _a.sent();
                         this.files = result.files;
                         this.defaulted = result.defaulted;
                         return [2 /*return*/, this];
@@ -210,7 +185,7 @@ directory.def({
      */
     ConfigDirectory.prototype.write = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, _b, _i, file, config_file, error_2;
+            var _a, _b, _i, file, configfile, error_1;
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
@@ -222,21 +197,33 @@ directory.def({
                     case 1:
                         if (!(_i &lt; _a.length)) return [3 /*break*/, 6];
                         file = _a[_i];
-                        config_file = this.files[file];
+                        configfile = this.files[file];
                         _c.label = 2;
                     case 2:
                         _c.trys.push([2, 4, , 5]);
-                        return [4 /*yield*/, config_file.write()];
+                        return [4 /*yield*/, configfile.write()];
                     case 3:
                         _c.sent();
                         return [3 /*break*/, 5];
                     case 4:
-                        error_2 = _c.sent();
-                        throw error_2;
+                        error_1 = _c.sent();
+                        throw error_1;
                     case 5:
                         _i++;
                         return [3 /*break*/, 1];
                     case 6: return [2 /*return*/, this];
+                }
+            });
+        });
+    };
+    ConfigDirectory.prototype.readdir = function (directory_path) {
+        return new Promise(function (resolve, reject) {
+            fs_1.readdir(directory_path, function (error, files) {
+                if (error) {
+                    reject(error);
+                }
+                else {
+                    resolve(files);
                 }
             });
         });
@@ -253,85 +240,106 @@ directory.def({
             });
         });
     };
-    ConfigDirectory.prototype.read_directory = function (directory_path, options, default_files, recursive) {
+    ConfigDirectory.prototype.read_directory = function (directory_path, existing_configfiles, options, default_files, recursive) {
         return __awaiter(this, void 0, void 0, function () {
-            var _this = this;
+            var configfiles, files, defaulted, error_2, file, _i, files_1, file, config, configdirectory, result, configfile;
             return __generator(this, function (_a) {
-                return [2 /*return*/, new Promise(function (resolve) { return __awaiter(_this, void 0, void 0, function () {
-                        var _this = this;
-                        return __generator(this, function (_a) {
-                            fs_1.readdir(directory_path, function (error, files) {
-                                if (files === void 0) { files = []; }
-                                return __awaiter(_this, void 0, void 0, function () {
-                                    var directory_files, defaulted, file, _i, files_1, file, config, result;
-                                    return __generator(this, function (_a) {
-                                        switch (_a.label) {
-                                            case 0:
-                                                directory_files = {};
-                                                defaulted = false;
-                                                // Map files to absolute file paths
-                                                files = files.map(function (file) { return path.resolve(directory_path, file); });
-                                                if (options &amp;&amp; options.only_read_defaults) {
-                                                    // Remove non-default files
-                                                    files = files.filter(function (file) { return default_files.hasOwnProperty(file); });
-                                                }
-                                                // Add default files
-                                                for (file in default_files) {
-                                                    if (!files.includes(file)) {
-                                                        files.push(file);
-                                                    }
-                                                }
-                                                _i = 0, files_1 = files;
-                                                _a.label = 1;
-                                            case 1:
-                                                if (!(_i &lt; files_1.length)) return [3 /*break*/, 11];
-                                                file = files_1[_i];
-                                                config = void 0;
-                                                return [4 /*yield*/, this.is_directory(file)];
-                                            case 2:
-                                                if (!_a.sent()) return [3 /*break*/, 7];
-                                                if (!(options &amp;&amp; options.read_directories)) return [3 /*break*/, 5];
-                                                config = new ConfigDirectory(file, this.format);
-                                                if (!(options.recursive || recursive)) return [3 /*break*/, 4];
-                                                return [4 /*yield*/, this.read_directory(config.directory_path, options, null, false)];
-                                            case 3:
-                                                result = _a.sent();
-                                                config.files = result.files;
-                                                config.defaulted = result.defaulted;
-                                                _a.label = 4;
-                                            case 4: return [3 /*break*/, 6];
-                                            case 5: return [3 /*break*/, 10];
-                                            case 6: return [3 /*break*/, 9];
-                                            case 7:
-                                                config = new ConfigFile_1.ConfigFile(file, this.format);
-                                                return [4 /*yield*/, config
-                                                        .def(default_files ? default_files[file] : null, this.default_options)
-                                                        .read(options ? { write_if_defaulted: options.write_if_defaulted } : null)];
-                                            case 8:
-                                                _a.sent();
-                                                _a.label = 9;
-                                            case 9:
-                                                if (config.defaulted == true) {
-                                                    defaulted = true;
-                                                }
-                                                directory_files[path.relative(directory_path, file)] = config;
-                                                _a.label = 10;
-                                            case 10:
-                                                _i++;
-                                                return [3 /*break*/, 1];
-                                            case 11:
-                                                resolve({
-                                                    files: directory_files,
-                                                    defaulted: defaulted
-                                                });
-                                                return [2 /*return*/];
-                                        }
-                                    });
-                                });
-                            });
-                            return [2 /*return*/];
-                        });
-                    }); })];
+                switch (_a.label) {
+                    case 0:
+                        configfiles = {};
+                        defaulted = false;
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, this.readdir(directory_path)];
+                    case 2:
+                        files = _a.sent();
+                        return [3 /*break*/, 4];
+                    case 3:
+                        error_2 = _a.sent();
+                        // Directory doesn't exist
+                        files = [];
+                        return [3 /*break*/, 4];
+                    case 4:
+                        // Map files to absolute file paths
+                        files = files.map(function (file) { return path.resolve(directory_path, file); });
+                        if (options &amp;&amp; options.only_read_defaults) {
+                            // Remove non-default files
+                            files = files.filter(function (file) { return default_files.hasOwnProperty(file); });
+                        }
+                        // Add default files
+                        for (file in default_files) {
+                            if (!files.includes(file)) {
+                                files.push(file);
+                            }
+                        }
+                        _i = 0, files_1 = files;
+                        _a.label = 5;
+                    case 5:
+                        if (!(_i &lt; files_1.length)) return [3 /*break*/, 15];
+                        file = files_1[_i];
+                        config = void 0;
+                        return [4 /*yield*/, this.is_directory(file)];
+                    case 6:
+                        if (!_a.sent()) return [3 /*break*/, 11];
+                        if (!(options &amp;&amp; options.read_directories)) return [3 /*break*/, 9];
+                        configdirectory = void 0;
+                        // See if there already exists a ConfigDirectory
+                        if (existing_configfiles) {
+                            configdirectory = existing_configfiles[file];
+                        }
+                        if (configdirectory) {
+                            config = configdirectory;
+                        }
+                        else {
+                            // There isn't any. Create a new ConfigDirectory
+                            config = new ConfigDirectory(file, this.format);
+                        }
+                        if (!(options.recursive || recursive)) return [3 /*break*/, 8];
+                        return [4 /*yield*/, this.read_directory(config.directory_path, config.files, options, null, false)];
+                    case 7:
+                        result = _a.sent();
+                        config.files = result.files;
+                        config.defaulted = result.defaulted;
+                        _a.label = 8;
+                    case 8: return [3 /*break*/, 10];
+                    case 9: return [3 /*break*/, 14];
+                    case 10: return [3 /*break*/, 13];
+                    case 11:
+                        configfile = void 0;
+                        // See if there already is a ConfigFile instance
+                        if (existing_configfiles) {
+                            configfile = existing_configfiles[file];
+                        }
+                        if (configfile) {
+                            config = configfile;
+                        }
+                        else {
+                            // There isn't  any. Create a new ConfigFile
+                            config = new ConfigFile_1.ConfigFile(file, this.format);
+                        }
+                        // Read file
+                        return [4 /*yield*/, config
+                                .def(default_files ? default_files[file] : null, this.default_options)
+                                .read(options ? { write_if_defaulted: options.write_if_defaulted } : null)];
+                    case 12:
+                        // Read file
+                        _a.sent();
+                        _a.label = 13;
+                    case 13:
+                        if (config.defaulted == true) {
+                            defaulted = true;
+                        }
+                        configfiles[path.relative(directory_path, file)] = config;
+                        _a.label = 14;
+                    case 14:
+                        _i++;
+                        return [3 /*break*/, 5];
+                    case 15: return [2 /*return*/, {
+                            files: configfiles,
+                            defaulted: defaulted
+                        }];
+                }
             });
         });
     };
@@ -399,7 +407,7 @@ exports.ConfigDirectory = ConfigDirectory;
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Feb 28 2019 13:47:11 GMT+0100 (GMT+01:00) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Mar 01 2019 16:19:05 GMT+0100 (Central European Standard Time) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>

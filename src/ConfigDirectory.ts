@@ -13,12 +13,12 @@ export type ConfigDirectoryReadOptions = {
     read_directories?: boolean,
     recursive?: boolean,
     write_if_defaulted?: boolean
-};
+}
 
 type ConfigDirectoryReadDirectoryReturnObject = {
     files: {},
     defaulted: boolean
-};
+}
 
 /**
  * Represents a configuration directory
@@ -107,34 +107,20 @@ directory.def({
      * @returns { Promise<ConfigDirectory> } - This ConfigDirectory for chainability
      */
     async read(options?: ConfigDirectoryReadOptions): Promise<ConfigDirectory> {
-        if (this.files) {
-            for (const file in this.files) {
-                const config_file = this.files[file];
+        // Map default_files to absolute file paths
+        const default_files: object = {};
 
-                try {
-                    await config_file.read();
-                } catch (error) {
-                    throw error;
-                }
+        if (this.default_files) {
+            for (const file in this.default_files) {
+                default_files[path.resolve(this.directory_path, file)] = this.default_files[file];
             }
-
-            return this;
-        } else {
-            // Map default_files to absolute file paths
-            const default_files: object = {};
-    
-            if (this.default_files) {
-                for (const file in this.default_files) {
-                    default_files[path.resolve(this.directory_path, file)] = this.default_files[file];
-                }
-            }
-    
-            const result: ConfigDirectoryReadDirectoryReturnObject = await this.read_directory(this.directory_path, options, default_files, true);
-    
-            this.files = result.files;
-            this.defaulted = result.defaulted;
-            return this;
         }
+
+        const result: ConfigDirectoryReadDirectoryReturnObject = await this.read_directory(this.directory_path, this.files, options, default_files, true);
+
+        this.files = result.files;
+        this.defaulted = result.defaulted;
+        return this;
     }
     
     /**
@@ -148,16 +134,28 @@ directory.def({
      */
     async write(): Promise<ConfigDirectory> {
         for (const file in this.files) {
-            const config_file = this.files[file];
+            const configfile = this.files[file];
 
             try {
-                await config_file.write();
+                await configfile.write();
             } catch (error) {
                 throw error;
             }
         }
 
         return this;
+    }
+
+    private readdir(directory_path: string): Promise<string[]> {
+        return new Promise((resolve, reject) => {
+            readdir(directory_path, (error, files) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(files);
+                }
+            });
+        });
     }
 
     private is_directory(file_path: string): Promise<boolean> {
@@ -172,64 +170,95 @@ directory.def({
         });
     }
 
-    private async read_directory(directory_path: string, options?: ConfigDirectoryReadOptions, default_files?: {}, recursive?: boolean): Promise<ConfigDirectoryReadDirectoryReturnObject> {
-        return new Promise(async resolve => {
-            readdir(directory_path, async (error, files = []) => {
-                const directory_files: object = {};
-                let defaulted: boolean = false;
-
-                // Map files to absolute file paths
-                files = files.map(file => path.resolve(directory_path, file));
-
-                if (options && options.only_read_defaults) {
-                    // Remove non-default files
-                    files = files.filter(file => default_files.hasOwnProperty(file));
-                }
+    private async read_directory(directory_path: string, existing_configfiles: object, options?: ConfigDirectoryReadOptions, default_files?: {}, recursive?: boolean): Promise<ConfigDirectoryReadDirectoryReturnObject> {
+        const configfiles: object = {};
         
-                // Add default files
-                for (const file in default_files) {
-                    if (!files.includes(file)) {
-                        files.push(file);
+        let files: string[];
+        let defaulted: boolean = false;
+
+        try {
+            files = await this.readdir(directory_path);
+        } catch (error) {
+            // Directory doesn't exist
+            files = [];
+        }
+
+        // Map files to absolute file paths
+        files = files.map(file => path.resolve(directory_path, file));
+
+        if (options && options.only_read_defaults) {
+            // Remove non-default files
+            files = files.filter(file => default_files.hasOwnProperty(file));
+        }
+
+        // Add default files
+        for (const file in default_files) {
+            if (!files.includes(file)) {
+                files.push(file);
+            }
+        }
+
+        // Read files
+        for (const file of files) {
+            let config: ConfigFile | ConfigDirectory;
+
+            if (await this.is_directory(file)) {
+                if (options && options.read_directories) {
+                    let configdirectory: ConfigDirectory;
+
+                    // See if there already exists a ConfigDirectory
+                    if (existing_configfiles) {
+                        configdirectory = existing_configfiles[file];
                     }
-                }
 
-                // Read files
-                for (const file of files) {
-                    let config: ConfigFile | ConfigDirectory;
-
-                    if (await this.is_directory(file)) {
-                        if (options && options.read_directories) {
-                            config = new ConfigDirectory(file, this.format);
-        
-                            if (options.recursive || recursive) {
-                                const result: ConfigDirectoryReadDirectoryReturnObject = await this.read_directory(config.directory_path, options, null, false);
-                                config.files = result.files;
-                                config.defaulted = result.defaulted;
-                            }
-                        } else {
-                            continue;
-                        }
+                    if (configdirectory) {
+                        config = configdirectory;
                     } else {
-                        config = new ConfigFile(file, this.format);
-        
-                        await config
-                            .def(default_files ? default_files[file] : null, this.default_options)
-                            .read(options ? { write_if_defaulted: options.write_if_defaulted } : null);
+                        // There isn't any. Create a new ConfigDirectory
+                        config = new ConfigDirectory(file, this.format);
                     }
-                        
-                    if (config.defaulted == true) {
-                        defaulted = true;
+
+                    // Read directory
+                    if (options.recursive || recursive) {
+                        const result: ConfigDirectoryReadDirectoryReturnObject = await this.read_directory(config.directory_path, config.files, options, null, false);
+                        config.files = result.files;
+                        config.defaulted = result.defaulted;
                     }
-        
-                    directory_files[path.relative(directory_path, file)] = config;
+                } else {
+                    continue;
+                }
+            } else {
+                let configfile: ConfigFile;
+
+                // See if there already is a ConfigFile instance
+                if (existing_configfiles) {
+                    configfile = existing_configfiles[file];
                 }
 
-                resolve({
-                    files: directory_files,
-                    defaulted
-                });
-            });
-        });
+                if (configfile) {
+                    config = configfile;
+                } else {
+                    // There isn't  any. Create a new ConfigFile
+                    config = new ConfigFile(file, this.format);            
+                }
+
+                // Read file
+                await config
+                    .def(default_files ? default_files[file] : null, this.default_options)
+                    .read(options ? { write_if_defaulted: options.write_if_defaulted } : null);
+            }
+                
+            if (config.defaulted == true) {
+                defaulted = true;
+            }
+
+            configfiles[path.relative(directory_path, file)] = config;
+        }
+
+        return {
+            files: configfiles,
+            defaulted
+        };
     }
 
 }
