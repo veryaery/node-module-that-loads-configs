@@ -65,6 +65,7 @@ class MyFormat implements Format {
  * Transforms data before being set as content
  * 
  * @memberOf Format
+ * @instance
  * @function read
  * @param { Buffer } data
  * @param default_content 
@@ -76,6 +77,7 @@ class MyFormat implements Format {
  * Transforms content before being written
  * 
  * @memberOf Format
+ * @instance
  * @function write
  * @param content
  * @returns { string | Promise<string> } - Transformed content
