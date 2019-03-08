@@ -1,16 +1,16 @@
 import {
     Format,
     FormatReturnObject
-} from "../Format";
+} from "../interfaces/Format";
 
 /**
  * Transforms data to string
  * 
  * @memberof formats
  * @class RawFormat
- * @extends Format
+ * @implements { Format }
  */
-export class RawFormat extends Format {
+export class RawFormat implements Format {
 
     /**
      * @memberof formats.RawFormat

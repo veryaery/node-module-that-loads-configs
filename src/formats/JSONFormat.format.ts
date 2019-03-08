@@ -1,23 +1,21 @@
 import {
     Format,
     FormatReturnObject
-} from "../Format";
+} from "../interfaces/Format";
 
 /**
  * Transforms json data
  * 
  * @memberof formats
  * @class JSONFormat
- * @extends Format
+ * @implements { Format }
  * @param { ?number } indent - Number of spaces to be used as indentation when writing
  */
-export class JSONFormat extends Format {
+export class JSONFormat implements Format {
 
     indent: number;
 
     constructor(indent?: number) {
-        super();
-        
         this.indent = indent;
     }
 

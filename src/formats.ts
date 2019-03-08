@@ -1,4 +1,4 @@
-import { Format } from "./Format";
+import { Format } from "./interfaces/Format";
 
 export { BufferFormat } from "./formats/BufferFormat.format";
 export { RawFormat } from "./formats/RawFormat.format";

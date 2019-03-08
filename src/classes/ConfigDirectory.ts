@@ -4,7 +4,7 @@ import {
 } from "fs";
 import * as path from "path";
 
-import { Format } from "./Format";
+import { Format } from "../interfaces/Format";
 
 import { ConfigFile } from "./ConfigFile";
 

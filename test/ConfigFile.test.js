@@ -4,7 +4,6 @@ const assert = require("assert");
 
 const {
     ConfigFile,
-    Format,
     formats
 } = require("../compiled/index.js");
 
@@ -16,7 +15,7 @@ describe("ConfigFile", () => {
     it("Calls format's read method", done => {
         const path_1 = path.resolve(methods.temp_path, "1");
 
-        const file = new ConfigFile(path_1, new (class ReadFormat extends Format {
+        const file = new ConfigFile(path_1, new (class ReadFormat {
 
             read(data, default_content, default_options) {
                 done();
@@ -33,7 +32,7 @@ describe("ConfigFile", () => {
     it("Calls format's write method", done => {
         const path_2 = path.resolve(methods.temp_path, "2");
 
-        const file = new ConfigFile(path_2, new (class WriteFormat extends Format {
+        const file = new ConfigFile(path_2, new (class WriteFormat {
 
             read(data, default_content, default_options) {
                 return { content: null };
@@ -52,7 +51,7 @@ describe("ConfigFile", () => {
     it("Calls format associated with file extention name", done => {
         const path_3 = path.resolve(methods.temp_path, "3.ext");
 
-        formats.register_format(class ExtentionFormat extends Format {
+        formats.register_format(class ExtentionFormat {
 
             read(data, default_content, default_options) {
                 done();
@@ -71,7 +70,7 @@ describe("ConfigFile", () => {
     it("Calls format by default", done => {
         const path_4 = path.resolve(methods.temp_path, "4");
     
-        formats.set_default_format(class DefaultFormat extends Format {
+        formats.set_default_format(class DefaultFormat {
 
             read(data, default_content, default_options) {
                 done();

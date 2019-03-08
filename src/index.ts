@@ -1,11 +1,11 @@
 import * as path from "path";
 
-import { Format } from "./Format";
+import { Format } from "./interfaces/Format";
 import { RawFormat } from "./formats/RawFormat.format";
 import { JSONFormat } from "./formats/JSONFormat.format";
 
-import { ConfigFile } from "./ConfigFile";
-import { ConfigDirectory } from "./ConfigDirectory";
+import { ConfigFile } from "./classes/ConfigFile";
+import { ConfigDirectory } from "./classes/ConfigDirectory";
 
 import * as formats from "./formats";
 
@@ -48,12 +48,12 @@ export function directory(directory_path: string, format?: Format): ConfigDirect
     return new ConfigDirectory(path.resolve(process.cwd(), directory_path), format);
 }
 
-export { ConfigFile } from "./ConfigFile";
+export { ConfigFile } from "./classes/ConfigFile";
 export { 
     ConfigDirectory,
     ConfigDirectoryReadOptions
-} from "./ConfigDirectory";
+} from "./classes/ConfigDirectory";
 
 export { formats };
 export { Format };
-export { FormatReturnObject } from "./Format";
+export { FormatReturnObject } from "./interfaces/Format";

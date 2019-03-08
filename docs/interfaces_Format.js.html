@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Format - Documentation</title>
+    <title>interfaces/Format.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,34 +29,26 @@
 
 <div id="main">
     
-    <h1 class="page-title">Format</h1>
+    <h1 class="page-title">interfaces/Format.js</h1>
     
 
     
 
 
 
-
-<section>
-
-<header>
     
-        <h2>
-        Format
-        </h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description"><p>Responsible for transforming data before being set as content aswell as content before being written</p>
-<pre class="prettyprint source lang-ts"><code>import {
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>"use strict";
+exports.__esModule = true;
+/**
+ * Responsible for transforming data before being set as content aswell as content before being written
+ *
+```ts
+import {
     Format,
     FormatReturnObject
-} from &quot;@aery/mlc&quot;;
+} from "@aery/mlc";
 
 class MyFormat implements Format {
 
@@ -87,442 +79,37 @@ class MyFormat implements Format {
         return content;
     }
 
-}</code></pre></div>
-        
-
-        
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="interfaces_Format.js.html">interfaces/Format.js</a>, <a href="interfaces_Format.js.html#line3">line 3</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id=".read"><span class="type-signature">(static) </span>read<span class="signature">(data, default_content, default_options)</span><span class="type-signature"> &rarr; {<a href="global.html#FormatReturnObject">FormatReturnObject</a>|Promise.&lt;<a href="global.html#FormatReturnObject">FormatReturnObject</a>>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Transforms data before being set as content</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="interfaces_Format.js.html">interfaces/Format.js</a>, <a href="interfaces_Format.js.html#line51">line 51</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>data</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>Buffer</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>default_content</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>default_options</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code><a href="global.html#FormatReturnObject">FormatReturnObject</a></code></span>
-|
-
-<span class="param-type"><code>Promise.&lt;<a href="global.html#FormatReturnObject">FormatReturnObject</a>></code></span>
-
-
-    </dd>
-</dl>
-
-
-    
-</div>
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id=".write"><span class="type-signature">(static) </span>write<span class="signature">(content)</span><span class="type-signature"> &rarr; {string|Promise.&lt;string>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Transforms content before being written</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="interfaces_Format.js.html">interfaces/Format.js</a>, <a href="interfaces_Format.js.html#line61">line 61</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>content</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>string</code></span>
-|
-
-<span class="param-type"><code>Promise.&lt;string></code></span>
-
-
-    </dd>
-</dl>
-
-
-<div class="param-desc">
-    <ul>
-<li>Transformed content</li>
-</ul>
-</div>
-
-    
-</div>
-
-
-
-</div>
-        
-    
-
-    
-
-    
-</article>
-
-</section>
+}
+```
+ *
+ * @interface Format
+ */
+/**
+ * @typedef FormatReturnObject
+ * @property {} content - Transformed data
+ * @property { boolean } defaulted - If content was defaulted in any way
+ */
+/**
+ * Transforms data before being set as content
+ *
+ * @memberOf Format
+ * @function read
+ * @param { Buffer } data
+ * @param default_content
+ * @param default_options
+ * @returns { FormatReturnObject | Promise&lt;FormatReturnObject> }
+ */
+/**
+ * Transforms content before being written
+ *
+ * @memberOf Format
+ * @function write
+ * @param content
+ * @returns { string | Promise&lt;string> } - Transformed content
+ */ 
+//# sourceMappingURL=Format.js.map</code></pre>
+        </article>
+    </section>
 
 
 

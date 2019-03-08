@@ -6,12 +6,12 @@ import {
 } from "fs";
 import * as path from "path";
 
-import * as formats from "./formats";
+import * as formats from "../formats";
 
 import {
     Format,
     FormatReturnObject
-} from "./Format";
+} from "../interfaces/Format";
 
 /**
  * Represents a configuration file

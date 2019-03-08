@@ -1,16 +1,16 @@
 import {
     Format,
     FormatReturnObject
-} from "../Format";
+} from "../interfaces/Format";
 
 /**
  * Makes no transformations to data
  * 
  * @memberof formats
  * @class BufferFormat
- * @extends Format
+ * @implements { Format }
  */
-export class BufferFormat extends Format {
+export class BufferFormat implements Format {
     
     /**
      * @memberof formats.BufferFormat
