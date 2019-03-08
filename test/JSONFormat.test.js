@@ -1,6 +1,6 @@
 const assert = require("assert");
 
-const { JSONFormat } = require("../compiled/formats/JSONFormat.format");
+const { JSONFormat } = require("../compiled/index.js").formats;
 
 describe("JSONFormat", () => {
 
