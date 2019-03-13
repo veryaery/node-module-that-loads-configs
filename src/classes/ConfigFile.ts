@@ -39,12 +39,12 @@ export class ConfigFile {
      * 
      * @memberof ConfigFile
      * @instance
-     * @function def
+     * @function defaults
      * @param {} default_content - What content format should default to when reading
      * @param {} default_options - Options telling format how to default content when reading
      * @returns { ConfigFile } - This ConfigFile for chainability
      */
-    def(default_content: object, default_options?: any): ConfigFile {
+    defaults(default_content: object, default_options?: any): ConfigFile {
         this.default_content = default_content;
         this.default_options = default_options;
         return this;

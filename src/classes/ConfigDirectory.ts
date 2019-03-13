@@ -47,24 +47,23 @@ export class ConfigDirectory {
 ```ts
 import * as mlc from "@aery/mlc";
     
-const directory: mlc.ConfigDirectory = mlc.directory("configs", new mlc.formats.JSONFormat());
-
-directory.def({
-    "config.json": {
-        ip: "127.0.0.1",
-        port: 1337
-    }
-});
+const directory: mlc.ConfigDirectory = mlc.directory("configs", new mlc.formats.JSONFormat())
+    .defaults({
+        "config.json": {
+            ip: "127.0.0.1",
+            port: 1337
+        }
+    });
 ```
      * 
      * @memberof ConfigDirectory
      * @instance
-     * @function def
+     * @function defaults
      * @param {} default_files - Content each ConfigFile's format should default to when reading
      * @param {} default_options - Options telling format how to default content when reading
      * @returns { ConfigDirectory } - This ConfigDirectory for chainability
      */
-    def(default_files: object, default_options: any): ConfigDirectory {
+    defaults(default_files: object, default_options: any): ConfigDirectory {
         this.default_files = default_files;
         this.default_options = default_options;
         return this;
@@ -244,7 +243,7 @@ directory.def({
 
                 // Read file
                 await config
-                    .def(default_files ? default_files[file] : null, this.default_options)
+                    .defaults(default_files ? default_files[file] : null, this.default_options)
                     .read(options ? { write_if_defaulted: options.write_if_defaulted } : null);
             }
                 

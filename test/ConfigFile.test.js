@@ -115,7 +115,7 @@ describe("ConfigFile", () => {
         const file = new ConfigFile(path_7, new formats.RawFormat());
 
         await file
-            .def("default")
+            .defaults("default")
             .read();
 
         assert.equal(file.content, "default");
@@ -127,7 +127,7 @@ describe("ConfigFile", () => {
         const file = new ConfigFile(path_8, new formats.RawFormat());
 
         await file
-            .def("default")
+            .defaults("default")
             .read({ write_if_defaulted: true });
 
         assert.equal(fs.readFileSync(path_8).toString(), "default");
@@ -154,7 +154,7 @@ describe("ConfigFile", () => {
         const file = new ConfigFile(path_10, new formats.RawFormat());
 
         await file
-            .def("false")
+            .defaults("false")
             .read();
 
         assert.equal(file.defaulted, false);
@@ -166,7 +166,7 @@ describe("ConfigFile", () => {
         const file = new ConfigFile(path_11, new formats.RawFormat());
 
         await file
-            .def("true")
+            .defaults("true")
             .read();
 
         assert.equal(file.defaulted, true);

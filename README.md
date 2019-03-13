@@ -25,10 +25,7 @@ import * as mlc from "@aery/mlc";
 const file: mlc.ConfigFile = await mlc.file("raw.txt") // Defaults to RawFormat format by default
     .read();
 
-console.log(file.content);
-```
-```
-Contents of raw.txt
+file.content;
 ```
 
 ### Reading a JSON file
@@ -36,7 +33,7 @@ Contents of raw.txt
 import * as mlc from "@aery/mlc";
 
 const file: mlc.ConfigFile = await mlc.file("config.json") // Associates json files with JSONFormat format by default
-    .def({
+    .defaults({
         ip: "127.0.0.1",
         port: 1337
     }) // What content should default to when reading
@@ -64,7 +61,7 @@ file.write();
 import * as mlc from "@aery/mlc";
 
 const directory: mlc.ConfigDirectory = await mlc.directory("recipies", new mlc.formats.JSONFormat())
-    .def({
+    .defaults({
         "water.json": {
             steps: [ "Pour water" ]
         },

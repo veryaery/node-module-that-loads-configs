@@ -63,7 +63,7 @@ describe("ConfigDirectory", () => {
         const directory = new ConfigDirectory(path_directory_3, new formats.RawFormat());
 
         await directory
-            .def({
+            .defaults({
                 "1": "foo",
                 "2": "bar"
             })
@@ -79,7 +79,7 @@ describe("ConfigDirectory", () => {
         const directory = new ConfigDirectory(path_directory_4, new formats.RawFormat());
 
         await directory
-            .def({
+            .defaults({
                 "1": "foo",
                 "2": "bar"
             })
@@ -101,7 +101,7 @@ describe("ConfigDirectory", () => {
         const directory = new ConfigDirectory(path_directory_5, new formats.RawFormat());
 
         await directory
-            .def({ "include": "include" })
+            .defaults({ "include": "include" })
             .read({ only_read_defaults: true });
 
         assert.equal(directory.files["include"].content, "include");
@@ -171,7 +171,7 @@ describe("ConfigDirectory", () => {
         const directory = new ConfigDirectory(path_directory_10, new formats.RawFormat());
 
         await directory
-            .def({
+            .defaults({
                 "1": "foo",
                 "2": "bar"
             })
@@ -190,7 +190,7 @@ describe("ConfigDirectory", () => {
         const directory = new ConfigDirectory(path_directory_11, new formats.RawFormat());
 
         await directory
-            .def({
+            .defaults({
                 "false": "false",
                 "true": "true"
             })
