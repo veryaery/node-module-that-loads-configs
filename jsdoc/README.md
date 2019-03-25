@@ -17,7 +17,8 @@ file.content;
 ```ts
 import * as mlc from "@aery/mlc";
 
-const file: mlc.ConfigFile = await mlc.file("config.json") // Associates json files with JSONFormat format by default
+const file: mlc.ConfigFile = await mlc.file("config.json") /* Associates json files with
+                                                              JSONFormat format by default */
     .defaults({
         ip: "127.0.0.1",
         port: 1337
@@ -56,7 +57,7 @@ const directory: mlc.ConfigDirectory = await mlc.directory("recipies", new mlc.f
                 "THEN pour milk"
             ]
         }
-    }) // What the directory's files' content should default to when reading
+    }) // What the ConfigDirectory's ConfigFiles' content should default to when reading
     .read();
 
 const contents: object = directory.contents();
