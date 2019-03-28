@@ -10,6 +10,7 @@ const {
 const methods = require("./methods.js");
 
 describe("ConfigFile", () => {
+
     before(async () => await methods.setup());
 
     it("Calls format's read method", done => {
@@ -133,9 +134,8 @@ describe("ConfigFile", () => {
         assert.equal(fs.readFileSync(path_8).toString(), "default");
     });
 
-    it("Creates directory if it doesn't exist when writing ConfigFile's content", async () => {
-        const path_directory = path.resolve(methods.temp_path, "directory");
-        const path_9 = path.resolve(path_directory, "9");
+    it("Creates directory if it doesn't exist when writing", async () => {
+        const path_9 = path.resolve(methods.temp_path, "directory", "9");
 
         const file = new ConfigFile(path_9, new formats.RawFormat());
 
@@ -172,5 +172,18 @@ describe("ConfigFile", () => {
         assert.equal(file.defaulted, true);
     });
 
+    it("Creates any of directory's parent directories if they don't exists when writing", async () => {
+        const path_12 = path.resolve(methods.temp_path, "parent_directory", "directory", "12");
+
+        const file = new ConfigFile(path_12, new formats.RawFormat());
+
+        file.content = "directory";
+
+        await file.write();
+
+        assert.equal(fs.readFileSync(path_12).toString(), "directory");
+    });
+
     after(async () => await methods.cleanup());
+
 });

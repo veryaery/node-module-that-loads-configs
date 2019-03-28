@@ -31,7 +31,7 @@ export class ConfigFile {
 
     constructor(file_path: string, format?: Format) {
         this.file_path = file_path;   
-        this.format = format || this.get_format();
+        this.format = format || this._get_format();
     }
 
     /**
@@ -96,21 +96,14 @@ export class ConfigFile {
      */
     async write(): Promise<ConfigFile> {
         return new Promise<ConfigFile>(async (resolve, reject) => {
-            const directory_path: string = path.dirname(this.file_path);
-
             let result: string | Promise<string> = this.format.write(this.content);
 
             if (result instanceof Promise) {
                 result = await result;
             }
-            
-            if (!await this.exists(directory_path)) {
-                try {
-                    await this.mkdir(directory_path);
-                } catch (error) {
-                    return reject(error);
-                }
-            }
+
+            // Ensure that the parent directory exists before writing this file
+            await this._ensure(path.dirname(this.file_path));
 
             writeFile(this.file_path, result, error => {
                 if (error) {
@@ -122,7 +115,20 @@ export class ConfigFile {
         });
     }
 
-    private get_format(): Format {
+    private async _ensure(directory_path: string): Promise<void> {
+        if (!await this._exists(directory_path)) {
+            // Ensure that the parent directory exists before trying to create this directory
+            await this._ensure(path.dirname(directory_path));
+
+            try {
+                await this._mkdir(directory_path);
+            } catch (error) {
+                throw error;
+            }
+        }
+    }
+
+    private _get_format(): Format {
         let file_extention_name = path.extname(this.file_path);
     
         if (file_extention_name && file_extention_name.startsWith(".")) {
@@ -138,7 +144,7 @@ export class ConfigFile {
         }
     }
 
-    private exists(file: string): Promise<boolean> {
+    private _exists(file: string): Promise<boolean> {
         return new Promise(resolve => {
             access(file, error => {
                 if (error) {
@@ -150,7 +156,7 @@ export class ConfigFile {
         });
     }
 
-    private mkdir(directory: string): Promise<void> {
+    private _mkdir(directory: string): Promise<void> {
         return new Promise((resolve, reject) => {
             mkdir(directory, error => {
                 if (error) {

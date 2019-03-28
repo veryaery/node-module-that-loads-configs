@@ -89,7 +89,7 @@ var formats = require("../formats");
 var ConfigFile = /** @class */ (function () {
     function ConfigFile(file_path, format) {
         this.file_path = file_path;
-        this.format = format || this.get_format();
+        this.format = format || this._get_format();
     }
     /**
      * Specify what and how format should default content when reading
@@ -174,32 +174,23 @@ var ConfigFile = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 return [2 /*return*/, new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
-                        var directory_path, result, error_1;
+                        var result;
                         var _this = this;
                         return __generator(this, function (_a) {
                             switch (_a.label) {
                                 case 0:
-                                    directory_path = path.dirname(this.file_path);
                                     result = this.format.write(this.content);
                                     if (!(result instanceof Promise)) return [3 /*break*/, 2];
                                     return [4 /*yield*/, result];
                                 case 1:
                                     result = _a.sent();
                                     _a.label = 2;
-                                case 2: return [4 /*yield*/, this.exists(directory_path)];
+                                case 2: 
+                                // Ensure that the parent directory exists before writing this file
+                                return [4 /*yield*/, this._ensure(path.dirname(this.file_path))];
                                 case 3:
-                                    if (!!(_a.sent())) return [3 /*break*/, 7];
-                                    _a.label = 4;
-                                case 4:
-                                    _a.trys.push([4, 6, , 7]);
-                                    return [4 /*yield*/, this.mkdir(directory_path)];
-                                case 5:
+                                    // Ensure that the parent directory exists before writing this file
                                     _a.sent();
-                                    return [3 /*break*/, 7];
-                                case 6:
-                                    error_1 = _a.sent();
-                                    return [2 /*return*/, reject(error_1)];
-                                case 7:
                                     fs_1.writeFile(this.file_path, result, function (error) {
                                         if (error) {
                                             reject(error);
@@ -215,7 +206,35 @@ var ConfigFile = /** @class */ (function () {
             });
         });
     };
-    ConfigFile.prototype.get_format = function () {
+    ConfigFile.prototype._ensure = function (directory_path) {
+        return __awaiter(this, void 0, void 0, function () {
+            var error_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this._exists(directory_path)];
+                    case 1:
+                        if (!!(_a.sent())) return [3 /*break*/, 6];
+                        // Ensure that the parent directory exists before trying to create this directory
+                        return [4 /*yield*/, this._ensure(path.dirname(directory_path))];
+                    case 2:
+                        // Ensure that the parent directory exists before trying to create this directory
+                        _a.sent();
+                        _a.label = 3;
+                    case 3:
+                        _a.trys.push([3, 5, , 6]);
+                        return [4 /*yield*/, this._mkdir(directory_path)];
+                    case 4:
+                        _a.sent();
+                        return [3 /*break*/, 6];
+                    case 5:
+                        error_1 = _a.sent();
+                        throw error_1;
+                    case 6: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ConfigFile.prototype._get_format = function () {
         var file_extention_name = path.extname(this.file_path);
         if (file_extention_name &amp;&amp; file_extention_name.startsWith(".")) {
             file_extention_name = file_extention_name.substring(1, file_extention_name.length);
@@ -228,7 +247,7 @@ var ConfigFile = /** @class */ (function () {
             return new formats.default_format();
         }
     };
-    ConfigFile.prototype.exists = function (file) {
+    ConfigFile.prototype._exists = function (file) {
         return new Promise(function (resolve) {
             fs_1.access(file, function (error) {
                 if (error) {
@@ -240,7 +259,7 @@ var ConfigFile = /** @class */ (function () {
             });
         });
     };
-    ConfigFile.prototype.mkdir = function (directory) {
+    ConfigFile.prototype._mkdir = function (directory) {
         return new Promise(function (resolve, reject) {
             fs_1.mkdir(directory, function (error) {
                 if (error) {
@@ -309,7 +328,7 @@ exports.ConfigFile = ConfigFile;
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Mar 25 2019 11:10:29 GMT+0100 (Central European Standard Time) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Mar 28 2019 19:04:05 GMT+0100 (GMT+01:00) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>

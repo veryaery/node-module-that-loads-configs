@@ -115,7 +115,7 @@ const directory: mlc.ConfigDirectory = mlc.directory("configs", new mlc.formats.
             }
         }
 
-        const result: ConfigDirectoryReadDirectoryReturnObject = await this.read_directory(this.directory_path, this.files, options, default_files, true);
+        const result: ConfigDirectoryReadDirectoryReturnObject = await this._read_directory(this.directory_path, this.files, default_files, true, options);
 
         this.files = result.files;
         this.defaulted = result.defaulted;
@@ -145,7 +145,7 @@ const directory: mlc.ConfigDirectory = mlc.directory("configs", new mlc.formats.
         return this;
     }
 
-    private readdir(directory_path: string): Promise<string[]> {
+    private _readdir(directory_path: string): Promise<string[]> {
         return new Promise((resolve, reject) => {
             readdir(directory_path, (error, files) => {
                 if (error) {
@@ -157,7 +157,7 @@ const directory: mlc.ConfigDirectory = mlc.directory("configs", new mlc.formats.
         });
     }
 
-    private is_directory(file_path: string): Promise<boolean> {
+    private _is_directory(file_path: string): Promise<boolean> {
         return new Promise(resolve => {
             stat(file_path, (error, stats) => {
                 if (error) {
@@ -169,14 +169,14 @@ const directory: mlc.ConfigDirectory = mlc.directory("configs", new mlc.formats.
         });
     }
 
-    private async read_directory(directory_path: string, existing_configfiles: object, options?: ConfigDirectoryReadOptions, default_files?: {}, recursive?: boolean): Promise<ConfigDirectoryReadDirectoryReturnObject> {
+    private async _read_directory(directory_path: string, existing_configfiles: object, default_files: {}, recursive: boolean, options: ConfigDirectoryReadOptions): Promise<ConfigDirectoryReadDirectoryReturnObject> {
         const configfiles: object = {};
         
         let files: string[];
         let defaulted: boolean = false;
 
         try {
-            files = await this.readdir(directory_path);
+            files = await this._readdir(directory_path);
         } catch (error) {
             // Directory doesn't exist
             files = [];
@@ -201,7 +201,7 @@ const directory: mlc.ConfigDirectory = mlc.directory("configs", new mlc.formats.
         for (const file of files) {
             let config: ConfigFile | ConfigDirectory;
 
-            if (await this.is_directory(file)) {
+            if (await this._is_directory(file)) {
                 if (options && options.read_directories) {
                     let configdirectory: ConfigDirectory;
 
@@ -219,7 +219,7 @@ const directory: mlc.ConfigDirectory = mlc.directory("configs", new mlc.formats.
 
                     // Read directory
                     if (options.recursive || recursive) {
-                        const result: ConfigDirectoryReadDirectoryReturnObject = await this.read_directory(config.directory_path, config.files, options, null, false);
+                        const result: ConfigDirectoryReadDirectoryReturnObject = await this._read_directory(config.directory_path, config.files, null, false, options);
                         config.files = result.files;
                         config.defaulted = result.defaulted;
                     }
@@ -237,7 +237,7 @@ const directory: mlc.ConfigDirectory = mlc.directory("configs", new mlc.formats.
                 if (configfile) {
                     config = configfile;
                 } else {
-                    // There isn't  any. Create a new ConfigFile
+                    // There isn't any. Create a new ConfigFile
                     config = new ConfigFile(file, this.format);            
                 }
 
