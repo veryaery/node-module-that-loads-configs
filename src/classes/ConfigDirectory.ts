@@ -169,7 +169,7 @@ const directory: mlc.ConfigDirectory = mlc.directory("configs", new mlc.formats.
         });
     }
 
-    private async _read_directory(directory_path: string, existing_configfiles: object, default_files: {}, recursive: boolean, options: ConfigDirectoryReadOptions): Promise<ConfigDirectoryReadDirectoryReturnObject> {
+    private async _read_directory(directory_path: string, existing_configs: object, default_files: {}, recursive: boolean, options: ConfigDirectoryReadOptions): Promise<ConfigDirectoryReadDirectoryReturnObject> {
         const configfiles: object = {};
         
         let files: string[];
@@ -203,17 +203,12 @@ const directory: mlc.ConfigDirectory = mlc.directory("configs", new mlc.formats.
 
             if (await this._is_directory(file)) {
                 if (options && options.read_directories) {
-                    let configdirectory: ConfigDirectory;
-
-                    // See if there already exists a ConfigDirectory
-                    if (existing_configfiles) {
-                        configdirectory = existing_configfiles[file];
-                    }
-
-                    if (configdirectory) {
-                        config = configdirectory;
+                    // Is there an existing ConfigDirectory instance?
+                    if (existing_configs && existing_configs[file] instanceof ConfigDirectory) {
+                        // There is
+                        config = <ConfigDirectory>existing_configs[file];
                     } else {
-                        // There isn't any. Create a new ConfigDirectory
+                        // There isn't. Create a new instance
                         config = new ConfigDirectory(file, this.format);
                     }
 
@@ -227,17 +222,12 @@ const directory: mlc.ConfigDirectory = mlc.directory("configs", new mlc.formats.
                     continue;
                 }
             } else {
-                let configfile: ConfigFile;
-
-                // See if there already is a ConfigFile instance
-                if (existing_configfiles) {
-                    configfile = existing_configfiles[file];
-                }
-
-                if (configfile) {
-                    config = configfile;
+                // Is there an existing ConfigFile instance?
+                if (existing_configs && existing_configs[file] instanceof ConfigFile) {
+                    // There is
+                    config = existing_configs[file];
                 } else {
-                    // There isn't any. Create a new ConfigFile
+                    // There isn't. Create a new instance
                     config = new ConfigFile(file, this.format);            
                 }
 

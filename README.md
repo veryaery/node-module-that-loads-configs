@@ -3,16 +3,23 @@
 
 [![](https://img.shields.io/npm/v/@aery/mlc.svg?colorB=%23C5383B&style=flat-square)](https://www.npmjs.com/package/@aery/mlc)
 
-A simple, functional, and flexible way to load your configuration files
+A better way to load your configuration files
+
+### Motivation
+
+I needed a module to save me from having to write the same snippets of code in every project that required a config.
+There already existed many modules that drastically reduced the amount of code I would have had to write.
+But I often still found myself in very simmilar situations: Like writing snippets to generate default configs.
+Not to mention anyting to do with directories.
+So that's why I made this neat little module. I hope you are able to get a simmilar amount of value from it as I
 
 ### Features
 
-* Simple, configs loaded with 2 lines of code
-* Functional, read with or without defaults and write both files and directories
+* Simple, load your configs with a single line of code
+* Powerful, read and write both files and directories with defaults
 * Flexible, create support for formats of your needs
-* TypeScript, built in type definitions
-* JSDocs, together with TypeScript's type definitions for helpful IntelliSense 
-* Promises
+* TypeScript, pre-packaged type definitions
+* JSDocs, together with TS type definitions enables helpful code completion in modern IDEs
 
 ### [Documentation](https://aery-chan.github.io/node-module-that-loads-configs/)
 
@@ -38,12 +45,9 @@ const file: mlc.ConfigFile = await mlc.file("config.json") /* Associates json fi
         ip: "127.0.0.1",
         port: 1337
     }) // What content should default to when reading
-    .read({ write_if_defaulted: true }); // Write if content is defaulted in any way after reading
+    .read({ write_if_defaulted: true }); // Write if content was defaulted in any way after reading
 
-console.log(file.content);
-```
-```
-{ ip: "127.0.0.1", port: 1337 }
+file.content;
 ```
 
 ### Writing a raw text file
@@ -77,12 +81,8 @@ const directory: mlc.ConfigDirectory = await mlc.directory("recipies", new mlc.f
 
 const contents: object = directory.contents();
 
-console.log(contents["water.json"]);
-console.log(contents["cereal.json"]);
-```
-```
-{ steps: [ "Pour water" ] }
-{ steps: [ "Pour cereal FIRST", "THEN pour milk" ] }
+contents["water.json"];
+contents["cereal.json"];
 ```
 
 # Compiling

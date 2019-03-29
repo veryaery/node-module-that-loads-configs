@@ -23,12 +23,9 @@ const file: mlc.ConfigFile = await mlc.file("config.json") /* Associates json fi
         ip: "127.0.0.1",
         port: 1337
     }) // What content should default to when reading
-    .read({ write_if_defaulted: true }); // Write if content is defaulted in any way after reading
+    .read({ write_if_defaulted: true }); // Write if content was defaulted in any way after reading
 
-console.log(file.content);
-```
-```
-{ ip: "127.0.0.1", port: 1337 }
+file.content;
 ```
 
 ### Writing a raw text file
@@ -62,10 +59,6 @@ const directory: mlc.ConfigDirectory = await mlc.directory("recipies", new mlc.f
 
 const contents: object = directory.contents();
 
-console.log(contents["water.json"]);
-console.log(contents["cereal.json"]);
-```
-```
-{ steps: [ "Pour water" ] }
-{ steps: [ "Pour cereal FIRST", "THEN pour milk" ] }
+contents["water.json"];
+contents["cereal.json"];
 ```
