@@ -8,7 +8,7 @@ A better way to load your configuration files
 ### Motivation
 
 I needed a module to save me from having to write the same snippets of code in every project that required a config.
-There already existed many modules that drastically reduced the amount of code I would have had to write.
+There already existed many modules that drastically reduced the amount of code I would have to write.
 But I often still found myself in very simmilar situations: Like writing snippets to generate default configs.
 Not to mention anyting to do with directories.
 So that's why I made this neat little module. I hope you are able to get a simmilar amount of value from it as I

@@ -1,6 +1,6 @@
 {
   "name": "@aery/mlc",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "Module that loads configs. Pretty self-explanatory",
   "main": "compiled/index.js",
   "scripts": {
